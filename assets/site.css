@@ -740,3 +740,16 @@ table.live td:first-child{min-width:280px}
 .fact.proscons.pro{border-top:4px solid #3FE0CF}.fact.proscons.con{border-top:4px solid #ff8a8a}
 .fact.proscons ul.ticks{margin-top:12px}.fact.proscons li{margin-bottom:10px}
 .fact.proscons .chip{align-self:flex-start;flex:none;height:auto}
+/* nested menu: Gastric POCUS sub-menu */
+.dd-sub{position:relative}
+.dd-caret{display:inline-block;width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);margin-left:8px;opacity:.8}
+.dd-s{display:flex;flex-direction:column;gap:1px;margin:2px 0 8px 14px;padding-left:10px;border-left:2px solid rgba(63,224,207,.45)}
+.dd-s a{padding:8px 12px!important;font-size:.86rem!important}
+.dd-h{padding:8px 12px 2px;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#3FE0CF}
+.dd-s a[aria-current="page"]{background:rgba(255,198,26,.16);color:#fff}
+@media (hover:hover) and (min-width:901px){
+ .dd-s{display:none;position:absolute;left:100%;top:-10px;margin:0 0 0 8px;padding:10px;min-width:250px;border-left:1px solid rgba(255,255,255,.16);border-radius:16px;background:#0B1E46;border:1px solid rgba(255,255,255,.16);box-shadow:0 24px 60px rgba(0,0,0,.5);z-index:61}
+ .dd-s::before{content:"";position:absolute;left:-12px;top:0;bottom:0;width:12px}
+ .dd-sub:hover .dd-s,.dd-sub:focus-within .dd-s{display:flex}
+}
+@media (max-width:900px){.dd-m{max-height:calc(100vh - 150px);overflow:auto}}
