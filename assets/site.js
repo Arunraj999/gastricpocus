@@ -835,3 +835,30 @@
     try { new MutationObserver(function (ms) { ms.forEach(function (m) { Array.prototype.forEach.call(m.addedNodes, trTree); }); }).observe(document.body, { childList: true, subtree: true }); } catch (e) {}
   }
 })();
+
+/* Evidence pop-up: hovering or focusing a numbered citation shows the full reference beside it. */
+(function () {
+  "use strict";
+  var pop = null, timer = null, y0 = 0;
+  function hide() { if (pop) pop.classList.remove("on"); }
+  function show(a) {
+    var id = (a.getAttribute("href") || "").split("#")[1]; if (!id) return;
+    var li = document.getElementById(id); if (!li) return;
+    if (!pop) { pop = document.createElement("div"); pop.className = "citepop"; pop.setAttribute("role", "tooltip"); document.body.appendChild(pop); pop.addEventListener("mouseenter", function () { clearTimeout(timer); }); pop.addEventListener("mouseleave", hide); }
+    var doi = li.querySelector("a[href*='doi.org']"), txt = li.cloneNode(true);
+    [].forEach.call(txt.querySelectorAll("a"), function (x) { x.parentNode.removeChild(x); });
+    pop.innerHTML = '<span class="citepop-n">' + a.textContent + "</span><p></p>" + (doi ? '<a href="' + doi.href + '" target="_blank" rel="noopener">Open the paper</a>' : "");
+    pop.querySelector("p").textContent = txt.textContent.replace(/\s+/g, " ").trim();
+    pop.classList.add("on"); y0 = window.scrollY;
+    var r = a.getBoundingClientRect(), w = pop.offsetWidth, h = pop.offsetHeight, x = r.right + 10, y = r.top - 8;
+    if (x + w > window.innerWidth - 12) x = Math.max(12, r.left - w - 10);
+    if (y + h > window.innerHeight - 12) y = Math.max(12, window.innerHeight - h - 12);
+    pop.style.left = x + "px"; pop.style.top = Math.max(12, y) + "px";
+  }
+  function isCite(t) { return t && t.closest ? t.closest("a.cite[href*='#ref-']") : null; }
+  document.addEventListener("mouseover", function (e) { var a = isCite(e.target); if (a) { clearTimeout(timer); show(a); } });
+  document.addEventListener("mouseout", function (e) { if (isCite(e.target)) { clearTimeout(timer); timer = setTimeout(hide, 250); } });
+  document.addEventListener("focusin", function (e) { var a = isCite(e.target); if (a) show(a); });
+  document.addEventListener("focusout", function (e) { if (isCite(e.target)) hide(); });
+  window.addEventListener("scroll", function () { if (Math.abs(window.scrollY - y0) > 60) hide(); }, { passive: true });
+})();

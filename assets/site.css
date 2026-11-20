@@ -754,3 +754,10 @@ table.live td:first-child{min-width:280px}
 }
 @media (max-width:900px){.dd-m{max-height:calc(100vh - 150px);overflow:auto}}
 .refs li>a{grid-column:2}
+/* evidence pop-up on citations */
+.citepop{position:fixed;z-index:200;max-width:380px;padding:14px 16px;border-radius:14px;background:#0B1E46;color:#EEF3FF;border:1px solid rgba(255,198,26,.55);box-shadow:0 20px 50px rgba(0,0,0,.55);font-size:.86rem;line-height:1.45;opacity:0;visibility:hidden;transition:opacity .12s}
+.citepop.on{opacity:1;visibility:visible}
+.citepop p{margin:0 0 8px}
+.citepop a{color:#FFD05A;font-weight:700}
+.citepop-n{display:inline-block;min-width:22px;padding:1px 7px;margin-bottom:6px;border-radius:999px;background:#FFC61A;color:#06102b;font-weight:800;font-size:.75rem;text-align:center}
+@media (hover:none){.citepop{display:none}}
