@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Breast Surgery: Nerve Blocks by Operation and Volume Check · NORA²</title>
+<meta name="description" content="Which regional blocks to consider for each breast operation, with a calculator that checks the total local anaesthetic volume against the maximum dose for the patient's weight.">
+<meta name="theme-color" content="#0A1B3D">
+<meta property="og:title" content="Breast surgery: blocks and volume check · NORA²">
+<meta property="og:description" content="Blocks by breast operation and a total-volume check against the maximum dose.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="media/brand/nora2-logo.webp">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=56">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Local anaesthetic dose calculator", "applicationCategory": "MedicalApplication", "operatingSystem": "Any", "audience": {"@type": "MedicalAudience", "audienceType": "Clinician"}}</script>
+</head>
+<body data-page="breast">
+<div id="site-header"></div>
+<main>
+<div class="wrap"><div class="pagehead"><p class="crumb"><a href="index.html">Home</a> / <a href="surgery.html#chest">Surgery</a> / Breast surgery</p><span class="eyebrow">Blocks and volume check</span><h1>Breast surgery: which block, and how much</h1><p class="lede">Choose the operation to see the blocks to consider, then check the total volume of local anaesthetic against the maximum dose for this patient.</p><div class="cta"><a class="btn y" href="dose.html">Full dose calculator</a> <a class="btn" href="last.html">Local anaesthetic toxicity</a></div></div></div>
+<section style="padding-top:28px;padding-bottom:0"><div class="wrap"><div class="notice"><b>Draft for clinical sign-off.</b> Compiled 13 November 2026 by Dr Arun Mohanraj FRCA EDRA, Wrightington, Wigan and Leigh NHS Foundation Trust. For adults. The result is an upper boundary, not a target: use the lowest dose that works and follow your hospital policy.</div></div></section>
+<form id="bb-form" novalidate>
+<section style="padding-top:28px"><div class="wrap calc">
+  <div class="form">
+    <label class="full" style="grid-column:1/-1"><span>Operation</span><select id="bb-op"></select></label>
+    <label><span>Weight (kg)</span><input id="bb-w" type="number" inputmode="decimal" min="30" max="250" step="0.5" value="62"></label>
+    <label><span>Height (cm)</span><input id="bb-h" type="number" inputmode="decimal" min="120" max="220" step="1" value="160"></label>
+    <label><span>Sex</span><select id="bb-sex"><option value="f">Female</option><option value="m">Male</option></select></label>
+    <label><span>Drug</span><select id="bb-drug"></select></label>
+    <label><span>Concentration (%)</span><input id="bb-conc" type="number" inputmode="decimal" min="0" max="4" step="0.005" value="0.25" list="bb-conc-list"><datalist id="bb-conc-list"></datalist></label>
+    <label><span>Risk-factor reduction</span><select id="bb-red"><option value="0">None</option><option value="10">10%</option><option value="20">20%</option></select></label>
+    <label class="check full"><input id="bb-epi" type="checkbox"><span>With adrenaline</span></label>
+    <label class="check full"><input id="bb-both" type="checkbox"><span>Both sides (doubles each chest wall block)</span></label>
+    <p class="note full" style="grid-column:1/-1">Consider a 10 to 20% reduction in older or frail patients, and reduce doses in pregnancy and severe heart failure.<a class="cite" href="#ref-10">10</a></p>
+  </div>
+  <div class="result" id="bb-out" aria-live="polite"></div>
+</div></section>
+<section style="padding-top:0"><div class="wrap">
+  <div class="head"><p class="eyebrow"><span class="dot"></span>Block plan</p><h2>Blocks for this operation</h2><p class="lede" id="bb-ev"></p></div>
+  <div class="cta" id="bb-plans" style="margin:6px 0 16px;flex-wrap:wrap"></div>
+  <div class="bbrow bbhead"><span>Block</span><span>mL per side</span><span>Counts as</span></div>
+  <div id="bb-rows"></div>
+  <p class="note" style="margin-top:12px">The volumes shown are starting values for editing; change each one to what you intend to give. The figure left for the surgeon is the maximum total volume minus the blocks. One drug and one concentration are assumed for the whole plan. For mixed drugs, use the <a href="dose.html">full dose calculator</a>.</p>
+</div></section>
+</form>
+<section><div class="wrap"><h2>Blocks to consider, by operation</h2><p style="margin:6px 0 14px">The first option listed is highlighted. Wound infiltration by the surgeon can be added to any of them and counts towards the total dose.<a class="cite" href="#ref-1">1</a></p>
+<div class="tscroll"><table><thead><tr><th>Operation</th><th>Block options</th><th>Basis</th></tr></thead><tbody id="bb-table"></tbody></table></div></div></section>
+<section><div class="wrap grid g2">
+<div class="tile"><span class="n">The blocks</span><h3>What each one covers</h3><ul class="pl">
+<li><b>Thoracic paravertebral block.</b> Reduces pain scores, analgesic use and postoperative nausea and vomiting after breast surgery; a catheter can continue it after the operation.<a class="cite" href="#ref-1">1</a><a class="cite" href="#ref-4">4</a></li>
+<li><b>PECS II.</b> Two injections, in the interpectoral plane and the pectoserratus plane. It aims to block the pectoral nerves, the intercostobrachial nerve, the third to sixth intercostal nerves and the long thoracic nerve.<a class="cite" href="#ref-5">5</a><a class="cite" href="#ref-9">9</a></li>
+<li><b>Serratus anterior plane block.</b> Described in volunteers as a block of the lateral chest wall; clinical trials were called for by its authors.<a class="cite" href="#ref-6">6</a></li>
+<li><b>Erector spinae plane block.</b> Reduced opioid use and opioid side effects, but the analgesic gain over systemic analgesia was judged not clinically important.<a class="cite" href="#ref-7">7</a></li></ul></div>
+<div class="tile"><span class="n">The arithmetic</span><h3>How the limit is worked out</h3><ul class="pl">
+<li>Maximum dose is the lower of the weight-based figure and the ceiling for the drug, the same limits as the <a href="dose.html">dose calculator</a>.<a class="cite" href="#ref-10">10</a></li>
+<li>Dosing weight is actual body weight up to a BMI of 40. At a BMI of 40 or more it is lean body weight, estimated from sex, weight and height.<a class="cite" href="#ref-11">11</a><a class="cite" href="#ref-12">12</a></li>
+<li>Maximum volume in mL is the maximum dose in mg divided by ten times the concentration in per cent.</li>
+<li>Every injection counts: each block, both sides if bilateral, the donor site, and the surgeon's infiltration.</li>
+<li>These limits are not trial-derived, and fascial plane blocks are absorbed readily. Treat the result as an upper boundary.<a class="cite" href="#ref-10">10</a></li></ul></div>
+</div></section>
+<section><div class="wrap doc" style="grid-template-columns:1fr"><article><section><h2>References</h2><ol class="refs"><li id="ref-1"><span>Jacobs A, Lemoine A, Joshi GP, et al. PROSPECT guideline for oncological breast surgery: a systematic review and procedure-specific postoperative pain management recommendations. Anaesthesia 2020; 75: 664-673. <span class="chip gl">Guideline</span><br><a href="https://doi.org/10.1111/anae.14964" rel="noopener">https://doi.org/10.1111/anae.14964</a></span></li><li id="ref-2"><span>Versyck B, van Geffen GJ, Chin KJ. Analgesic efficacy of the Pecs II block: a systematic review and meta-analysis. Anaesthesia 2019; 74: 663-673. <span class="chip gl">Meta-analysis</span><br><a href="https://doi.org/10.1111/anae.14607" rel="noopener">https://doi.org/10.1111/anae.14607</a></span></li><li id="ref-3"><span>Hussain N, Brull R, McCartney CJL, et al. Pectoralis-II Myofascial Block and Analgesia in Breast Cancer Surgery: A Systematic Review and Meta-analysis. Anesthesiology 2019; 131: 630-648. <span class="chip gl">Meta-analysis</span><br><a href="https://doi.org/10.1097/ALN.0000000000002822" rel="noopener">https://doi.org/10.1097/ALN.0000000000002822</a></span></li><li id="ref-4"><span>Schnabel A, Reichl SU, Kranke P, et al. Efficacy and safety of paravertebral blocks in breast surgery: a meta-analysis of randomized controlled trials. Br J Anaesth 2010; 105: 842-52. <span class="chip gl">Meta-analysis</span><br><a href="https://doi.org/10.1093/bja/aeq265" rel="noopener">https://doi.org/10.1093/bja/aeq265</a></span></li><li id="ref-5"><span>Blanco R, Fajardo M, Parras Maldonado T. Ultrasound description of Pecs II (modified Pecs I): a novel approach to breast surgery. Rev Esp Anestesiol Reanim 2012; 59: 470-5. <span class="chip gl">Technique description</span><br><a href="https://doi.org/10.1016/j.redar.2012.07.003" rel="noopener">https://doi.org/10.1016/j.redar.2012.07.003</a></span></li><li id="ref-6"><span>Blanco R, Parras T, McDonnell JG, et al. Serratus plane block: a novel ultrasound-guided thoracic wall nerve block. Anaesthesia 2013; 68: 1107-13. <span class="chip gl">Volunteer study</span><br><a href="https://doi.org/10.1111/anae.12344" rel="noopener">https://doi.org/10.1111/anae.12344</a></span></li><li id="ref-7"><span>Hussain N, Brull R, Noble J, et al. Statistically significant but clinically unimportant: a systematic review and meta-analysis of the analgesic benefits of erector spinae plane block following breast cancer surgery. Reg Anesth Pain Med 2021; 46: 3-12. <span class="chip gl">Meta-analysis</span><br><a href="https://doi.org/10.1136/rapm-2020-101917" rel="noopener">https://doi.org/10.1136/rapm-2020-101917</a></span></li><li id="ref-8"><span>Zhong T, Ojha M, Bagher S, et al. Transversus abdominis plane block reduces morphine consumption in the early postoperative period following microsurgical abdominal tissue breast reconstruction: a double-blind, placebo-controlled, randomized trial. Plast Reconstr Surg 2014; 134: 870-878. <span class="chip gl">Randomised trial</span><br><a href="https://doi.org/10.1097/PRS.0000000000000613" rel="noopener">https://doi.org/10.1097/PRS.0000000000000613</a></span></li><li id="ref-9"><span>El-Boghdadly K, Wolmarans M, Stengel AD, et al. Standardizing nomenclature in regional anesthesia: an ASRA-ESRA Delphi consensus study of abdominal wall, paraspinal, and chest wall blocks. Reg Anesth Pain Med 2021; 46: 571-580. <span class="chip gl">Consensus</span><br><a href="https://doi.org/10.1136/rapm-2020-102451" rel="noopener">https://doi.org/10.1136/rapm-2020-102451</a></span></li><li id="ref-10"><span>El-Boghdadly K, Pawa A, Chin KJ. Local anesthetic systemic toxicity: current perspectives. Local Reg Anesth 2018; 11: 35-44. <span class="chip">Review</span><br><a href="https://doi.org/10.2147/LRA.S154512" rel="noopener">https://doi.org/10.2147/LRA.S154512</a></span></li><li id="ref-11"><span>Janmahasatian S, Duffull SB, Ash S, Ward LC, Byrne NM, Green B. Quantification of lean bodyweight. Clin Pharmacokinet 2005; 44: 1051-65. <span class="chip">Model development</span><br><a href="https://doi.org/10.2165/00003088-200544100-00004" rel="noopener">https://doi.org/10.2165/00003088-200544100-00004</a></span></li><li id="ref-12"><span>Neal JM, Barrington MJ, Fettiplace MR, et al. The Third American Society of Regional Anesthesia and Pain Medicine practice advisory on local anesthetic systemic toxicity: executive summary 2017. Reg Anesth Pain Med 2018; 43: 113-23. <span class="chip gl">Practice advisory</span><br><a href="https://doi.org/10.1097/AAP.0000000000000720" rel="noopener">https://doi.org/10.1097/AAP.0000000000000720</a></span></li></ol></section></article></div></section>
+</main>
+<div id="site-footer"></div>
+
+<script src="assets/i18n.js?v=56"></script>
+<script src="assets/i18n-text.js?v=56"></script>
+<script src="assets/content.js"></script>
+<script src="assets/usim.js"></script>
+<script src="assets/site.js?v=56"></script>
+</body>
+</html>

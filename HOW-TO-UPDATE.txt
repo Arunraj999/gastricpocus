@@ -1,0 +1,90 @@
+NORA² WEBSITE: HOW TO PUBLISH AND UPDATE
+=========================================
+
+WHAT IS IN THIS FOLDER
+  index.html, blocks.html, interscalene.html, dose.html, videos.html,
+  cadaver-lab.html, meetings.html, research.html, blog.html, about.html     the pages
+  assets/content.js     videos, images, meetings and the block list  <-- the file you edit
+  assets/i18n.js        interface translations (8 languages)
+  assets/site.css, assets/site.js                 design and behaviour
+  media/cadaver/, media/video/                    put your own images and videos here
+  manifest.webmanifest, sw.js, icons/             make the site installable as a phone app
+  sitemap.xml, robots.txt                         help search engines index the site
+
+PUTTING IT ONLINE (free hosting)
+  1. Create a free account with a static host such as Cloudflare Pages or GitHub Pages.
+  2. Create a new project and upload this whole folder as it is.
+  3. You receive a free web address. The site is live at that address.
+  4. Optional: buy a domain name and connect it in the host's "custom domains" setting.
+  5. Open sitemap.xml and robots.txt and replace YOUR-DOMAIN with your real address.
+  6. Register the address with Google Search Console and submit sitemap.xml so the
+     site is indexed.
+
+ADDING A YOUTUBE VIDEO
+  Open assets/content.js in any text editor. In the "videos" list, copy a line and fill in:
+    title    the name shown on the card
+    type     "technique", "panel" or "lecture"
+    youtube  the 11 characters after "v=" in the YouTube link
+  To show your channel button, put the channel address in youtubeChannel at the top.
+
+ADDING A VIDEO YOU HOST YOURSELF
+  Put the .mp4 file in media/video/ and set   file: "media/video/your-file.mp4"
+
+ADDING A CADAVER IMAGE
+  Put the image in media/cadaver/. In the "gallery" list set
+    src       "media/cadaver/your-image.jpg"
+    labelled  "media/cadaver/your-image-labelled.jpg"   (optional: viewers can switch labels on)
+    title, region ("upper", "lower", "chest", "abdo", "axial", "head"), caption
+
+ADDING A MEETING
+  Copy the entry in the "meetings" list. Dates are written YYYY-MM-DD.
+  Add bookingUrl when registration opens. Past meetings move down automatically.
+
+ADDING A NEW BLOCK PAGE
+  Copy interscalene.html, rename it, replace the text and references,
+  then set  page: "your-new-file.html"  on that block in content.js.
+
+AFTER ANY CHANGE
+  Upload the changed files again. If you changed anything, also open sw.js and
+  change "nora2-v1" to "nora2-v2" (and so on) so installed phones fetch the update.
+
+THE PHONE APP
+  Once the site is on an https address, visitors can install it:
+    iPhone: Share > Add to Home Screen.   Android: menu > Install app.
+  Pages they have opened, including the dose calculator, then work offline.
+
+LANGUAGES
+  assets/i18n.js holds the interface text in English, French, Spanish, German,
+  Italian, Turkish, Swedish and Tamil. Add a language by adding one entry to
+  "langs" and "order" and one extra item at the end of every line.
+
+ADDING RESEARCH AND BLOG ENTRIES
+  In assets/content.js fill the "research" and "posts" lists. A worked example
+  sits in the comment above each list. Blog posts can link to a page you add
+  to the site or to an article elsewhere.
+
+BLOCK PAGE LAYOUT
+  Every block page follows the same 19 sections as interscalene.html, from
+  "Level of difficulty" to "Evolving evidence", references, flashcards and quiz.
+  Dashed boxes mark where your own photographs, dissections and videos go.
+
+TRANSLATIONS
+------------
+Menus and calculator labels: assets/i18n.js
+All other page text: assets/i18n-text.js. Each line is the exact English wording followed by
+seven translations in this order: French, Spanish, German, Italian, Turkish, Swedish, Tamil.
+To correct a translation, edit the wording in that position. To translate a new sentence, add a
+line with the English text exactly as it appears on the page. Text with no entry stays in English.
+Clinical statements, block names and operation names are deliberately left in English until a
+clinician fluent in each language has checked them.
+
+BOOKS AND PUBLICATIONS
+----------------------
+Open assets/content.js and find "publications". Each book is one line: status, title, authors,
+summary, url (where to buy or read it) and cover (put the cover picture in the media folder and
+write its path, for example "media/book-plane-blocks.webp").
+
+PATIENT LEAFLETS, AWAKE SURGERY, RESOURCES
+------------------------------------------
+These pages are leaflets.html, awake.html, emergency.html, anticoagulation.html, societies.html,
+prospect.html and resources.html. Dashed boxes mark where your own material is still to be added.

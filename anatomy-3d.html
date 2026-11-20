@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interactive 3D Map of Dermatomes, Myotomes and Joint Innervation · NORA²</title>
+<meta name="description" content="Rotate a 3D anatomy model and select any point to see its dermatome, cutaneous nerve, muscle root supply or joint innervation, built from the NORA² scoping review.">
+<meta name="theme-color" content="#0A1B3D">
+<meta property="og:title" content="Interactive 3D Map of Dermatomes, Myotomes and Joint Innervation · NORA²">
+<meta property="og:description" content="Rotate a 3D anatomy model and select any point to see its dermatome, cutaneous nerve, muscle root supply or joint innervation, built from the NORA² scoping review.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="media/brand/nora2-logo.webp">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=56">
+
+</head>
+<body data-page="basics">
+<div id="site-header"></div>
+<main>
+<div class="wrap"><div class="pagehead a3-head"><p class="crumb"><a href="index.html">Home</a> / <a href="ultrasound-physics.html">Basics</a> / 3D anatomy map</p>
+<span class="eyebrow">Interactive anatomy</span><h1>Dermatomes, myotomes, bone and joint innervation in 3D</h1>
+<p class="lede">Turn the model, then select any point. The panel names the spinal root and the nerve for that exact spot, from the fingertips to the heel.</p></div></div>
+<section class="wrap a3-wrap">
+
+<div class="a3-bar" role="toolbar" aria-label="Layer">
+<button class="btn" data-a3mode="derm" aria-pressed="true">Dermatomes</button><button class="btn" data-a3mode="myo" aria-pressed="false">Myotomes</button><button class="btn" data-a3mode="bone" aria-pressed="false">Bone and joint</button>
+<span class="a3-sp"></span>
+<button class="btn" data-a3view="front">Front</button><button class="btn" data-a3view="back">Back</button><button class="btn" data-a3view="right">Right</button><button class="btn" data-a3view="left">Left</button>
+<button class="btn" id="a3-ov" aria-pressed="false" style="display:none">Show overlap</button><button class="btn" id="a3-lab" aria-pressed="true">Labels</button><button class="btn" id="a3-spin" aria-pressed="true">Rotate</button></div>
+<div class="a3-grid"><div class="a3-stagebox"><div id="a3-stage"><div id="a3-load">Loading model…</div><div id="a3-labels" aria-hidden="true"></div></div>
+<p class="a3-help">Drag to turn. Scroll or pinch to zoom, which helps with fingers and toes. Right-drag or two-finger drag to move.</p></div>
+<aside class="a3-side"><div id="a3-info" aria-live="polite"></div><div id="a3-legend"></div></aside></div>
+<p class="a3-credit">Anatomy: BodyParts3D, © The Database Center for Life Science, licensed under CC Attribution-Share Alike 2.1 Japan. Zone assignments: NORA², Dr Arun Mohanraj FRCA EDRA, Wrightington, Wigan and Leigh NHS Foundation Trust.</p>
+</section>
+<section class="wrap"><div class="notice a3-notice"><b>Draft for clinical sign-off.</b> Revised 13 November 2026. Dermatomes follow the standard clinical charts and the international key sensory points (ISNCSCI, revised 2019). Borders between neighbouring dermatomes overlap in life, and published charts differ in detail.</div></section>
+<section class="wrap a3-figs"><h2>Reference figures</h2>
+<p class="a3-help">Front and back views from the same model, for teaching slides and print.</p>
+<figure><img src="media/figures/a3-derm.webp?v=34" alt="Dermatomes, front and back views" loading="lazy" width="1280" height="900"><figcaption><b>Dermatomes.</b> Each colour is one spinal root. Core zones are anchored on the international key sensory points: C6 thumb, C7 middle finger, C8 little finger, T4 nipple line, T10 umbilicus, T12 inguinal ligament, L3 medial knee, L4 medial malleolus, L5 dorsum of the foot, S1 lateral heel. Neighbouring dermatomes overlap, so each line marks the middle of a shared border and not a sharp edge.</figcaption></figure>
+<figure><img src="media/figures/a3-myo.webp" alt="Muscles coloured by main root supply, front and back views" loading="lazy" width="2000" height="1600"><figcaption><b>Myotomes.</b> Each muscle is coloured by its main root: C5 red, C6 orange, C7 yellow, C8 green, T1 teal, L2 magenta, L3 orange-red, L4 gold, L5 light green, S1 teal-green, S2 indigo. Grey muscles are supplied by the accessory nerve or by posterior rami; light blue by the intercostal nerves. Every muscle receives more than one root.</figcaption></figure>
+<figure><img src="media/figures/a3-bone.webp" alt="Skeleton, front and back views, each bone coloured by the nerve that supplies it" loading="lazy" width="1800" height="1300"><figcaption><b>Bone and joint innervation by nerve.</b> Each colour is one nerve, following the standard osteotome chart. White markers are joints whose full nerve supply has been mapped by dissection or histology; select one in the 3D model for the nerves and how often each is present.</figcaption></figure>
+
+<h2>How this map was built</h2>
+<ul class="a3-list"><li><b>Dermatomes:</b> core zones follow the international key sensory points and the evidence-based map of Lee 2008. Between key points the borders are placed by rule on the model, and are shown with overlap because published maps disagree (Downs 2011; Challoumas 2018).</li>
+<li><b>Myotomes:</b> root values marked as reviewed come from nerve root stimulation, plexus injury and EMG studies (Schirmer 2011; Bell 2016; Furukawa 2021; Chiba 2015; Zhu 2015; Hashimoto 2024). The remainder use standard anatomical root values and say so when selected.</li>
+<li><b>Bone and joint:</b> supply is shown by peripheral nerve, with the proportion of specimens in which each nerve was found. Root-by-root maps of bone are not supported by the evidence (Ivanusic 2007).</li>
+<li><b>Nerve named for each point:</b> typical textbook fields. In volunteers these fields varied widely and overlapped (Keplinger 2018).</li></ul>
+</section>
+</main>
+<div id="site-footer"></div>
+
+<script src="assets/i18n.js?v=56"></script>
+<script src="assets/i18n-text.js?v=56"></script>
+<script src="assets/content.js"></script>
+<script src="assets/site.js?v=56"></script>
+<script type="module" src="assets/anatomy3d.js?v=34"></script>
+</body>
+</html>

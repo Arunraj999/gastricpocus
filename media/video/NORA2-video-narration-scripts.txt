@@ -1,0 +1,72 @@
+NORA² BASICS SERIES: NARRATION SCRIPTS AND YOUTUBE NOTES
+Dr Arun Mohanraj FRCA EDRA · Northwest Regional Anaesthesia Alliance
+13 November 2026
+
+The two films are silent, with captions on screen. The text below is the caption for each scene,
+written to be read aloud. Record it in your own voice and it will fit the timings shown.
+
+=====================================================================
+FILM 1: ULTRASOUND PHYSICS (1 min 36 s)  file: nora2-ultrasound-physics.mp4
+=====================================================================
+0:00  Title. "Ultrasound physics. What the machine is doing while you look for the nerve."
+0:05  Send a pulse, then listen.
+      The probe is a loudspeaker and a microphone. It assumes sound travels through tissue at
+      1540 metres per second, and places each echo by how long it took to return.
+0:21  Frequency: detail against depth.
+      Higher frequency means a shorter wavelength and a sharper picture, but the tissue absorbs it
+      sooner. Use the highest frequency that still reaches your target.
+0:35  Echoes come from boundaries.
+      An echo forms wherever two tissues differ in acoustic impedance. The bigger the difference,
+      the brighter the line. Fluid has no boundaries inside it, so it stays black.
+0:49  Anisotropy: the angle matters.
+      Nerves and tendons reflect like mirrors. Meet them at ninety degrees and they shine. Tilt the
+      probe a few degrees and the echo misses the probe, so the nerve fades.
+1:03  Attenuation and time-gain compensation.
+      Sound loses energy with every centimetre, so deep echoes come back faint. Time-gain
+      compensation amplifies the late echoes until the picture is evenly bright from top to bottom.
+1:16  Three artefacts you will meet.
+      The machine assumes sound travels in a straight line, at one speed, and returns after a single
+      reflection. When tissue breaks those rules, the picture misleads: these are artefacts.
+1:30  End card. "Next: Knobology."
+
+Suggested YouTube title:  Ultrasound physics for nerve blocks in 96 seconds | NORA² Basics 1
+Suggested description:    Pulse-echo imaging, frequency, echogenicity, anisotropy, attenuation and
+                          artefacts, for anaesthetists learning ultrasound-guided regional anaesthesia.
+                          Reference: Sites BD et al. Reg Anesth Pain Med 2007; 32: 412-8 and 419-33.
+
+=====================================================================
+FILM 2: KNOBOLOGY (1 min 37 s)  file: nora2-knobology.mp4
+=====================================================================
+0:00  Title. "Knobology. Six controls to set before the needle goes in."
+0:05  Choose the probe and the preset.
+      Start with the probe that suits the depth of your target, then pick the nerve or
+      musculoskeletal preset. The preset sets sensible starting values for everything that follows.
+0:16  Depth.
+      Set the depth so the target sits near the middle of the screen. Too much depth wastes the
+      screen and shrinks the nerve; too little hides the structures behind it.
+0:28  Frequency.
+      Raise the frequency for a sharper picture of a shallow target. Lower it only when the target
+      is too deep to see.
+0:40  Gain and time-gain compensation.
+      Gain is brightness. Set it so that fluid is black and fascia is white. Then use the time-gain
+      sliders to even out the near and far fields.
+0:55  Focus.
+      The beam is narrowest at the focal zone, and that is where side-to-side detail is best. Where
+      your machine has a focus control, place the marker level with the target.
+1:06  Colour Doppler.
+      Before the needle goes in, place the colour box over the target and over the path you plan to
+      take. Keep the box small and avoid pressing hard, which can empty a vein.
+1:17  Move the probe: PART.
+      The last control is your hand. Pressure, alignment, rotation and tilt: small movements, one
+      at a time, with the screen as your guide.
+1:31  End card. "Next: Needling techniques."
+
+Suggested YouTube title:  Knobology: six controls before the needle | NORA² Basics 2
+Suggested description:    Probe and preset, depth, frequency, gain, time-gain compensation, focus,
+                          colour Doppler and the PART probe movements.
+                          References: Sites BD et al. Reg Anesth Pain Med 2007; 32: 412-8.
+                          ASRA/ESRA Joint Committee recommendations. Reg Anesth Pain Med 2009; 34: 40-6.
+
+TO ADD YOUR VOICE
+Record the narration on your phone or in any recorder, then send me the audio file and I will lay
+it under the film and re-time scenes if needed. Background music can be added the same way.

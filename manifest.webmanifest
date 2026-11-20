@@ -1,0 +1,19 @@
+{
+  "name": "NORA² Regional Anaesthesia",
+  "short_name": "NORA²",
+  "description": "Regional anaesthesia teaching, dose calculator and meetings.",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0A1B3D",
+  "theme_color": "#0A1B3D",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Dose calculator", "url": "dose.html" },
+    { "name": "Block library", "url": "blocks.html" }
+  ]
+}

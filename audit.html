@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Local Anaesthetic Audit Tool · NORA²</title>
+<meta name="description" content="Audit tool for total local anaesthetic volume and dose per case in fascial plane blocks such as breast surgery and erector spinae plane blocks, with weight-based limits and spreadsheet export.">
+<meta name="theme-color" content="#0A1B3D">
+<meta property="og:title" content="Local Anaesthetic Audit Tool · NORA²">
+<meta property="og:description" content="Audit tool for total local anaesthetic volume and dose per case in fascial plane blocks such as breast surgery and erector spinae plane blocks, with weight-based limits and spreadsheet export.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="media/brand/nora2-logo.webp">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=56">
+
+</head>
+<body data-page="audit">
+<div id="site-header"></div>
+<main>
+<div class="wrap"><div class="pagehead"><p class="crumb"><a href="index.html">Home</a> / <a href="dose.html">Dose calculator</a> / Audit tool</p><h1>Local anaesthetic audit tool</h1><p class="lede">Record the total volume and dose of local anaesthetic given in each case, across every block and the surgeon's infiltration, and measure it against the suggested maximum for the dosing weight.<a class="cite" href="#ref-1">1</a><a class="cite" href="#ref-4">4</a></p></div></div>
+<form id="a-form" novalidate>
+<section style="padding-top:40px"><div class="wrap audit-top">
+  <div style="display:grid;gap:18px">
+    <div class="form three">
+      <label>Date<input id="a-date" type="date"></label>
+      <label class="full" style="grid-column:span 2">Operation<input id="a-op" type="text" placeholder="For example: mastectomy with axillary node clearance" autocomplete="off"></label>
+      <label>Weight (kg)<input id="a-w" type="number" inputmode="decimal" min="30" max="250" step="0.5"></label>
+      <label>Height (cm)<input id="a-h" type="number" inputmode="decimal" min="120" max="220" step="1"></label>
+      <label>Sex<select id="a-sex"><option value="f">Female</option><option value="m">Male</option></select></label>
+      <label class="check full"><input id="a-epi" type="checkbox">Adrenaline-containing solution</label>
+    </div>
+    <div>
+      <div class="prow phead"><span>Block or infiltration</span><span>Drug</span><span>%</span><span>mL</span><span>Dose</span><span></span></div>
+      <div id="a-rows"></div><datalist id="block-names"></datalist>
+      <div class="cta" style="margin-top:6px"><button class="btn" type="button" id="a-add">Add another injection</button><button class="btn k" type="button" id="a-save">Save this case</button><span id="a-msg" class="note" aria-live="polite"></span></div>
+    </div>
+  </div>
+  <div class="result" id="a-now" aria-live="polite"></div>
+</div></section>
+</form>
+<section style="padding-top:0"><div class="wrap">
+  <div class="head"><p class="eyebrow"><span class="dot"></span>Your audit so far</p><h2>Results</h2></div>
+  <div class="grid g4" id="a-sum" style="margin-bottom:22px"></div>
+  <div class="tscroll"><table><thead><tr><th>#</th><th>Date</th><th>Operation</th><th>Injections</th><th>Total mL</th><th>Total mg</th><th>mg/kg</th><th>% of max</th><th></th></tr></thead><tbody id="a-table"></tbody></table></div>
+  <div class="cta" style="margin:18px 0"><button class="btn y" type="button" id="a-csv">Export for Excel</button><span id="a-msg2" class="note" aria-live="polite"></span></div>
+  <textarea class="csv" id="a-csvbox" hidden readonly aria-label="Audit data as comma-separated values"></textarea>
+</div></section>
+<section class="band ink"><div class="wrap">
+  <div class="head"><p class="eyebrow"><span class="dot"></span>Using this for a registered audit</p><h2>Before you collect data</h2></div>
+  <div class="grid g3">
+    <div class="tile"><span class="n">Standard</span><h3>Set the standard first</h3><p>A workable standard is that every case stays within the suggested maximum dose for the dosing weight (actual weight, or lean body weight at a BMI of 40 or more), counting all injections together.<a class="cite" href="#ref-1">1</a><a class="cite" href="#ref-4">4</a></p></div>
+    <div class="tile"><span class="n">Data</span><h3>Nothing identifiable</h3><p>The tool stores no name, date of birth or hospital number, and the cases stay on this device only. Register the audit with your trust before you start.</p></div>
+    <div class="tile"><span class="n">Limits</span><h3>What the figures mean</h3><p>Maximum doses are not trial-derived and absorption varies with the site of injection.<a class="cite" href="#ref-2">2</a> Where two drugs are used, their shares of the maximum are added together as a cautious working rule.</p></div>
+  </div>
+</div></section>
+<section><div class="wrap doc" style="grid-template-columns:1fr"><article><section><h2>References</h2><ol class="refs"><li id="ref-1"><span>El-Boghdadly K, Pawa A, Chin KJ. Local anesthetic systemic toxicity: current perspectives. Local Reg Anesth 2018; 11: 35-44. <span class="chip rev">Review</span><br><a href="https://doi.org/10.2147/LRA.S154512" rel="noopener">https://doi.org/10.2147/LRA.S154512</a></span></li><li id="ref-2"><span>Rosenberg PH, Veering BT, Urmey WF. Maximum recommended doses of local anesthetics: a multifactorial concept. Reg Anesth Pain Med 2004; 29: 564-75. <span class="chip rev">Review</span><br><a href="https://doi.org/10.1016/j.rapm.2004.08.003" rel="noopener">https://doi.org/10.1016/j.rapm.2004.08.003</a></span></li><li id="ref-3"><span>Janmahasatian S, Duffull SB, Ash S, Ward LC, Byrne NM, Green B. Quantification of lean bodyweight. Clin Pharmacokinet 2005; 44: 1051-65. <span class="chip obs">Model development</span><br><a href="https://doi.org/10.2165/00003088-200544100-00004" rel="noopener">https://doi.org/10.2165/00003088-200544100-00004</a></span></li><li id="ref-4"><span>Neal JM, Barrington MJ, Fettiplace MR, et al. The Third American Society of Regional Anesthesia and Pain Medicine practice advisory on local anesthetic systemic toxicity: executive summary 2017. Reg Anesth Pain Med 2018; 43: 113-23. <span class="chip gl">Practice advisory</span><br><a href="https://doi.org/10.1097/AAP.0000000000000720" rel="noopener">https://doi.org/10.1097/AAP.0000000000000720</a></span></li></ol></section></article></div></section>
+</main>
+<div id="site-footer"></div>
+
+<script src="assets/i18n.js?v=56"></script>
+<script src="assets/i18n-text.js?v=56"></script>
+<script src="assets/content.js"></script>
+<script src="assets/usim.js"></script>
+<script src="assets/site.js?v=56"></script>
+</body>
+</html>
