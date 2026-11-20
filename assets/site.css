@@ -753,3 +753,4 @@ table.live td:first-child{min-width:280px}
  .dd-sub:hover .dd-s,.dd-sub:focus-within .dd-s{display:flex}
 }
 @media (max-width:900px){.dd-m{max-height:calc(100vh - 150px);overflow:auto}}
+.refs li>a{grid-column:2}

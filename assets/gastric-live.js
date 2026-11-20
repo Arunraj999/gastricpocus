@@ -4,8 +4,10 @@
   "use strict";
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function $(s) { return document.querySelector(s); }
-  var SNAP = window.GASTRIC_SNAP || { pubs: [], trials: [], date: "" };
+  var CFG = document.querySelector("[data-snap]"), SNAP = (CFG && window[CFG.getAttribute("data-snap")]) || window.GASTRIC_SNAP || { pubs: [], trials: [], date: "" };
   var TERM = '("gastric ultrasound"[tiab] OR "gastric point-of-care ultrasound"[tiab] OR "gastric POCUS"[tiab] OR "gastric sonography"[tiab] OR "gastric ultrasonography"[tiab] OR "ultrasound assessment of gastric"[tiab]) AND (anesthesia OR anaesthesia OR aspiration OR fasting OR "gastric volume" OR "gastric content")';
+  if (CFG && CFG.getAttribute("data-term")) TERM = CFG.getAttribute("data-term");
+  var CTQ = (CFG && CFG.getAttribute("data-ct")) || '"gastric ultrasound" OR "gastric POCUS" OR "gastric sonography" OR "gastric ultrasonography"';
   var EU = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/";
   function status(el, live) { if (el) el.textContent = live ? "Updated from the source just now." : "Showing the list saved on " + SNAP.date + ". The live service could not be reached."; }
   function pubRow(p) {
@@ -28,7 +30,7 @@
   function showTrials(list, live) { var b = $("#gt-body"); if (!b) return; b.innerHTML = list.map(trialRow).join("") || '<tr><td colspan="6">No results.</td></tr>'; status($("#gt-status"), live); }
   function loadTrials() {
     if (!$("#gt-body")) return; showTrials(SNAP.trials, false);
-    fetch("https://clinicaltrials.gov/api/v2/studies?query.term=" + encodeURIComponent('"gastric ultrasound" OR "gastric POCUS" OR "gastric sonography" OR "gastric ultrasonography"') + "&filter.overallStatus=RECRUITING,NOT_YET_RECRUITING,ACTIVE_NOT_RECRUITING,ENROLLING_BY_INVITATION&pageSize=40&sort=LastUpdatePostDate:desc").then(function (r) { return r.json(); }).then(function (j) { if (!j.studies || !j.studies.length) throw 0; showTrials(j.studies.map(trial), true); }).catch(function () { });
+    fetch("https://clinicaltrials.gov/api/v2/studies?query.term=" + encodeURIComponent(CTQ) + "&filter.overallStatus=RECRUITING,NOT_YET_RECRUITING,ACTIVE_NOT_RECRUITING,ENROLLING_BY_INVITATION&pageSize=40&sort=LastUpdatePostDate:desc").then(function (r) { return r.json(); }).then(function (j) { if (!j.studies || !j.studies.length) throw 0; showTrials(j.studies.map(trial), true); }).catch(function () { });
   }
   function chapters() { var v = $("#gv-video"); if (!v) return; [].forEach.call(document.querySelectorAll("[data-seek]"), function (b) { b.addEventListener("click", function () { v.currentTime = parseFloat(b.getAttribute("data-seek")); v.play(); v.scrollIntoView({ behavior: "smooth", block: "center" }); }); }); }
   function go() { loadPubs(); loadTrials(); chapters(); }
