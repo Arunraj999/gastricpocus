@@ -727,3 +727,16 @@ body.a3-shot .tabbar,body.a3-shot nav{display:none!important}
 ol.steps{margin:0;padding-left:22px;display:grid;gap:10px;max-width:86ch}ol.steps li{line-height:1.55}
 ul.ticks{margin:0;padding-left:20px;display:grid;gap:8px;max-width:86ch}
 .okline{color:#7BE0C3}
+/* gastric section: video, chapters, live tables */
+.vframe{border-radius:18px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(0,0,0,.35);aspect-ratio:16/9}
+.vframe video{width:100%;height:100%;display:block}
+.chapters{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 6px}
+.chap{font:inherit;font-size:.9rem;font-weight:600;padding:8px 14px;border-radius:999px;border:1px solid rgba(127,140,180,.4);background:transparent;color:inherit;cursor:pointer}
+.chap span{color:#b8860b;margin-right:8px;font-variant-numeric:tabular-nums}
+.chap:hover{border-color:#FFC61A;background:rgba(255,198,26,.12)}
+.muted{opacity:.72;font-size:.9em}
+table.live td{vertical-align:top}
+table.live td:first-child{min-width:280px}
+.fact.proscons.pro{border-top:4px solid #3FE0CF}.fact.proscons.con{border-top:4px solid #ff8a8a}
+.fact.proscons ul.ticks{margin-top:12px}.fact.proscons li{margin-bottom:10px}
+.fact.proscons .chip{align-self:flex-start;flex:none;height:auto}

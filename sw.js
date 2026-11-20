@@ -1,7 +1,7 @@
 /* NORA² offline support. Change the version number whenever you upload new files,
    so phones that installed the app pick up the update. */
-var VERSION = "nora2-v59";
-var CORE = ["index.html", "blocks.html", "surgery.html", "interscalene.html", "dose.html", "breast-blocks.html", "audit.html", "audit-tools.html", "pocus.html", "pocus-gastric.html", "gastric-calculator.html", "gastric-quiz.html", "practice.html", "last.html", "complications.html", "proms-prems.html", "medico-legal.html", "videos.html", "cadaver-lab.html", "meetings.html", "research.html", "blog.html", "about.html", "ultrasound-physics.html", "knobology.html", "needling.html", "anatomy-3d.html", "resources.html", "emergency.html", "anticoagulation.html", "societies.html", "prospect.html", "leaflets.html", "awake.html", "publications.html",
+var VERSION = "nora2-v60";
+var CORE = ["index.html", "blocks.html", "surgery.html", "interscalene.html", "dose.html", "breast-blocks.html", "audit.html", "audit-tools.html", "pocus.html", "pocus-gastric.html", "gastric-calculator.html", "gastric-quiz.html", "gastric-videos.html", "gastric-populations.html", "gastric-adult.html", "gastric-paediatric.html", "gastric-pregnancy.html", "gastric-publications.html", "gastric-research.html", "practice.html", "last.html", "complications.html", "proms-prems.html", "medico-legal.html", "videos.html", "cadaver-lab.html", "meetings.html", "research.html", "blog.html", "about.html", "ultrasound-physics.html", "knobology.html", "needling.html", "anatomy-3d.html", "resources.html", "emergency.html", "anticoagulation.html", "societies.html", "prospect.html", "leaflets.html", "awake.html", "publications.html",
   "assets/site.css", "assets/site.js", "assets/content.js", "assets/usim.js", "assets/i18n.js", "assets/i18n-text.js", "media/figures/body.webp", "media/hero.webp", "media/brand/logo-mark.webp", "icons/icon.svg", "icons/icon-192.png", "manifest.webmanifest"];
 self.addEventListener("install", function (e) { e.waitUntil(caches.open(VERSION).then(function (c) { return c.addAll(CORE); }).then(function () { return self.skipWaiting(); })); });
 self.addEventListener("activate", function (e) {
@@ -9,6 +9,9 @@ self.addEventListener("activate", function (e) {
 });
 self.addEventListener("fetch", function (e) {
   if (e.request.method !== "GET") return;
+  var u = new URL(e.request.url);
+  /* leave video, range requests and other sites (PubMed, ClinicalTrials.gov) to the browser */
+  if (u.origin !== location.origin || e.request.headers.get("range") || /\.(mp4|webm|vtt)$/.test(u.pathname)) return;
   /* fresh copy when online, saved copy when offline */
   e.respondWith(fetch(e.request).then(function (r) {
     if (r && r.ok && new URL(e.request.url).origin === location.origin) { var copy = r.clone(); caches.open(VERSION).then(function (c) { c.put(e.request, copy); }); }

@@ -106,6 +106,12 @@
     (N.research || []).forEach(function (r) { idx.push({ t: r.title, k: "Research", h: "research.html", x: (r.funder || "") + " " + (r.status || ""), c: "#7C3AED" }); });
     (N.posts || []).forEach(function (r) { idx.push({ t: r.title, k: "Blog · " + (r.date || ""), h: "blog.html", x: r.summary || "", c: "#11B8A8" }); });
     idx.push({ t: "Gastric POCUS", k: "POCUS", h: "pocus-gastric.html", x: "gastric ultrasound antrum aspiration full stomach GLP-1 volume calculator point-of-care", c: "#FFC61A" });
+    idx.push({ t: "Gastric ultrasound video tutorial", k: "POCUS", h: "gastric-videos.html", x: "gastric ultrasound video how to scan antrum tutorial animation", c: "#FFC61A" });
+    idx.push({ t: "Gastric ultrasound in adults", k: "POCUS", h: "gastric-adult.html", x: "adult gastric ultrasound grade volume learning curve obesity GLP-1", c: "#FFC61A" });
+    idx.push({ t: "Gastric ultrasound in children", k: "POCUS", h: "gastric-paediatric.html", x: "paediatric pediatric children gastric ultrasound pyloric stenosis appendicitis", c: "#FFC61A" });
+    idx.push({ t: "Gastric ultrasound in pregnancy", k: "POCUS", h: "gastric-pregnancy.html", x: "pregnancy obstetric third trimester gastric ultrasound caesarean labour", c: "#FFC61A" });
+    idx.push({ t: "Gastric ultrasound publications", k: "POCUS", h: "gastric-publications.html", x: "publications papers pubmed gastric ultrasound latest", c: "#FFC61A" });
+    idx.push({ t: "Gastric ultrasound ongoing research", k: "POCUS", h: "gastric-research.html", x: "ongoing research trials clinicaltrials gastric ultrasound", c: "#FFC61A" });
     idx.push({ t: "Gastric volume calculator", k: "Tool", h: "gastric-calculator.html", x: "gastric volume antral area Perlas mL/kg", c: "#FFC61A" });
     idx.push({ t: "Audit tools to download", k: "Tool", h: "audit-tools.html", x: "audit PROMs PREMs awake surgery erector spinae peak flow cough breast prep stop block catheter follow-up PDF", c: "#11B8A8" });
     idx.push({ t: "Local anaesthetic audit tool", k: "Tool", h: "audit.html", x: "audit total volume dose breast erector spinae fascial plane", c: "#11B8A8" });
