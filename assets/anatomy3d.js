@@ -1,6 +1,7 @@
 import * as THREE from './vendor/three.module.min.js';
 import { OrbitControls } from './vendor/OrbitControls.js';
-import { createSkin } from './a3skin.js?v=65';
+import { createSkin } from './a3skin.js?v=66';
+import { createRig, MOVES } from './a3move.js?v=66';
 const BASE='media/model3d/';
 const $=s=>document.querySelector(s);
 const stage=$('#a3-stage'), panel=$('#a3-info'), legend=$('#a3-legend'), labelsEl=$('#a3-labels');
@@ -36,7 +37,7 @@ const JOINT={
  cfacet:['Cervical facet joints',[['Medial branches of posterior rami','core',''],['Direct branches from the posterior root region','variable','']],'Büsken 2022'],
  tfacet:['Thoracic facet joints',[['Posterior ramus, articular branches','core','origin varies side to side']],'Joshi 2019']};
 const DIG=['','thumb','index finger','middle finger','ring finger','little finger'],TOE=['','great toe','second toe','third toe','fourth toe','little toe'],PH=['','proximal phalanx','middle phalanx','distal phalanx (tip)'];
-let SKIN,MAP=MAPS[Q.get('map')]?Q.get('map'):'eb';let M,scene,camera,renderer,controls,skin,mus,bone,joints=[],mode=Q.get('mode')||'derm',sel=null,att,autoRot=Q.get('spin')!=='0'&&!Q.get('view');
+let RIG=null,ROOT=null;let SKIN,MAP=MAPS[Q.get('map')]?Q.get('map'):'eb';let M,scene,camera,renderer,controls,skin,mus,bone,joints=[],mode=Q.get('mode')||'derm',sel=null,att,autoRot=Q.get('spin')!=='0'&&!Q.get('view');
 let showOv=Q.get('ov')==='1';const WHITE=new THREE.Color('#ffffff');const ray=new THREE.Raycaster(), col=new THREE.Color(), col2=new THREE.Color();
 async function buf(n,T){const r=await fetch(BASE+n+'?v=34');return new T(await r.arrayBuffer());}
 function nervePalette(n){const a=[];for(let i=0;i<n;i++){const c=new THREE.Color().setHSL((i*0.61803)%1,0.62,0.56);a.push('#'+c.getHexString());}return a;}
@@ -45,10 +46,10 @@ function geom(pos,idx){const g=new THREE.BufferGeometry();g.setAttribute('positi
 function paintSkin(){SKIN.paint(M.DN.map(n=>n?SK[n]:null),sel&&sel.kind==='skin'?sel.id:null);SKIN.U.uSoft.value=showOv?0.42:0;}
 function paintMus(){const pid=mus.userData.pid,c=mus.geometry.attributes.color.array;
   for(let i=0;i<pid.length;i++){const r=M.mrow[pid[i]]; col.set(r<0?'#8A6F6F':DCOL[M.MT[r][0]]||'#B56A6A');
-    if(sel&&sel.kind==='mus'&&M.mrow[pid[i]]!==sel.row){const g=(col.r+col.g+col.b)/3;col.setRGB(g*0.5+0.14,g*0.5+0.13,g*0.5+0.15);}
+    if((sel&&sel.kind==='mus'&&M.mrow[pid[i]]!==sel.row)||(sel&&sel.kind==='move'&&!sel.pids.has(pid[i]))){const g=(col.r+col.g+col.b)/3;col.setRGB(g*0.5+0.14,g*0.5+0.13,g*0.5+0.15);}
     c[i*3]=col.r;c[i*3+1]=col.g;c[i*3+2]=col.b;} mus.geometry.attributes.color.needsUpdate=true;}
 function paintBone(){const a=bone.userData.att,c=bone.geometry.attributes.color.array,on=mode==='bone';for(let i=0;i<a.length;i++){col.set(on?M.BT[a[i]][2]:'#CFC6B4');if(on&&sel&&sel.kind==='bone'&&a[i]!==sel.id){const g=(col.r+col.g+col.b)/3;col.setRGB(g*0.5+0.16,g*0.5+0.16,g*0.5+0.18);}c[i*3]=col.r;c[i*3+1]=col.g;c[i*3+2]=col.b;}bone.geometry.attributes.color.needsUpdate=true;}
-function setMode(m){mode=m;sel=null;
+function setMode(m){mode=m;sel=null;if(RIG){RIG.stop();markMove(null);}const mv=$('#a3-moves');if(mv)mv.style.display=m==='myo'?'':'none';
   document.querySelectorAll('[data-a3mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.a3mode===m));
   skin.visible=(m==='derm'||m==='nerve'); mus.visible=(m==='myo'); bone.visible=(m==='myo'||m==='bone'); joints.forEach(j=>j.visible=(m==='bone'));
   paintBone();
@@ -97,9 +98,23 @@ function boneInfo(p,vi){const n=M.bones[p],t=M.BT[bone.userData.att[vi]];info(`<
 function pick(ev){const r=renderer.domElement.getBoundingClientRect();const p=new THREE.Vector2(((ev.clientX-r.left)/r.width)*2-1,-((ev.clientY-r.top)/r.height)*2+1);ray.setFromCamera(p,camera);
   if(mode==='bone'){const hj=ray.intersectObjects(joints)[0];if(hj){sel={kind:'joint'};paintBone();joints.forEach(j=>j.material.opacity=j===hj.object?0.95:0.45);jointInfo(hj.object.userData.k);return;}
     const hb=ray.intersectObject(bone)[0];if(hb){sel={kind:'bone',id:bone.userData.att[hb.face.a]};joints.forEach(j=>j.material.opacity=0.6);paintBone();boneInfo(bone.userData.pid[hb.face.a],hb.face.a);}else{sel=null;paintBone();info(null);}return;}
-  if(mode==='myo'){const h=ray.intersectObject(mus)[0];if(!h){sel=null;paintMus();info(null);return;}const p=mus.userData.pid[h.face.a];sel={kind:'mus',row:M.mrow[p]};paintMus();musInfo(p);return;}
+  if(mode==='myo'){if(RIG&&RIG.active()){RIG.stop();markMove(null);sel=null;paintMus();info(null);return;}const h=ray.intersectObject(mus)[0];if(!h){sel=null;paintMus();info(null);return;}const p=mus.userData.pid[h.face.a];sel={kind:'mus',row:M.mrow[p]};paintMus();musInfo(p);return;}
   const h=ray.intersectObject(skin)[0];if(!h){sel=null;paintSkin();info(null);return;}
   const hi=SKIN.hit(h);sel={kind:'skin',id:hi.cls};paintSkin();skinInfo(hi);}
+
+function markMove(id){document.querySelectorAll('[data-a3move]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.a3move===id));}
+function trx(t){let l='en';try{l=JSON.parse(localStorage.getItem('nora2.lang'))||'en';}catch(e){}const i=['fr','es','de','it','tr','sv','ta'].indexOf(l),d=window.NORA_TEXT&&window.NORA_TEXT[t];return i>=0&&d&&d[i]?d[i]:t;}
+function buildMoves(){const el=$('#a3-moves');if(!el)return;el.innerHTML='<span class="a3-maplab">'+trx('Key movements:')+'</span>'+MOVES.map(m=>`<button class="btn" data-a3move="${m.id}" aria-pressed="false"><b>${m.root}</b> ${trx(m.name)}</button>`).join('')+'<button class="btn" data-a3move="" aria-pressed="false">'+trx('Stop')+'</button>';
+  el.querySelectorAll('[data-a3move]').forEach(b=>b.onclick=()=>playMove(b.dataset.a3move));}
+function playMove(id){if(mode!=='myo')setMode('myo');const m=MOVES.find(x=>x.id===id);autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');
+  if(!m){RIG.stop();markMove(null);sel=null;paintMus();info(null);return;}
+  const pids=RIG.select(id,performance.now());sel={kind:'move',pids};paintMus();markMove(id);
+  const t=RIG.focus(m,ROOT);controls.target.copy(t);camera.position.set(t.x+m.cam[0]*m.cam[3],t.y+m.cam[1]*m.cam[3],t.z+m.cam[2]*m.cam[3]);controls.update();
+  const rows=[],seen=new Set();pids.forEach(p=>{const r=M.mrow[p];if(r<0)return;const t=M.MT[r],nm=M.muscles[p].replace(/\b(right|left) /,'').replace(/^(long|short|lateral|medial) head of /,'');const k=nm+t[1]+t[2];if(seen.has(k))return;seen.add(k);rows.push(`<tr><td><b>${nm[0].toUpperCase()+nm.slice(1)}</b><br><small>${t[2]}</small></td><td>${t[1]}</td></tr>`);});
+  info(`<p class="a3-where">ASIA key movement · right side shown</p><h3>${chip(m.root,DCOL[m.root]||'#B56A6A')} ${m.name}</h3><p><b>Key muscles:</b> ${m.key}.</p>
+  <table class="a3-t"><tr><td><small>Working muscle and nerve</small></td><td><small>Roots</small></td></tr>${rows.join('')}</table>
+  <p class="a3-ov">The glowing muscles are the prime movers. Each is supplied by more than one root; ${m.root} is the level this movement is used to test.</p>
+  <p class="a3-src">Key movements and testing level: International Standards for Neurological Classification of Spinal Cord Injury (ASIA and ISCoS, revised 2019). Select Stop, or the model, to return to single muscles.</p>`);}
 /* labels for dermatome and myotome views */
 let LAB=[];
 function buildLabels(){LAB=[];labelsEl.innerHTML='';if(mode!=='derm'||!SKIN.lab)return;
@@ -122,11 +137,13 @@ async function init(){
   const [bp,bi,bpid,batt,mp,mi,mpid]=await Promise.all([buf('bone_pos.wasm',Float32Array),buf('bone_idx.wasm',Uint32Array),buf('bone_pid.wasm',Uint16Array),buf('bone_att.wasm',Uint8Array),buf('mus_pos.wasm',Float32Array),buf('mus_idx.wasm',Uint32Array),buf('mus_pid.wasm',Uint16Array)]);
   const bg=geom(bp,bi);bg.setAttribute('color',new THREE.BufferAttribute(new Float32Array(bp.length),3));bone=new THREE.Mesh(bg,new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.6}));bone.userData.pid=bpid;bone.userData.att=batt;root.add(bone);
   const mg=geom(mp,mi);mg.setAttribute('color',new THREE.BufferAttribute(new Float32Array(mp.length),3));mus=new THREE.Mesh(mg,new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.5,metalness:0.03}));mus.userData.pid=mpid;root.add(mus);
+  ROOT=root;RIG=await createRig(mus,bone,M.muscles);buildMoves();
   for(const j of M.joints){const s=new THREE.Mesh(new THREE.SphereGeometry(j.r,20,14),new THREE.MeshBasicMaterial({color:'#ffffff',transparent:true,opacity:0.6,depthTest:false}));s.position.set(j.p[0],j.p[1],j.p[2]);s.userData.k=j.k;s.renderOrder=5;root.add(s);joints.push(s);}
   root.updateMatrixWorld(true);$('#a3-load').remove();
   const rs=()=>{const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();};new ResizeObserver(rs).observe(stage);rs();
   view(Q.get('view')||'front',+Q.get('zoom')||0); if(Q.get('ty'))controls.target.y=+Q.get('ty'),view(Q.get('view')||'front',+Q.get('zoom')||0); if(Q.get('tx')){controls.target.x=+Q.get('tx');view(Q.get('view')||'front',+Q.get('zoom')||0);}
   setMode(mode);
+  if(Q.get('move')){playMove(Q.get('move'));if(Q.get('phase'))RIG.setFrac(+Q.get('phase'));}
   let down=null;renderer.domElement.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY];autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');});
   renderer.domElement.addEventListener('pointerup',e=>{if(down&&Math.hypot(e.clientX-down[0],e.clientY-down[1])<5)pick(e);down=null;});
   document.querySelectorAll('[data-a3mode]').forEach(b=>b.onclick=()=>setMode(b.dataset.a3mode));
@@ -134,7 +151,7 @@ async function init(){
   document.querySelectorAll('[data-a3view]').forEach(b=>b.onclick=()=>{autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');view(b.dataset.a3view);});
   $('#a3-spin').onclick=e=>{autoRot=!autoRot;e.currentTarget.setAttribute('aria-pressed',autoRot);};$('#a3-spin').setAttribute('aria-pressed',autoRot);
   $('#a3-ov').onclick=e=>{showOv=!showOv;e.currentTarget.setAttribute('aria-pressed',showOv);if(skin.visible)paintSkin();};$('#a3-ov').setAttribute('aria-pressed',showOv);$('#a3-lab').onclick=e=>{const b=e.currentTarget;b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true');};
-  (function loop(){controls.autoRotate=autoRot;controls.update();renderer.render(scene,camera);placeLabels();requestAnimationFrame(loop);})();
+  (function loop(){controls.autoRotate=autoRot;if(RIG)RIG.tick(performance.now());controls.update();renderer.render(scene,camera);placeLabels();requestAnimationFrame(loop);})();
   window.__a3ready=true;
 }
 init().catch(e=>{$('#a3-load').textContent='The 3D model could not be loaded: '+e.message;});
