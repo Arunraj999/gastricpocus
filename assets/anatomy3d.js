@@ -1,7 +1,7 @@
 import * as THREE from './vendor/three.module.min.js';
 import { OrbitControls } from './vendor/OrbitControls.js';
-import { createSkin } from './a3skin.js?v=66';
-import { createRig, MOVES } from './a3move.js?v=66';
+import { createSkin } from './a3skin.js?v=67';
+import { createRig, MOVES } from './a3move.js?v=67';
 const BASE='media/model3d/';
 const $=s=>document.querySelector(s);
 const stage=$('#a3-stage'), panel=$('#a3-info'), legend=$('#a3-legend'), labelsEl=$('#a3-labels');
@@ -44,12 +44,13 @@ function nervePalette(n){const a=[];for(let i=0;i<n;i++){const c=new THREE.Color
 let NCOL;
 function geom(pos,idx){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setIndex(new THREE.BufferAttribute(idx,1));g.computeVertexNormals();return g;}
 function paintSkin(){SKIN.paint(M.DN.map(n=>n?SK[n]:null),sel&&sel.kind==='skin'?sel.id:null);SKIN.U.uSoft.value=showOv?0.42:0;}
-function paintMus(){const pid=mus.userData.pid,c=mus.geometry.attributes.color.array;
-  for(let i=0;i<pid.length;i++){const r=M.mrow[pid[i]]; col.set(r<0?'#8A6F6F':DCOL[M.MT[r][0]]||'#B56A6A');
-    if((sel&&sel.kind==='mus'&&M.mrow[pid[i]]!==sel.row)||(sel&&sel.kind==='move'&&!sel.pids.has(pid[i]))){const g=(col.r+col.g+col.b)/3;col.setRGB(g*0.5+0.14,g*0.5+0.13,g*0.5+0.15);}
+function paintMus(){const pid=mus.userData.pid,c=mus.geometry.attributes.color.array,mv=sel&&sel.kind==='move';
+  for(let i=0;i<pid.length;i++){const p=pid[i],r=M.mrow[p];
+    if(mv){col.set(sel.pids.has(p)?'#D9352B':RIG.assist.has(p)?'#CF8173':'#86594F');}
+    else{col.set(r<0?'#8A6F6F':DCOL[M.MT[r][0]]||'#B56A6A');if(sel&&sel.kind==='mus'&&r!==sel.row){const g=(col.r+col.g+col.b)/3;col.setRGB(g*0.5+0.14,g*0.5+0.13,g*0.5+0.15);}}
     c[i*3]=col.r;c[i*3+1]=col.g;c[i*3+2]=col.b;} mus.geometry.attributes.color.needsUpdate=true;}
 function paintBone(){const a=bone.userData.att,c=bone.geometry.attributes.color.array,on=mode==='bone';for(let i=0;i<a.length;i++){col.set(on?M.BT[a[i]][2]:'#CFC6B4');if(on&&sel&&sel.kind==='bone'&&a[i]!==sel.id){const g=(col.r+col.g+col.b)/3;col.setRGB(g*0.5+0.16,g*0.5+0.16,g*0.5+0.18);}c[i*3]=col.r;c[i*3+1]=col.g;c[i*3+2]=col.b;}bone.geometry.attributes.color.needsUpdate=true;}
-function setMode(m){mode=m;sel=null;if(RIG){RIG.stop();markMove(null);}const mv=$('#a3-moves');if(mv)mv.style.display=m==='myo'?'':'none';
+function setMode(m){mode=m;sel=null;if(RIG){RIG.stop();markMove(null);clearMove();}const mv=$('#a3-moves');if(mv)mv.style.display=m==='myo'?'':'none';
   document.querySelectorAll('[data-a3mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.a3mode===m));
   skin.visible=(m==='derm'||m==='nerve'); mus.visible=(m==='myo'); bone.visible=(m==='myo'||m==='bone'); joints.forEach(j=>j.visible=(m==='bone'));
   paintBone();
@@ -98,7 +99,7 @@ function boneInfo(p,vi){const n=M.bones[p],t=M.BT[bone.userData.att[vi]];info(`<
 function pick(ev){const r=renderer.domElement.getBoundingClientRect();const p=new THREE.Vector2(((ev.clientX-r.left)/r.width)*2-1,-((ev.clientY-r.top)/r.height)*2+1);ray.setFromCamera(p,camera);
   if(mode==='bone'){const hj=ray.intersectObjects(joints)[0];if(hj){sel={kind:'joint'};paintBone();joints.forEach(j=>j.material.opacity=j===hj.object?0.95:0.45);jointInfo(hj.object.userData.k);return;}
     const hb=ray.intersectObject(bone)[0];if(hb){sel={kind:'bone',id:bone.userData.att[hb.face.a]};joints.forEach(j=>j.material.opacity=0.6);paintBone();boneInfo(bone.userData.pid[hb.face.a],hb.face.a);}else{sel=null;paintBone();info(null);}return;}
-  if(mode==='myo'){if(RIG&&RIG.active()){RIG.stop();markMove(null);sel=null;paintMus();info(null);return;}const h=ray.intersectObject(mus)[0];if(!h){sel=null;paintMus();info(null);return;}const p=mus.userData.pid[h.face.a];sel={kind:'mus',row:M.mrow[p]};paintMus();musInfo(p);return;}
+  if(mode==='myo'){if(RIG&&RIG.active()){RIG.stop();markMove(null);clearMove();sel=null;paintMus();info(null);return;}const h=ray.intersectObject(mus)[0];if(!h){sel=null;paintMus();info(null);return;}const p=mus.userData.pid[h.face.a];sel={kind:'mus',row:M.mrow[p]};paintMus();musInfo(p);return;}
   const h=ray.intersectObject(skin)[0];if(!h){sel=null;paintSkin();info(null);return;}
   const hi=SKIN.hit(h);sel={kind:'skin',id:hi.cls};paintSkin();skinInfo(hi);}
 
@@ -106,15 +107,29 @@ function markMove(id){document.querySelectorAll('[data-a3move]').forEach(b=>b.se
 function trx(t){let l='en';try{l=JSON.parse(localStorage.getItem('nora2.lang'))||'en';}catch(e){}const i=['fr','es','de','it','tr','sv','ta'].indexOf(l),d=window.NORA_TEXT&&window.NORA_TEXT[t];return i>=0&&d&&d[i]?d[i]:t;}
 function buildMoves(){const el=$('#a3-moves');if(!el)return;el.innerHTML='<span class="a3-maplab">'+trx('Key movements:')+'</span>'+MOVES.map(m=>`<button class="btn" data-a3move="${m.id}" aria-pressed="false"><b>${m.root}</b> ${trx(m.name)}</button>`).join('')+'<button class="btn" data-a3move="" aria-pressed="false">'+trx('Stop')+'</button>';
   el.querySelectorAll('[data-a3move]').forEach(b=>b.onclick=()=>playMove(b.dataset.a3move));}
-function playMove(id){if(mode!=='myo')setMode('myo');const m=MOVES.find(x=>x.id===id);autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');
+let arcG=null,MLAB=[];const _v=new THREE.Vector3();
+function clearMove(){if(arcG){ROOT.remove(arcG);arcG.traverse(o=>{if(o.geometry)o.geometry.dispose();});arcG=null;}MLAB.forEach(l=>l.el.remove());MLAB=[];const h=$('#a3-hud');if(h)h.style.display='none';}
+function playMove(id){if(mode!=='myo')setMode('myo');const m=MOVES.find(x=>x.id===id);autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');clearMove();
   if(!m){RIG.stop();markMove(null);sel=null;paintMus();info(null);return;}
   const pids=RIG.select(id,performance.now());sel={kind:'move',pids};paintMus();markMove(id);
   const t=RIG.focus(m,ROOT);controls.target.copy(t);camera.position.set(t.x+m.cam[0]*m.cam[3],t.y+m.cam[1]*m.cam[3],t.z+m.cam[2]*m.cam[3]);controls.update();
-  const rows=[],seen=new Set();pids.forEach(p=>{const r=M.mrow[p];if(r<0)return;const t=M.MT[r],nm=M.muscles[p].replace(/\b(right|left) /,'').replace(/^(long|short|lateral|medial) head of /,'');const k=nm+t[1]+t[2];if(seen.has(k))return;seen.add(k);rows.push(`<tr><td><b>${nm[0].toUpperCase()+nm.slice(1)}</b><br><small>${t[2]}</small></td><td>${t[1]}</td></tr>`);});
-  info(`<p class="a3-where">ASIA key movement · right side shown</p><h3>${chip(m.root,DCOL[m.root]||'#B56A6A')} ${m.name}</h3><p><b>Key muscles:</b> ${m.key}.</p>
+  const pts=RIG.arc(m);if(pts&&pts.length>2){arcG=new THREE.Group();const mat=new THREE.MeshBasicMaterial({color:'#F4B63F',transparent:true,opacity:0.92,depthTest:false});
+    const tube=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),56,3.0,8,false),mat);tube.renderOrder=9;arcG.add(tube);
+    const a=pts[pts.length-1],b=pts[pts.length-2],dir=a.clone().sub(b).normalize(),cone=new THREE.Mesh(new THREE.ConeGeometry(9.5,26,16),mat);cone.position.copy(a).addScaledVector(dir,9);cone.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir);cone.renderOrder=9;arcG.add(cone);ROOT.add(arcG);}
+  for(const an of RIG.anchors){const el=document.createElement('span');el.className='a3-ml'+(an.prime?'':' a3-as');el.textContent=an.name;labelsEl.appendChild(el);MLAB.push({el,an});}
+  const h=$('#a3-hud');if(h){h.style.display='';h.innerHTML=`<b>${m.root}</b><span>${trx(m.name)}</span><i id="a3-ang"></i><small>${m.group} · ${m.comp}</small>`;}
+  const row=(p,tag)=>{const r=M.mrow[p];if(r<0)return '';const t=M.MT[r],nm=M.muscles[p].replace(/\b(right|left) /,'').replace(/^(long|short|lateral|medial|radial|humeroulnar|humeral|ulnar) head of /,'');return [nm+t[1]+t[2],`<tr><td><b>${nm[0].toUpperCase()+nm.slice(1)}</b>${tag}<br><small>${t[2]}</small></td><td>${t[1]}</td></tr>`];};
+  const rows=[],seen=new Set();for(const [set,tag] of [[pids,''],[RIG.assist,' <small>(assists)</small>']])set.forEach(p=>{const r=row(p,tag);if(!r||seen.has(r[0]))return;seen.add(r[0]);rows.push(r[1]);});
+  info(`<p class="a3-where">ASIA key movement · right side shown</p><h3>${chip(m.root,DCOL[m.root]||'#B56A6A')} ${m.name}</h3>
+  <p><b>Muscle group:</b> ${m.group} (${m.comp}).</p><p><b>Tested as:</b> ${m.key}.</p>
   <table class="a3-t"><tr><td><small>Working muscle and nerve</small></td><td><small>Roots</small></td></tr>${rows.join('')}</table>
-  <p class="a3-ov">The glowing muscles are the prime movers. Each is supplied by more than one root; ${m.root} is the level this movement is used to test.</p>
+  <p><b>Opposing group:</b> ${m.anta}.</p>
+  <p class="a3-ov">Bright red muscles are the prime movers and lighter red ones assist. Each is supplied by more than one root; ${m.root} is the level this movement is used to test.</p>
   <p class="a3-src">Key movements and testing level: International Standards for Neurological Classification of Spinal Cord Injury (ASIA and ISCoS, revised 2019). Select Stop, or the model, to return to single muscles.</p>`);}
+function placeMove(){if(!MLAB.length&&!RIG.active())return;const w=stage.clientWidth,h=stage.clientHeight,pl=[];
+  for(const l of MLAB){RIG.posed(l.an,_v).applyMatrix4(ROOT.matrixWorld).project(camera);pl.push({l,x:(_v.x+1)/2*w,y:(1-_v.y)/2*h,ok:_v.z<1});}
+  pl.sort((a,b)=>a.y-b.y);let last=-1e9;for(const q of pl){if(q.y<last+24)q.y=last+24;last=q.y;q.l.el.style.left=Math.min(q.x,w-150)+'px';q.l.el.style.top=q.y+'px';q.l.el.style.display=q.ok?'':'none';}
+  const a=$('#a3-ang');if(a)a.textContent=Math.round(Math.abs(RIG.state.angle))+'°';}
 /* labels for dermatome and myotome views */
 let LAB=[];
 function buildLabels(){LAB=[];labelsEl.innerHTML='';if(mode!=='derm'||!SKIN.lab)return;
@@ -151,7 +166,7 @@ async function init(){
   document.querySelectorAll('[data-a3view]').forEach(b=>b.onclick=()=>{autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');view(b.dataset.a3view);});
   $('#a3-spin').onclick=e=>{autoRot=!autoRot;e.currentTarget.setAttribute('aria-pressed',autoRot);};$('#a3-spin').setAttribute('aria-pressed',autoRot);
   $('#a3-ov').onclick=e=>{showOv=!showOv;e.currentTarget.setAttribute('aria-pressed',showOv);if(skin.visible)paintSkin();};$('#a3-ov').setAttribute('aria-pressed',showOv);$('#a3-lab').onclick=e=>{const b=e.currentTarget;b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true');};
-  (function loop(){controls.autoRotate=autoRot;if(RIG)RIG.tick(performance.now());controls.update();renderer.render(scene,camera);placeLabels();requestAnimationFrame(loop);})();
+  (function loop(){controls.autoRotate=autoRot;if(RIG)RIG.tick(performance.now());controls.update();renderer.render(scene,camera);placeLabels();if(RIG&&RIG.active())placeMove();requestAnimationFrame(loop);})();
   window.__a3ready=true;
 }
 init().catch(e=>{$('#a3-load').textContent='The 3D model could not be loaded: '+e.message;});
