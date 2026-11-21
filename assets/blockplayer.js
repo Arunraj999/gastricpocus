@@ -139,8 +139,102 @@
         { say: "Finding the right level is the skill in this block. Open Probe level, above the image, to see the view when the probe is too high or too low.", flash: 1, hold: 5200 },
         { say: "Now try it yourself: drag the needle, change the current, and see what happens off target.", hold: 3200 }
       ]
+    },
+    suprascapular: {
+      title: "Suprascapular nerve block: posterior approach in the supraspinous fossa",
+      entry: [640, 60], target: [359, 335], mm: 0.125, ori: ["Lateral", "Medial"],
+      scanTitle: "Sonoanatomy in the supraspinous fossa", altLabel: "Approach", alts: [["suprascapular", "Posterior: supraspinous fossa"], ["suprascapularant", "Anterior: under omohyoid"]],
+      recLab: { strong: ["Named in the technique", "technique"], weak: ["Worth finding", "worth finding"] },
+      fascia: [
+        { id: "inv", n: "Fascia over trapezius", d: "M0 70C200 64 440 64 640 72", t: "The first layer under the subcutaneous tissue. Trapezius lies directly beneath it." },
+        { id: "pre", n: "Fascia of supraspinatus", d: "M0 298C150 316 280 324 380 322C470 318 560 306 640 294", t: "The deep fascia of supraspinatus, just above the bone. The nerve and artery run beneath it. On early scans this bright line was taken for the transverse scapular ligament." }
+      ],
+      shapes: [
+        { id: "tra", t: "muscle", n: "Trapezius", l: "TRAP", k: "path", d: "M0 70C200 64 440 64 640 72V120C440 112 200 114 0 124Z", lx: 150, ly: 102, rec: "strong", x: "The thin superficial muscle. Accessory nerve (cranial nerve XI); it lifts and steadies the scapula." },
+        { id: "ssp", t: "muscle", n: "Supraspinatus", l: "SSP", k: "path", d: "M0 130C200 120 440 118 640 126V294C560 306 470 318 380 322C280 324 150 316 0 298Z", lx: 170, ly: 222, rec: "strong", x: "Fills the supraspinous fossa. Supplied by the suprascapular nerve; it starts abduction of the shoulder. The needle passes through it to reach the floor of the fossa." },
+        { id: "floor", t: "bone", n: "Floor of the supraspinous fossa", l: "SCAPULA", k: "path", d: "M0 318C150 338 290 348 380 346C470 342 560 328 640 314V400H0Z", cortex: "M0 318C150 338 290 348 380 346C470 342 560 328 640 314", lx: 470, ly: 376, rec: "strong", x: "A bright concave line with a dark shadow beneath: the scapula, between the suprascapular notch and the spinoglenoid notch. This line, and not the notch itself, is what the scan shows.", c: 3 },
+        { id: "ssn", t: "nerve", n: "Suprascapular nerve", l: "SSN", k: "circle", cx: 330, cy: 334, r: 9, lx: 330, ly: 310, rec: "strong", target: 1, bright: 1, m: "Supraspinatus and infraspinatus", s: "Shoulder abducts and turns outwards", sup: ["ssn", "hl=supraspinatus%7Cinfraspinatus&hv=-0.35,0.3,-0.9&hg=1", "Supraspinatus and infraspinatus, in red, seen from behind."], x: "A small bright oval on the floor of the fossa, beneath the fascia of supraspinatus and beside its artery. It is often hard to make out at this depth: in volunteers it was identified with certainty in 36% of scans here.", c: 2 },
+        { id: "ssa", t: "artery", n: "Suprascapular artery", l: "SSA", k: "circle", cx: 304, cy: 335, r: 7, lx: 284, ly: 312, avoid: 1, rec: "strong", x: "Runs beneath the fascia beside the nerve. Colour Doppler finds it more easily than the nerve and marks the place to inject.", c: 3 }
+      ],
+      groove: "M0 296H640V352H0Z",
+      zones: {
+        air: ["Above the skin", "The needle has not entered yet. Insert it at the medial end of the probe, in plane."],
+        subcut: ["Skin and subcutaneous tissue", "The first layer. Trapezius lies beneath."],
+        tri: ["Between the muscle layers", "The thin plane between trapezius and supraspinatus. An injection here does not reach the nerve."],
+        groove: ["Beneath the fascia of supraspinatus, on the floor of the fossa", "The space between the fascia and the bone, where the nerve and artery run. This is where the local anaesthetic should go."],
+        deep: ["Bone", "The needle cannot pass the scapula."]
+      },
+      zoneNote: { floor: ["warn", "Bone: the tip is on the floor of the fossa. Withdraw a millimetre and inject beneath the fascia. "] },
+      wrongNote: "Redirect towards the floor of the fossa.",
+      targetNote: "This is the target: through the fascia of supraspinatus, on the floor of the fossa, beside the nerve and away from the artery.",
+      la: { "in": [338, 335, 84, 12] },
+      consensus: "No consensus list has been published for this block. These are the structures named in the published ultrasound technique.",
+      refs: { stim: 24, sens: 25, press: 26, cons: 3, where: 12 }, avoidNote: "Find the artery with colour Doppler before the needle goes in. The pleura is not in this picture, but it lies in front of the scapula: a needle that slips forwards off the bone at the notch is heading for the chest.",
+      inj: {
+        skin: "A skin wheal only. The nerve lies beneath two muscles, on the bone.",
+        tri: "The fluid spreads between trapezius and supraspinatus. It does not reach the nerve.", triZ: [],
+        z: { tra: ["The fluid swells inside trapezius. The nerve lies beneath the next muscle, on the bone.", 26, 9], ssp: ["The fluid swells inside supraspinatus, above its deep fascia. Advance until the tip is through the fascia and resting on the floor of the fossa.", 24, 13], floor: ["The tip is against bone and the injection is tight. Withdraw a millimetre.", 9, 5] },
+        deep: "The needle cannot pass the bone.",
+        good: { "in": "The fluid spreads along the floor of the fossa beneath the fascia, lifts the muscle off the bone and surrounds the nerve." },
+        tail: "In cadavers, 10 mL placed by this approach stained the nerve in 11 of 14 shoulders and did not reach the phrenic nerve in any.",
+        refuse: "In a study at the interscalene roots, opening injection pressure reached 15 psi or more in 35 of 36 injections with the needle touching a root; 1 mm away it stayed below 15 psi."
+      },
+      steps: [
+        { to: 14, say: "The needle enters at the medial end of the probe, in plane, and appears in the subcutaneous tissue." },
+        { to: "tra+16", say: "Through trapezius, the thin superficial muscle.", hold: 2400 },
+        { to: "ssp+70", say: "Into supraspinatus. The nerve is at the bottom of this muscle, about 3.5 cm from the skin, so the needle path is steep and the tip is harder to follow.", hold: 3200 },
+        { to: "pre+3", pre: "Through the ", fas: "pre", hold: 3400 },
+        { to: "L-2", say: "The tip rests on the floor of the fossa beneath the fascia. With the stimulator at 1.0 mA the shoulder abducts and turns outwards.", on: 1, ma: 1, hold: 3000 },
+        { say: "Turn the current down. At 0.5 mA the twitch fades.", ma: 0.5, hold: 2400 },
+        { to: "L+7", say: "Advance a millimetre along the bone. The twitch returns at 0.5 mA: the tip is close.", hold: 2400 },
+        { say: "Down to 0.2 mA. No twitch: the tip is not inside the nerve.", ma: 0.2, hold: 2800 },
+        { say: "Inject against low pressure. The fluid spreads along the bone under the fascia.", inject: 1, hold: 3800 },
+        { say: "There is a second way to this nerve. Open Approach, above the image, to see it under omohyoid in the neck, where it is shallow and easier to see.", hold: 5200 },
+        { say: "Now try it yourself: drag the needle, change the current, and see what happens off target.", hold: 3200 }
+      ]
     }
   };
+  /* anterior (subomohyoid) approach to the suprascapular nerve: the superior trunk scene at the level where the nerve has left the trunk */
+  DATA.suprascapularant = (function () {
+    var s = JSON.parse(JSON.stringify(DATA.superiortrunk)), by = {}; s.shapes.forEach(function (q) { by[q.id] = q; });
+    s.title = "Suprascapular nerve block: anterior approach under omohyoid"; s.scanTitle = "Sonoanatomy under omohyoid"; s.target = [484, 166];
+    s.altLabel = "Approach"; s.alts = [["suprascapular", "Posterior: supraspinous fossa"], ["suprascapularant", "Anterior: under omohyoid"]]; delete s.variants; delete s.varLabel; delete s.varRef;
+    s.shapes = s.shapes.filter(function (q) { return q.id !== "c5" && q.id !== "c6"; });
+    by.ssn.hide = 0; by.ssn.target = 1; by.ssn.rec = "strong"; by.ssn.c = 1; by.ssn.x = "A small dark circle under omohyoid, lateral to the brachial plexus. In volunteers it lay at a median depth of 8 mm and was identified in 81% of scans, against 36% in the supraspinous fossa.";
+    by.st.target = 0; by.st.wrong = 1; by.st.rec = "weak"; by.st.a = [378, 174, 11.5]; by.st.b = [400, 174, 11.5]; by.st.sheath = [389, 174, 27, 16]; by.st.cx = 389; by.st.cy = 174; by.st.c = 16;
+    by.st.wn = "Too medial: this is the brachial plexus. Withdraw to the lateral side of the suprascapular nerve."; by.st.x = "The suprascapular nerve has just left its lateral side. Local anaesthetic placed here can track back to the trunk: in cadavers 5 mL stained it in 9 of 10 injections.";
+    by.omo.rec = "strong"; by.omo.c = 1; by.omo.x = "The landmark for this approach. The suprascapular nerve runs laterally beneath this thin strap muscle."; by.tca.c = 0; by.msm.c = 0; by.msm.x = "The nerve runs over its surface. The needle stays superficial to this muscle."; by.mt.x = "Deeper, between the scalene muscles. It is not the target."; by.dsn.c = 0; by.dsn.x = "Runs through the middle scalene, below the needle path of this approach."; by.ltn.c = 0;
+    by.phr.c = 15; by.phr.x = "On the front of the anterior scalene, under the same fascia. With this approach and an axillary nerve block, 10 mL on each nerve, the diaphragm was paralysed in 40% of patients."; by.phr.wn = "Withdraw to the lateral side of the suprascapular nerve.";
+    s.zones.groove = ["Under omohyoid, beside the suprascapular nerve", "Between the fascia and the surface of the middle scalene, lateral to the brachial plexus. This is where the local anaesthetic should go."];
+    s.zoneNote.asm = ["warn", "Far too medial: you have passed the brachial plexus. Withdraw. "]; s.zoneNote.msm = ["warn", "Too deep: the tip has entered the muscle beneath the nerve. Withdraw until it lies on the surface. "];
+    s.zones.tri = ["Posterior triangle, between the two fascial layers", "Fat and loose tissue under the investing layer, with omohyoid and the supraclavicular nerves. An injection here does not reach the nerve."];
+    s.inj.z.asm = ["The fluid swells inside the anterior scalene, next to the phrenic nerve. Withdraw to the lateral side of the suprascapular nerve.", 20, 15];
+    s.wrongNote = "Withdraw to the lateral side of the suprascapular nerve.";
+    s.targetNote = "This is the target: under omohyoid and the fascia, beside the lateral border of the suprascapular nerve.";
+    s.la = { "in": [470, 166, 34, 17] };
+    s.consensus = "No consensus list has been published for this block. These are the structures named in the published descriptions of the anterior approach.";
+    s.refs = { stim: 24, sens: 25, press: 26, cons: 1, where: 16 };
+    s.avoidNote = "Before the needle goes in, find and name these. The brachial plexus lies just medial to the nerve, and the phrenic nerve beyond it.";
+    s.inj.skin = "A skin wheal only. The nerve lies under omohyoid, two fascial layers deeper.";
+    s.inj.tri = "The fluid spreads above the fascia, around omohyoid. It does not reach the nerve.";
+    s.inj.z.msm = ["The fluid swells inside the middle scalene, deep to the nerve. Withdraw until the tip lies on the surface of the muscle.", 22, 15];
+    s.inj.medial = [440, "The fluid is between the nerve and the brachial plexus. From here it reaches the trunk, and the phrenic nerve beyond it, more easily."];
+    s.inj.good = { "in": "The fluid spreads under omohyoid and surrounds the nerve." };
+    s.inj.tail = "In cadavers, 5 mL placed here stained the suprascapular nerve in 9 of 10 injections, the superior trunk in 9 of 10 and the phrenic nerve in 2 of 10.";
+    s.steps = [
+      { to: 14, say: "The needle enters at the lateral edge of the probe, in plane, and appears in the subcutaneous tissue." },
+      { to: "inv+3", fas: "inv", hold: 2600 },
+      { to: "pre+3", pre: "Beneath omohyoid, then the ", fas: "pre", hold: 3200 },
+      { to: "L-2", say: "The tip nears the lateral side of the nerve, under omohyoid. With the stimulator at 1.0 mA the shoulder abducts and turns outwards.", on: 1, ma: 1, hold: 3000 },
+      { say: "Turn the current down. At 0.5 mA the twitch fades.", ma: 0.5, hold: 2400 },
+      { to: "L+7", say: "Advance a millimetre. The twitch returns at 0.5 mA: the tip is close.", hold: 2400 },
+      { say: "Down to 0.2 mA. No twitch: the tip is not inside the nerve.", ma: 0.2, hold: 2800 },
+      { say: "Inject a small volume against low pressure. The fluid surrounds the nerve under omohyoid.", inject: 1, hold: 3800 },
+      { say: "The brachial plexus is a few millimetres away, and the phrenic nerve beyond it. That is the price of the easier view. Open Approach, above the image, to compare the posterior route.", hold: 5600 },
+      { say: "Now try it yourself: drag the needle, change the current, and see what happens off target.", hold: 3200 }
+    ];
+    return s;
+  })();
   var esc = function (s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); };
   function shapeSvg(s, st) {
     st = st ? ' style="' + st + '"' : "";
@@ -203,7 +297,7 @@
     return c.toDataURL("image/jpeg", 0.86);
   }
   function mount(el) {
-    var B0 = DATA[el.getAttribute("data-block")]; if (!B0) return; var B = JSON.parse(JSON.stringify(B0)), VI = +(el.getAttribute("data-var") || 0), VV = B.variants && B.variants[VI];
+    var B0 = DATA[el.getAttribute("data-block")]; if (!B0) return; var MM = B0.mm || 0.0952, PC = 10 / MM; var B = JSON.parse(JSON.stringify(B0)), VI = +(el.getAttribute("data-var") || 0), VV = B.variants && B.variants[VI];
     if (VV && VV.set) B.shapes.forEach(function (s) { var o = VV.set[s.id], k; if (o) for (k in o) s[k] = o[k]; });
     B.shapes = B.shapes.filter(function (s) { return !s.hide; });
     B.shapes.forEach(function (s) { if (s.sheath) s.fas = s.k === "duo" ? [s.a, s.b] : [[s.cx, s.cy, s.r]]; });
@@ -230,14 +324,15 @@
       '<g class="bp-lbl">' + B.shapes.map(function (s) { return '<text x="' + s.lx + '" y="' + s.ly + '" text-anchor="middle">' + s.l + "</text>"; }).join("") + "</g>" +
       '<g class="bp-ndl"><g class="ndl-us" clip-path="url(#' + u + 'v)"><g class="nx"><path class="rv r3" d="M70 15H830"/><path class="rv r2" d="M40 10H830"/><path class="rv r1" d="M22 5H830"/><path class="ln" d="M2 0H830"/><path class="eg" d="M15 0H31M37 0H53"/><path d="M0 .8L9.5 -2.4V2.4Z" fill="#fff"/></g></g>' +
       '<g class="ndl-an" clip-path="url(#' + u + 'w)"><g class="nx"><rect x="10.5" y="-3" width="820" height="6" fill="url(#' + u + 's)"/><rect x="15" y="-3" width="16" height="6" fill="url(#' + u + 'e)"/><rect x="37" y="-3" width="16" height="6" fill="url(#' + u + 'e)"/>' +
-      [1, 2, 3, 4, 5, 6, 7].map(function (k) { return '<path d="M' + (k * 105) + ' -3v6" stroke="#20242a" stroke-width="1.6"/><path d="M' + (k * 105 - 52.5) + ' -3v3" stroke="#20242a" stroke-width=".9"/>'; }).join("") +
+      [1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (k) { return '<path d="M' + (k * PC) + ' -3v6" stroke="#20242a" stroke-width="1.6"/><path d="M' + (k * PC - PC / 2) + ' -3v3" stroke="#20242a" stroke-width=".9"/>'; }).join("") +
       '<path d="M10.5 -1.9H830" stroke="rgba(255,255,255,.6)" stroke-width=".8"/><path d="M0 .8L10.5 -3V3Z" fill="#DCE2E8" stroke="#59616b" stroke-width=".6"/><ellipse cx="6.8" cy="-.4" rx="2.9" ry="1" transform="rotate(-20 6.8 -.4)" fill="#30363d"/></g></g>' +
       '<g class="nx"><circle class="pulse" r="0"/></g></g>' +
       '<text class="ori" x="8" y="20">' + ORI[0] + '</text><text class="ori" x="632" y="20" text-anchor="end">' + ORI[1] + '</text><circle cx="12" cy="34" r="5" fill="#FFC61A"/>' +
-      [1, 2, 3].map(function (c) { return '<path d="M630 ' + (46 + c * 105) + 'h10" stroke="#fff" stroke-width="1.5"/><text class="ori" x="626" y="' + (50 + c * 105) + '" text-anchor="end">' + c + " cm</text>"; }).join("") +
+      [1, 2, 3, 4].filter(function (c) { return 46 + c * PC < 392; }).map(function (c) { return '<path d="M630 ' + (46 + c * PC) + 'h10" stroke="#fff" stroke-width="1.5"/><text class="ori" x="626" y="' + (50 + c * PC) + '" text-anchor="end">' + c + " cm</text>"; }).join("") +
       '<text class="bp-twitch" x="320" y="30" text-anchor="middle"></text></svg>';
     el.classList.add("bp");
     el.innerHTML = '<div class="bp-bar" role="toolbar" aria-label="View"><span>View</span><button data-v="0" aria-pressed="true">Ultrasound</button><button data-v="50" aria-pressed="false">Half and half</button><button data-v="100" aria-pressed="false">Anatomy</button><input type="range" min="0" max="100" value="0" class="bp-wipe" aria-label="Wipe between ultrasound and anatomy"><button data-a="labels" aria-pressed="true">Labels</button><button data-a="tint" aria-pressed="false">Colour the structures</button><button data-a="avoid" aria-pressed="false">Structures to avoid</button><button data-a="test" aria-pressed="false">Test me</button><button data-a="play" class="bp-play">Play the block</button><button data-a="reset">Reset</button></div>' +
+      (B.alts ? '<div class="bp-var bp-alt"><span>' + esc(B.altLabel || "Approach") + '</span>' + B.alts.map(function (q) { return '<button data-alt="' + q[0] + '" aria-pressed="' + (q[0] === el.getAttribute("data-block")) + '">' + esc(q[1]) + "</button>"; }).join("") + "</div>" : "") +
       (B.variants ? '<div class="bp-var"><span>' + esc(B.varLabel || "Variations") + '</span>' + B.variants.map(function (v, i) { return '<button data-var="' + i + '" aria-pressed="' + (i === VI) + '">' + esc(v.n) + (v.f ? " <b>" + v.f + "</b>" : "") + "</button>"; }).join("") + '<p class="bp-varn">' + esc(VV.t) + cite(B.varRef) + "</p></div>" : "") +
       '<div class="bp-main"><div class="bp-stage">' + svg + '<p class="bp-hint">Drag anywhere on the image to steer the needle tip. Arrow keys also work: left and right advance and withdraw, up and down change the angle.</p></div>' +
       '<div class="bp-side"><div class="bp-card bp-where" aria-live="polite"></div>' +
@@ -375,6 +470,8 @@
     sv.setAttribute("tabindex", "0");
     el.addEventListener("click", function (ev) { var b = ev.target.closest("button"); if (!b) return;
       if (b.hasAttribute("data-pick")) { pick(b.getAttribute("data-pick")); return; }
+      if (b.hasAttribute("data-alt")) { S.play = 0; var to = b.getAttribute("data-alt"), ids = B.alts.map(function (q) { return q[0]; });
+        [].forEach.call(document.querySelectorAll(".block-player"), function (pl) { if (ids.indexOf(pl.getAttribute("data-block")) < 0) return; var nn = pl.cloneNode(false); nn.className = "block-player"; nn.setAttribute("data-block", to); nn.removeAttribute("data-var"); pl.parentNode.replaceChild(nn, pl); mount(nn); }); return; }
       if (b.hasAttribute("data-var")) { S.play = 0; var nn = el.cloneNode(false); nn.className = "block-player"; nn.setAttribute("data-var", b.getAttribute("data-var")); el.parentNode.replaceChild(nn, el); mount(nn); return; }
       if (b.hasAttribute("data-v")) setView(b.getAttribute("data-v"));
       else if (b.hasAttribute("data-c")) { stop(); S.on = true; S.ma = Math.max(0.1, Math.min(2, Math.round((S.ma + +b.getAttribute("data-c")) * 10) / 10)); draw(); }
