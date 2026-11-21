@@ -35,6 +35,12 @@
         groove: ["Interscalene groove, among the roots", "Deep to the prevertebral layer, between the scalene muscles. You have passed the inner edge of the middle scalene: the tip is now inside the sheath."],
         deep: ["Deep to the scalene muscles", "Too deep. The vertebral artery and the transverse process lie here."]
       },
+      variants: [
+        { n: "Usual arrangement", f: "60%", t: "C5, C6 and C7 run between the anterior and middle scalene. This textbook arrangement was found in only 60% of sides in 51 cadavers." },
+        { n: "C5 and C6 through anterior scalene", f: "15%", t: "C5 and C6 join and pierce the belly of the anterior scalene together. The groove looks empty: look for the dark circles inside the anterior scalene, medial to where you expect them. In a further 6% the two roots pierce the muscle separately.", set: { c5: { cx: 298, cy: 170, lx: 298, ly: 174 }, c6: { a: [308, 206, 15], b: [311, 235, 15], cx: 310, cy: 221, lx: 309, ly: 225 } } },
+        { n: "C5 alone through anterior scalene", f: "13%", t: "C5 alone runs through the belly of the anterior scalene. The top circle of the stoplight is missing from the groove: look inside the muscle, medial to C6.", set: { c5: { cx: 300, cy: 176, lx: 300, ly: 180 } } },
+        { n: "C5 in front of anterior scalene", f: "3%", t: "C5 lies completely in front of the anterior scalene, where the phrenic nerve usually runs.", set: { c5: { cx: 216, cy: 152, r: 12, lx: 216, ly: 156 } } }
+      ], varRef: 28,
       targetNote: "This is the target: at the inner edge of the middle scalene, beside C5.",
       la: { "in": [360, 186, 24, 52], ex: [388, 186, 16, 46] },
       consensus: "Core structures for the block view by international consensus: anterior scalene, middle scalene, C5 root and C6 root. Sternocleidomastoid, the C7 root and the upper trunk carry a weaker recommendation.",
@@ -48,6 +54,34 @@
     if (s.k === "duo") return '<circle class="shape"' + st + ' cx="' + s.a[0] + '" cy="' + s.a[1] + '" r="' + s.a[2] + '"/><circle class="shape"' + st + ' cx="' + s.b[0] + '" cy="' + s.b[1] + '" r="' + s.b[2] + '"/>';
     if (s.k === "ellipse") return '<ellipse class="shape"' + st + ' cx="' + s.cx + '" cy="' + s.cy + '" rx="' + s.rx + '" ry="' + s.ry + '"/>';
     return '<path class="shape"' + st + ' d="' + s.d + '"/>' + (s.cortex ? '<path class="cortex" d="' + s.cortex + '"/>' : "");
+  }
+  function pathOf(s) { if (s.k === "path") return new Path2D(s.d); var p = new Path2D(); if (s.k === "circle") p.arc(s.cx, s.cy, s.r, 0, 6.2832); else if (s.k === "duo") { p.arc(s.a[0], s.a[1], s.a[2], 0, 6.2832); p.moveTo(s.b[0] + s.b[2], s.b[1]); p.arc(s.b[0], s.b[1], s.b[2], 0, 6.2832); } else p.ellipse(s.cx, s.cy, s.rx, s.ry, 0, 0, 6.2832); return p; }
+  function paintAN(B, bb) {
+    var W = 640, H = 400, K = 2, c = document.createElement("canvas"); c.width = W * K; c.height = H * K; var g = c.getContext("2d"); g.scale(K, K);
+    var seed = 5, R = function () { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; }, of = function (t) { return B.shapes.filter(function (s) { return s.t === t; }); }, i, x, y, r, n;
+    var blob = function (x, y, r, fill, line) { g.beginPath(); g.ellipse(x, y, r, r * (0.62 + R() * 0.38), R() * 3.1, 0, 6.2832); g.fillStyle = fill; g.fill(); if (line) { g.strokeStyle = line; g.lineWidth = 0.6; g.stroke(); } };
+    g.fillStyle = "#DDB564"; g.fillRect(0, 0, W, H);                                   /* fat and loose tissue: lobules */
+    for (i = 0; i < 1500; i++) blob(R() * W, 46 + R() * (H - 46), 3.5 + R() * 8, "hsl(" + (38 + R() * 9).toFixed(0) + "," + (60 + R() * 20).toFixed(0) + "%," + (60 + R() * 16).toFixed(0) + "%)", "rgba(140,96,36,.28)");
+    g.fillStyle = "#C08A68"; g.fillRect(0, 46, W, 8); g.fillStyle = "#EBC0A2"; g.fillRect(0, 46, W, 3);  /* skin */
+    of("muscle").forEach(function (s) { var p = pathOf(s), b = bb(s); g.save(); g.clip(p); g.fillStyle = "#6E1814"; g.fillRect(b.x, b.y, b.width, b.height); n = b.width * b.height / 24;
+      for (i = 0; i < n; i++) blob(b.x + R() * b.width, b.y + R() * b.height, 2.4 + R() * 3.4, "hsl(" + (2 + R() * 8).toFixed(0) + "," + (56 + R() * 18).toFixed(0) + "%," + (31 + R() * 15).toFixed(0) + "%)");   /* fascicles */
+      for (i = 0; i < n / 16; i++) { x = b.x + R() * b.width; y = b.y + R() * b.height; g.strokeStyle = "rgba(250,222,205,.3)"; g.lineWidth = 0.7 + R(); g.beginPath(); g.moveTo(x, y); g.quadraticCurveTo(x + (R() - 0.5) * 44, y + (R() - 0.5) * 44, x + (R() - 0.5) * 76, y + (R() - 0.5) * 76); g.stroke(); }  /* perimysium */
+      [[34, 0.16], [22, 0.2], [11, 0.26]].forEach(function (q) { g.strokeStyle = "rgba(38,4,4," + q[1] + ")"; g.lineWidth = q[0]; g.stroke(p); });   /* rounded belly */
+      var lg = g.createLinearGradient(b.x, b.y, b.x + b.width * 0.55, b.y + b.height); lg.addColorStop(0, "rgba(255,205,185,.3)"); lg.addColorStop(0.55, "rgba(255,255,255,0)"); g.fillStyle = lg; g.fillRect(b.x, b.y, b.width, b.height);
+      g.restore(); g.strokeStyle = "rgba(60,20,10,.45)"; g.lineWidth = 4; g.stroke(p); g.strokeStyle = "rgba(252,240,226,.95)"; g.lineWidth = 2; g.stroke(p); });
+    B.fascia.forEach(function (f) { var p = new Path2D(f.d); g.strokeStyle = "rgba(80,45,15,.35)"; g.lineWidth = 6.5; g.stroke(p); g.strokeStyle = "#F7F0DF"; g.lineWidth = 3.4; g.stroke(p); g.strokeStyle = "rgba(255,255,255,.85)"; g.lineWidth = 1; g.stroke(p); });
+    of("artery").concat(of("vein")).forEach(function (s) { var a = s.t === "artery", rx = s.rx || s.r, ry = s.ry || s.r, w = a ? Math.max(3, rx * 0.26) : 1.8, lg;
+      g.beginPath(); g.ellipse(s.cx, s.cy, rx, ry, 0, 0, 6.2832); g.fillStyle = a ? "#D2705F" : "#5A6CC0"; g.fill(); g.strokeStyle = a ? "#6E1410" : "#1B2760"; g.lineWidth = 1.4; g.stroke();
+      lg = g.createRadialGradient(s.cx - rx * 0.25, s.cy - ry * 0.3, 1, s.cx, s.cy, Math.max(rx, ry)); lg.addColorStop(0, a ? "#B31616" : "#33409A"); lg.addColorStop(1, a ? "#4E0505" : "#10153E");
+      g.beginPath(); g.ellipse(s.cx, s.cy, Math.max(1, rx - w), Math.max(1, ry - w), 0, 0, 6.2832); g.fillStyle = lg; g.fill();
+      g.beginPath(); g.ellipse(s.cx - rx * 0.28, s.cy - ry * 0.34, Math.max(1, rx * 0.26), Math.max(0.6, ry * 0.14), -0.5, 0, 6.2832); g.fillStyle = "rgba(255,255,255,.3)"; g.fill(); });
+    of("nerve").forEach(function (s) { (s.k === "duo" ? [s.a, s.b] : [[s.cx, s.cy, s.r]]).forEach(function (q) { var cx = q[0], cy = q[1], rr = q[2], m = rr < 8 ? 1 : Math.round(rr * rr / 11), j;
+      g.beginPath(); g.arc(cx, cy, rr, 0, 6.2832); g.fillStyle = "#F4E7B2"; g.fill(); g.strokeStyle = "#A8872B"; g.lineWidth = 1.5; g.stroke();
+      for (j = 0; j < m; j++) { var a2 = R() * 6.2832, d = m === 1 ? 0 : Math.sqrt(R()) * rr * 0.66, fr = m === 1 ? rr * 0.55 : rr * (0.18 + R() * 0.12); g.beginPath(); g.arc(cx + Math.cos(a2) * d, cy + Math.sin(a2) * d, fr, 0, 6.2832); g.fillStyle = "#E3C24F"; g.fill(); g.strokeStyle = "rgba(150,115,25,.7)"; g.lineWidth = 0.7; g.stroke(); }
+      g.beginPath(); g.arc(cx - rr * 0.3, cy - rr * 0.35, rr * 0.3, 0, 6.2832); g.fillStyle = "rgba(255,255,255,.28)"; g.fill(); }); });
+    of("bone").forEach(function (s) { var p = pathOf(s), b = bb(s); g.save(); g.clip(p); g.fillStyle = "#E9DDBB"; g.fillRect(b.x, b.y, b.width, b.height); for (i = 0; i < b.width * b.height / 40; i++) blob(b.x + R() * b.width, b.y + R() * b.height, 1.2 + R() * 2.2, "rgba(170,140,90,.5)"); g.restore(); if (s.cortex) { p = new Path2D(s.cortex); g.strokeStyle = "rgba(90,70,30,.45)"; g.lineWidth = 9; g.stroke(p); g.strokeStyle = "#FFFBEC"; g.lineWidth = 6; g.stroke(p); } });
+    g.setTransform(1, 0, 0, 1, 0, 0); var vg = g.createRadialGradient(W * K / 2, H * K * 0.55, H * K * 0.3, W * K / 2, H * K * 0.55, W * K * 0.75); vg.addColorStop(0, "rgba(0,0,0,0)"); vg.addColorStop(1, "rgba(40,20,5,.3)"); g.fillStyle = vg; g.fillRect(0, 0, W * K, H * K);
+    return c.toDataURL("image/jpeg", 0.88);
   }
   function paintUS(B, bb) {
     var W = 640, H = 400, K = 2, c = document.createElement("canvas"); c.width = W * K; c.height = H * K; var g = c.getContext("2d"); g.scale(K, K);
@@ -72,7 +106,8 @@
     return c.toDataURL("image/jpeg", 0.86);
   }
   function mount(el) {
-    var B = DATA[el.getAttribute("data-block")]; if (!B) return;
+    var B0 = DATA[el.getAttribute("data-block")]; if (!B0) return; var B = JSON.parse(JSON.stringify(B0)), VI = +(el.getAttribute("data-var") || 0), VV = B.variants && B.variants[VI];
+    if (VV && VV.set) B.shapes.forEach(function (s) { var o = VV.set[s.id], k; if (o) for (k in o) s[k] = o[k]; });
     var u = "bp" + Math.random().toString(36).slice(2, 7), cite = function (n) { return n ? ' <a class="cite" href="#ref-' + n + '">' + n + "</a>" : ""; };
     var layer = function (an) {
       return '<g class="lay">' + B.shapes.map(function (s) { return '<g class="st t-' + s.t + (s.avoid ? " av" : "") + '" data-id="' + s.id + '" tabindex="0" role="button" aria-label="' + esc(s.n) + '">' + shapeSvg(s, an ? (s.t === "muscle" ? "fill:url(#" + u + "mp)" : s.t === "nerve" ? "fill:url(#" + u + "f)" : "") : "") + "</g>"; }).join("") +
@@ -86,7 +121,7 @@
       '<pattern id="' + u + 'f" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#F1DC83"/><circle cx="2.5" cy="2.5" r="1.7" fill="#D9B94C"/><circle cx="7" cy="6.5" r="1.7" fill="#D9B94C"/></pattern>' +
       '<clipPath id="' + u + 'w"><rect class="bp-clip" x="640" y="0" width="640" height="400"/></clipPath></defs>' +
       '<g class="bp-us"><rect width="640" height="400" fill="#101116"/><image class="bp-usimg" x="0" y="0" width="640" height="400" preserveAspectRatio="none"/>' + layer(0) + "</g>" +
-      '<g class="bp-an" clip-path="url(#' + u + 'w)"><rect width="640" height="400" fill="url(#' + u + 'a)"/><rect y="46" width="640" height="5" fill="#D9A27E"/>' + layer(1) + "</g>" +
+      '<g class="bp-an" clip-path="url(#' + u + 'w)"><rect width="640" height="400" fill="#DDB564"/><image class="bp-animg" x="0" y="0" width="640" height="400" preserveAspectRatio="none"/>' + layer(0) + "</g>" +
       '<rect y="0" width="640" height="46" class="bp-head"/><path d="M0 46H640" class="bp-skin"/>' +
       '<path class="bp-div" d="M640 0V400"/>' +
       '<g class="bp-la"><ellipse class="la" cx="0" cy="0" rx="0" ry="0"/></g>' +
@@ -97,6 +132,7 @@
       '<text class="bp-twitch" x="320" y="30" text-anchor="middle"></text></svg>';
     el.classList.add("bp");
     el.innerHTML = '<div class="bp-bar" role="toolbar" aria-label="View"><span>View</span><button data-v="0" aria-pressed="true">Ultrasound</button><button data-v="50" aria-pressed="false">Half and half</button><button data-v="100" aria-pressed="false">Anatomy</button><input type="range" min="0" max="100" value="0" class="bp-wipe" aria-label="Wipe between ultrasound and anatomy"><button data-a="labels" aria-pressed="true">Labels</button><button data-a="tint" aria-pressed="false">Colour the structures</button><button data-a="avoid" aria-pressed="false">Structures to avoid</button><button data-a="test" aria-pressed="false">Test me</button><button data-a="play" class="bp-play">Play the block</button><button data-a="reset">Reset</button></div>' +
+      (B.variants ? '<div class="bp-var"><span>Variations</span>' + B.variants.map(function (v, i) { return '<button data-var="' + i + '" aria-pressed="' + (i === VI) + '">' + esc(v.n) + " <b>" + v.f + "</b></button>"; }).join("") + '<p class="bp-varn">' + esc(VV.t) + cite(B.varRef) + "</p></div>" : "") +
       '<div class="bp-main"><div class="bp-stage">' + svg + '<p class="bp-hint">Drag anywhere on the image to steer the needle tip. Arrow keys also work: left and right advance and withdraw, up and down change the angle.</p></div>' +
       '<div class="bp-side"><div class="bp-card bp-where" aria-live="polite"></div>' +
       '<div class="bp-card bp-stim"><h4>Nerve stimulator <label class="bp-sw"><input type="checkbox" class="bp-on"> on</label></h4><div class="bp-cur"><button data-c="-0.1" aria-label="Reduce current">−</button><output>1.0 mA</output><button data-c="0.1" aria-label="Increase current">+</button><input type="range" min="0.1" max="2" step="0.1" value="1" class="bp-ma" aria-label="Stimulating current in milliamps"><small>2 Hz · 0.1 ms</small></div><div class="bp-resp" aria-live="polite"></div></div>' +
@@ -106,7 +142,7 @@
     var $ = function (q) { return el.querySelector(q); }, $$ = function (q) { return [].slice.call(el.querySelectorAll(q)); };
     var sv = $("svg"), byId = {}; B.shapes.forEach(function (s) { byId[s.id] = s; });
     var scan = el.getAttribute("data-mode") === "scan"; el.classList.toggle("scan", scan);
-    try { $(".bp-usimg").setAttribute("href", paintUS(B, function (s) { return sv.querySelector('.bp-us [data-id="' + s.id + '"]').getBBox(); })); } catch (e) {}
+    try { var bbf = function (s) { return sv.querySelector('.bp-us [data-id="' + s.id + '"]').getBBox(); }; $(".bp-usimg").setAttribute("href", paintUS(B, bbf)); $(".bp-animg").setAttribute("href", paintAN(B, bbf)); } catch (e) {}
     /* fascia as y(x) look-ups, and path regions for hit tests */
     var fy = {}; B.fascia.forEach(function (f) {
       var p = sv.querySelector('.bp-us .fas[data-f="' + f.id + '"]'), L = p.getTotalLength(), a = [];
@@ -234,6 +270,7 @@
     sv.setAttribute("tabindex", "0");
     el.addEventListener("click", function (ev) { var b = ev.target.closest("button"); if (!b) return;
       if (b.hasAttribute("data-pick")) { pick(b.getAttribute("data-pick")); return; }
+      if (b.hasAttribute("data-var")) { S.play = 0; var nn = el.cloneNode(false); nn.className = "block-player"; nn.setAttribute("data-var", b.getAttribute("data-var")); el.parentNode.replaceChild(nn, el); mount(nn); return; }
       if (b.hasAttribute("data-v")) setView(b.getAttribute("data-v"));
       else if (b.hasAttribute("data-c")) { stop(); S.on = true; S.ma = Math.max(0.1, Math.min(2, Math.round((S.ma + +b.getAttribute("data-c")) * 10) / 10)); draw(); }
       else { var a = b.getAttribute("data-a"); if (a === "labels") { var on = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", String(on)); el.classList.toggle("no-lbl", !on); } else if (a === "tint") { var tn = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", String(tn)); el.classList.toggle("tint", tn); }
@@ -267,6 +304,7 @@
         { to: L + 7, say: "Advance a millimetre. The twitch returns at 0.5 mA: the tip is close.", hold: 2400 },
         { say: "Down to 0.2 mA. No twitch: the tip is not inside the nerve.", fn: function () { S.ma = 0.2; }, hold: 2800 },
         { say: "Inject against low pressure and watch the spread.", fn: function () { S.on = false; draw(); inject(); }, hold: 3800 },
+        { say: "Not every neck is built like this. In 4 of every 10 sides the roots were not all in the groove: open Variations, above the image, to see where else to look.", fn: function () { var vb = $(".bp-var"); if (vb) vb.classList.add("flash"); }, hold: 5200 },
         { say: "Now try it yourself: drag the needle, change the current, and see what happens off target.", hold: 3200 }
       ], i = 0, pos = 0;
       (function next() { if (!S.play) return; if (i >= steps.length) { stop(); return; } var st = steps[i++]; cap.textContent = st.say; cap.classList.add("on"); if (st.fn) { st.fn(); draw(); }
