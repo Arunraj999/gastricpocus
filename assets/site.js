@@ -99,6 +99,7 @@
     /* search */
     var idx = [];
     N.blocks.forEach(function (b) { idx.push({ t: b.name, k: "Block · " + region(b.region).name, h: b.page || "blocks.html#" + b.region, x: (b.also || "") + " " + region(b.region).name, c: region(b.region).c }); });
+    (N.guides || []).forEach(function (b) { idx.push({ t: b.name, k: "Guide · " + region(b.region).name, h: b.page, x: (b.also || "") + " " + region(b.region).name, c: region(b.region).c }); });
     N.videos.forEach(function (v) { idx.push({ t: v.title, k: "Video · " + v.type, h: "videos.html", x: v.type, c: "#16123A" }); });
     N.meetings.forEach(function (m) { idx.push({ t: m.title, k: "Meeting · " + m.date, h: "meetings.html", x: m.venue, c: "#F2452E" }); });
     idx.push({ t: "Local anaesthetic dose calculator", k: "Tool", h: "dose.html", x: "maximum dose actual lean body weight toxicity LAST lipid breast", c: "#FFC61A" });
@@ -393,7 +394,10 @@
       list.innerHTML = hits.length ? hits.map(function (b) {
         var r = region(b.region), inner = '<i></i><span><b>' + esc(b.name) + "</b><small>" + r.name + '</small></span><span class="chip ' + (b.page ? "live" : "soon") + '">' + (b.page ? "Open" : "In preparation") + "</span>";
         return b.page ? '<a class="blockrow" style="--c:' + r.c + '" href="' + b.page + '">' + inner + "</a>" : '<div class="blockrow" style="--c:' + r.c + '">' + inner + "</div>";
-      }).join("") : '<p class="empty">No block matches that search. Clear the box or choose another region.</p>';
+      }).join("") : "";
+      var gs = (N.guides || []).filter(function (g) { return (!cur || g.region === cur) && (!s || (g.name + " " + (g.also || "")).toLowerCase().indexOf(s) > -1); });
+      if (gs.length) list.innerHTML = gs.map(function (g) { var r = region(g.region); return '<a class="blockrow guide" style="--c:' + r.c + '" href="' + g.page + '"><i></i><span><b>' + esc(g.name) + "</b><small>" + r.name + '</small></span><span class="chip rev">Guide</span></a>'; }).join("") + list.innerHTML;
+      if (!hits.length && !gs.length) list.innerHTML = '<p class="empty">No block matches that search. Clear the box or choose another region.</p>';
       $$("button", fl).forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-r") === cur); });
       $$(".bodymap .rg").forEach(function (g) { g.classList.toggle("on", g.getAttribute("data-r") === cur); });
       $("#block-count").textContent = hits.length + " of " + N.blocks.length + " blocks";

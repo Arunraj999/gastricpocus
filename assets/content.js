@@ -98,21 +98,21 @@ window.NORA = {
      when that block has a finished page. Leave blocks: [] until the choice is referenced.
      more: optional link to the evidence, e.g. "interscalene.html#surgery".              */
   surgeries: [
-    { op: "Arthroscopic rotator cuff repair", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }, { name: "Superior trunk" }, { name: "Suprascapular with axillary" }], more: "interscalene.html#surgery" },
-    { op: "Arthroscopic subacromial decompression", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }, { name: "Superior trunk" }, { name: "Suprascapular with axillary" }], more: "interscalene.html#surgery" },
-    { op: "Biceps tenodesis or tenotomy", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }, { name: "Superior trunk" }, { name: "Suprascapular with axillary" }], more: "interscalene.html#surgery" },
-    { op: "Labral repair and stabilisation (Bankart, SLAP)", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }, { name: "Superior trunk" }, { name: "Suprascapular with axillary" }], more: "interscalene.html#surgery" },
-    { op: "Capsular release for frozen shoulder", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }, { name: "Superior trunk" }, { name: "Suprascapular with axillary" }], more: "interscalene.html#surgery" },
-    { op: "Excision of calcific deposit", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }, { name: "Superior trunk" }, { name: "Suprascapular with axillary" }], more: "interscalene.html#surgery" },
-    { op: "Arthroscopic excision of the distal clavicle", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }, { name: "Superior trunk" }, { name: "Suprascapular with axillary" }], more: "interscalene.html#surgery" },
+    { op: "Arthroscopic rotator cuff repair", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }, { name: "Superior trunk", page: "superior-trunk.html" }, { name: "Suprascapular with axillary" }], more: "interscalene.html#surgery" },
+    { op: "Arthroscopic subacromial decompression", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }, { name: "Superior trunk", page: "superior-trunk.html" }, { name: "Suprascapular with axillary" }], more: "interscalene.html#surgery" },
+    { op: "Biceps tenodesis or tenotomy", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }, { name: "Superior trunk", page: "superior-trunk.html" }, { name: "Suprascapular with axillary" }], more: "interscalene.html#surgery" },
+    { op: "Labral repair and stabilisation (Bankart, SLAP)", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }, { name: "Superior trunk", page: "superior-trunk.html" }, { name: "Suprascapular with axillary" }], more: "interscalene.html#surgery" },
+    { op: "Capsular release for frozen shoulder", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }, { name: "Superior trunk", page: "superior-trunk.html" }, { name: "Suprascapular with axillary" }], more: "interscalene.html#surgery" },
+    { op: "Excision of calcific deposit", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }, { name: "Superior trunk", page: "superior-trunk.html" }, { name: "Suprascapular with axillary" }], more: "interscalene.html#surgery" },
+    { op: "Arthroscopic excision of the distal clavicle", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }, { name: "Superior trunk", page: "superior-trunk.html" }, { name: "Suprascapular with axillary" }], more: "interscalene.html#surgery" },
     { op: "Total shoulder replacement", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }], more: "interscalene.html#surgery" },
     { op: "Reverse shoulder replacement", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }], more: "interscalene.html#surgery" },
     { op: "Shoulder hemiarthroplasty", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }], more: "interscalene.html#surgery" },
     { op: "Revision shoulder replacement", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }], more: "interscalene.html#surgery" },
     { op: "Open rotator cuff repair", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }], more: "interscalene.html#surgery" },
     { op: "Open stabilisation (Latarjet)", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }], more: "interscalene.html#surgery" },
-    { op: "Proximal humerus fracture fixation", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }], more: "interscalene.html#surgery" },
-    { op: "Humeral shaft fracture fixation", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }], more: "interscalene.html#surgery" },
+    { op: "Proximal humerus fracture fixation", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }, { name: "Superior trunk", page: "superior-trunk.html" }], more: "interscalene.html#surgery" },
+    { op: "Humeral shaft fracture fixation", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }, { name: "Superior trunk", page: "superior-trunk.html" }], more: "interscalene.html#surgery" },
     { op: "Clavicle fracture fixation", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }], more: "interscalene.html#surgery" },
     { op: "Acromioclavicular joint stabilisation", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }], more: "interscalene.html#surgery" },
     { op: "Manipulation of the shoulder under anaesthesia", region: "upper", group: "Shoulder", blocks: [{ name: "Interscalene", page: "interscalene.html" }], more: "interscalene.html#surgery" },
@@ -191,9 +191,13 @@ window.NORA = {
     { id: "axial", name: "Neuraxial",  cls: "r-axial", c: "#7C3AED" },
     { id: "head",  name: "Head and neck", cls: "r-head", c: "#0891B2" }
   ],
+  /* GUIDES: pages that compare or choose between blocks. Listed with the blocks of their region, not counted as blocks. */
+  guides: [
+    { name: "Phrenic-sparing blocks for shoulder surgery", region: "upper", page: "phrenic-sparing.html", also: "diaphragm sparing hemidiaphragmatic paresis shoulder respiratory COPD" }
+  ],
   blocks: [
     { name: "Interscalene brachial plexus block", region: "upper", page: "interscalene.html", also: "ISB shoulder" },
-    { name: "Superior trunk block", region: "upper", page: "", also: "phrenic sparing shoulder" },
+    { name: "Superior trunk block", region: "upper", page: "superior-trunk.html", also: "STB upper trunk phrenic sparing shoulder" },
     { name: "Supraclavicular block", region: "upper", page: "" },
     { name: "Infraclavicular block (costoclavicular)", region: "upper", page: "" },
     { name: "Axillary brachial plexus block", region: "upper", page: "" },
