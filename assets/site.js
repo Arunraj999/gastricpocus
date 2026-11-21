@@ -423,7 +423,7 @@
     /* stage layout: sections grouped by what the reader is doing */
     (function () {
       var art = $(".doc article"), toc = $(".toc"); if (!art || !toc) return;
-      var ST = [["Understand", ["difficulty", "anatomy", "surface", "nerves", "coverage"]], ["Plan", ["indications", "surgery", "contra", "comparison"]], ["Perform", ["ultrasound", "performance", "landmark", "continuous", "video"]], ["Stay safe", ["complications", "pearls"]], ["Evidence", ["literature", "evolving", "references"]], ["Test yourself", ["cards", "quiz"]]];
+      var ST = [["Understand", ["difficulty", "anatomy", "surface", "nerves", "coverage"]], ["Plan", ["indications", "surgery", "contra", "comparison"]], ["Perform", ["ultrasound", "needle", "performance", "landmark", "continuous", "video"]], ["Stay safe", ["complications", "pearls"]], ["Evidence", ["literature", "evolving", "references"]], ["Test yourself", ["cards", "quiz"]]];
       var NM = {};
       var COL = ["#35C6B0", "#F6C445", "#FF8A6B", "#FF6B8A", "#9AA9FF", "#B7E36B"], h = "";
       ST.forEach(function (st, i) {
