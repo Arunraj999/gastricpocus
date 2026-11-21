@@ -119,14 +119,20 @@
       '<linearGradient id="' + u + 'g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2B2E36"/><stop offset="1" stop-color="#101116"/></linearGradient>' +
       '<linearGradient id="' + u + 'a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F1D892"/><stop offset=".16" stop-color="#E9C77C"/><stop offset="1" stop-color="#C99C5E"/></linearGradient>' +
       '<pattern id="' + u + 'f" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#F1DC83"/><circle cx="2.5" cy="2.5" r="1.7" fill="#D9B94C"/><circle cx="7" cy="6.5" r="1.7" fill="#D9B94C"/></pattern>' +
-      '<clipPath id="' + u + 'w"><rect class="bp-clip" x="640" y="0" width="640" height="400"/></clipPath></defs>' +
+      '<clipPath id="' + u + 'w"><rect class="bp-clip" x="640" y="0" width="640" height="400"/></clipPath><clipPath id="' + u + 'v"><rect class="bp-clipu" x="0" y="0" width="640" height="400"/></clipPath>' +
+      '<linearGradient id="' + u + 's" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5E6772"/><stop offset=".3" stop-color="#F2F5F8"/><stop offset=".62" stop-color="#A9B1BB"/><stop offset="1" stop-color="#3F454D"/></linearGradient>' +
+      '<pattern id="' + u + 'e" width="4" height="3" patternUnits="userSpaceOnUse"><rect width="4" height="3" fill="#77808b"/><path d="M0 1.5L2 0L4 1.5L2 3Z" fill="#EEF1F5"/></pattern></defs>' +
       '<g class="bp-us"><rect width="640" height="400" fill="#101116"/><image class="bp-usimg" x="0" y="0" width="640" height="400" preserveAspectRatio="none"/>' + layer(0) + "</g>" +
       '<g class="bp-an" clip-path="url(#' + u + 'w)"><rect width="640" height="400" fill="#DDB564"/><image class="bp-animg" x="0" y="0" width="640" height="400" preserveAspectRatio="none"/>' + layer(0) + "</g>" +
       '<rect y="0" width="640" height="46" class="bp-head"/><path d="M0 46H640" class="bp-skin"/>' +
       '<path class="bp-div" d="M640 0V400"/>' +
       '<g class="bp-la"><ellipse class="la" cx="0" cy="0" rx="0" ry="0"/></g>' +
       '<g class="bp-lbl">' + B.shapes.map(function (s) { return '<text x="' + s.lx + '" y="' + s.ly + '" text-anchor="middle">' + s.l + "</text>"; }).join("") + "</g>" +
-      '<g class="bp-ndl"><path class="shaft" d=""/><path class="tipm" d=""/><circle class="pulse" r="0"/></g>' +
+      '<g class="bp-ndl"><g class="ndl-us" clip-path="url(#' + u + 'v)"><g class="nx"><path class="rv r3" d="M70 15H830"/><path class="rv r2" d="M40 10H830"/><path class="rv r1" d="M22 5H830"/><path class="ln" d="M2 0H830"/><path class="eg" d="M15 0H31M37 0H53"/><path d="M0 .8L9.5 -2.4V2.4Z" fill="#fff"/></g></g>' +
+      '<g class="ndl-an" clip-path="url(#' + u + 'w)"><g class="nx"><rect x="10.5" y="-3" width="820" height="6" fill="url(#' + u + 's)"/><rect x="15" y="-3" width="16" height="6" fill="url(#' + u + 'e)"/><rect x="37" y="-3" width="16" height="6" fill="url(#' + u + 'e)"/>' +
+      [1, 2, 3, 4, 5, 6, 7].map(function (k) { return '<path d="M' + (k * 105) + ' -3v6" stroke="#20242a" stroke-width="1.6"/><path d="M' + (k * 105 - 52.5) + ' -3v3" stroke="#20242a" stroke-width=".9"/>'; }).join("") +
+      '<path d="M10.5 -1.9H830" stroke="rgba(255,255,255,.6)" stroke-width=".8"/><path d="M0 .8L10.5 -3V3Z" fill="#DCE2E8" stroke="#59616b" stroke-width=".6"/><ellipse cx="6.8" cy="-.4" rx="2.9" ry="1" transform="rotate(-20 6.8 -.4)" fill="#30363d"/></g></g>' +
+      '<g class="nx"><circle class="pulse" r="0"/></g></g>' +
       '<text class="ori" x="8" y="20">Anteromedial</text><text class="ori" x="632" y="20" text-anchor="end">Posterolateral</text><circle cx="12" cy="34" r="5" fill="#FFC61A"/>' +
       [1, 2, 3].map(function (c) { return '<path d="M630 ' + (46 + c * 105) + 'h10" stroke="#fff" stroke-width="1.5"/><text class="ori" x="626" y="' + (50 + c * 105) + '" text-anchor="end">' + c + " cm</text>"; }).join("") +
       '<text class="bp-twitch" x="320" y="30" text-anchor="middle"></text></svg>';
@@ -171,7 +177,7 @@
     var name = function (z) { return byId[z] ? byId[z].n : B.zones[z][0]; };
     /* state */
     var S = { tip: [B.entry[0] - 6, B.entry[1] + 3], on: false, ma: 1, la: null, seen: {}, play: 0 };
-    var shaft = $(".bp-ndl .shaft"), tipm = $(".bp-ndl .tipm"), pulse = $(".bp-ndl .pulse"), tw = $(".bp-twitch"), laE = $(".bp-la .la");
+    var nx = $$(".bp-ndl .nx"), pulse = $(".bp-ndl .pulse"), tw = $(".bp-twitch"), laE = $(".bp-la .la");
     function track() { /* layers crossed from the skin to the tip */
       var e = B.entry, t = S.tip, n = Math.max(2, Math.round(Math.hypot(t[0] - e[0], t[1] - e[1]) / 2)), out = [], last = null, pi = null, pp = null;
       for (var i = 0; i <= n; i++) {
@@ -188,9 +194,7 @@
     function draw() {
       if (scan) return;
       var e = B.entry, t = S.tip, dx = t[0] - e[0], dy = t[1] - e[1], L = Math.hypot(dx, dy) || 1, ux = dx / L, uy = dy / L;
-      shaft.setAttribute("d", "M" + (t[0] - ux * (L + 60)).toFixed(1) + " " + (t[1] - uy * (L + 60)).toFixed(1) + "L" + t[0].toFixed(1) + " " + t[1].toFixed(1));
-      tipm.setAttribute("d", "M" + t[0].toFixed(1) + " " + t[1].toFixed(1) + "l" + (-ux * 14 - uy * 5).toFixed(1) + " " + (-uy * 14 + ux * 5).toFixed(1) + "l" + (uy * 10).toFixed(1) + " " + (-ux * 10).toFixed(1) + "z");
-      pulse.setAttribute("cx", t[0]); pulse.setAttribute("cy", t[1]);
+      var tf = "translate(" + t[0].toFixed(1) + " " + t[1].toFixed(1) + ") rotate(" + (Math.atan2(-dy, -dx) * 180 / Math.PI).toFixed(2) + ")"; nx.forEach(function (n) { n.setAttribute("transform", tf); });
       var tr = track(), z = tr.length ? tr[tr.length - 1].z || where(t[0], t[1]) : "air"; z = where(t[0], t[1]);
       var s = byId[z], depth = Math.max(0, (t[1] - 46) * MM / 10), head, body, warn = "";
       if (s) {
@@ -251,7 +255,7 @@
     }
     function clearLa() { laE.style.opacity = 0; el.classList.remove("blocked"); $(".bp-injr").innerHTML = ""; }
     function setTip(x, y) { var e = B.entry; x = Math.max(8, Math.min(e[0] - 4, x)); y = Math.max(e[1] + 1, Math.min(392, y)); S.tip = [x, y]; draw(); }
-    function setView(v) { v = Math.max(0, Math.min(100, +v)); var x = 640 * (1 - v / 100); $(".bp-clip").setAttribute("x", x); $(".bp-div").setAttribute("d", "M" + x + " 0V400"); $(".bp-div").style.opacity = v > 0 && v < 100 ? 1 : 0; $(".bp-wipe").value = v; $$("[data-v]").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.getAttribute("data-v") === v)); }); el.classList.toggle("an-full", v >= 100); }
+    function setView(v) { v = Math.max(0, Math.min(100, +v)); var x = 640 * (1 - v / 100); $(".bp-clip").setAttribute("x", x); $(".bp-clipu").setAttribute("width", x); $(".bp-div").setAttribute("d", "M" + x + " 0V400"); $(".bp-div").style.opacity = v > 0 && v < 100 ? 1 : 0; $(".bp-wipe").value = v; $$("[data-v]").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.getAttribute("data-v") === v)); }); el.classList.toggle("an-full", v >= 100); }
     function pick(id) { var s = byId[id]; if (!s) return; S.seen[id] = 1; var li = $('.bp-chk li[data-id="' + id + '"]'); if (li) li.classList.add("ok");
       $(".bp-where").className = "bp-card bp-where"; $(".bp-where").innerHTML = "<h4>" + esc(s.n) + (s.rec ? ' <span class="chip ' + (s.rec === "strong" ? "sy" : "obs") + '">' + (s.rec === "strong" ? "Core structure" : "Also recommended") + "</span>" : "") + "</h4><p>" + s.x + cite(s.c) + "</p>" + (s.m ? "<p><b>Supplies:</b> " + esc(s.m) + ".<br><b>On stimulation:</b> " + esc(s.s) + "." + (s.mv ? ' <a class="bp-3d" href="anatomy-3d.html?mode=myo&amp;move=' + s.mv + '" target="_blank" rel="noopener">See this movement in 3D</a>' : "") + "</p>" : "") +
         (s.sup ? '<figure class="bp-sup"><a href="anatomy-3d.html?' + s.sup[1].replace(/&/g, "&amp;") + '&amp;ht=' + encodeURIComponent(s.n) + '" target="_blank" rel="noopener"><img loading="lazy" src="media/figures/supply-' + s.sup[0] + '.jpg" alt="' + esc(s.sup[2]) + '"></a><figcaption>' + esc(s.sup[2]) + ' <a class="bp-3d" href="anatomy-3d.html?' + s.sup[1].replace(/&/g, "&amp;") + '&amp;ht=' + encodeURIComponent(s.n) + '" target="_blank" rel="noopener">Turn it in 3D</a></figcaption></figure>' : "") +
