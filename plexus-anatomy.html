@@ -24,13 +24,14 @@
 <main>
 <div class="wrap"><div class="pagehead a3-head"><p class="crumb"><a href="index.html">Home</a> / <a href="ultrasound-physics.html">Basics</a> / Plexus anatomy</p>
 <span class="eyebrow">Interactive anatomy</span><h1>Plexus anatomy in 3D</h1>
-<p class="lede">The brachial plexus on the skeleton, from the roots to the fingertips. Turn it, zoom in, and select any part to see its roots and what it supplies.</p></div></div>
+<p class="lede">The brachial, lumbar and sacral plexuses on the skeleton, from the roots to the fingers and toes. Turn it, zoom in, and select any part to see its roots and what it supplies.</p></div></div>
 <section class="wrap">
-<div class="px-bar" role="toolbar" aria-label="Plexus"><button class="btn" aria-pressed="true">Brachial plexus</button><button class="btn" disabled>Lumbar plexus · soon</button><button class="btn" disabled>Sacral plexus · soon</button><button class="btn" disabled>Cervical plexus · soon</button></div>
-<div class="px-bar" role="toolbar" aria-label="View"><button class="btn" data-pxv="neck" aria-pressed="true">Neck and axilla</button><button class="btn" data-pxv="top" aria-pressed="false">From above</button><button class="btn" data-pxv="back" aria-pressed="false">From behind</button><button class="btn" data-pxv="arm" aria-pressed="false">Whole arm</button><button class="btn" id="px-mus" aria-pressed="false">Muscles</button><button class="btn" id="px-lab" aria-pressed="true">Labels</button><button class="btn" id="px-spin" aria-pressed="false">Rotate</button></div>
+<div class="px-bar" role="toolbar" aria-label="Plexus"><button class="btn" data-px="brachial" aria-pressed="true">Brachial plexus</button><button class="btn" data-px="lumbar" aria-pressed="false">Lumbar plexus</button><button class="btn" data-px="sacral" aria-pressed="false">Sacral plexus</button><button class="btn" disabled>Cervical plexus · soon</button></div>
+<div class="px-bar" role="toolbar" aria-label="View"><span id="px-views" style="display:contents"></span><button class="btn" id="px-mus" aria-pressed="false">Muscles</button><button class="btn" id="px-lab" aria-pressed="true">Labels</button><button class="btn" id="px-spin" aria-pressed="false">Rotate</button></div>
 <div class="px-main"><div id="px-stage"><p id="px-load" class="a3-hint" style="position:absolute;left:16px;top:14px">Loading the model…</p></div>
 <div><div id="px-info"></div>
-<div class="px-leg"><span><i style="background:#E5484D"></i>C5</span><span><i style="background:#F2994A"></i>C6</span><span><i style="background:#F2C94C"></i>C7</span><span><i style="background:#6FCF97"></i>C8</span><span><i style="background:#2DB7A3"></i>T1</span><span><i style="background:#F7B267"></i>Anterior divisions</span><span><i style="background:#A594F9"></i>Posterior divisions</span><span><i style="background:#FF9F5A"></i>Lateral cord</span><span><i style="background:#35C2B5"></i>Medial cord</span><span><i style="background:#8E7DF0"></i>Posterior cord</span><span><i style="background:#FF7A59"></i>Musculocutaneous</span><span><i style="background:#FFD23F"></i>Median</span><span><i style="background:#38BDF8"></i>Ulnar</span><span><i style="background:#B48CF8"></i>Radial</span><span><i style="background:#FF6FAE"></i>Axillary</span><span><i style="background:#D43D2F"></i>Artery</span><span><i style="background:#3A66D0"></i>Vein</span></div></div></div>
+<div class="px-leg" id="px-leg"></div></div></div>
+<p class="a3-help" id="px-note" style="color:#F4B63F"></p>
 <p class="a3-help">Drag to turn. Scroll or pinch to zoom. Right-drag or two-finger drag to move. Right side shown.</p>
 </section>
 <section class="wrap"><div class="notice a3-notice"><b>Draft for clinical sign-off.</b> 21 November 2026. First view: roots to terminal nerves of the right brachial plexus. Block levels, needle paths and local anaesthetic spread will be added once Dr Arun Mohanraj FRCA EDRA has checked the course of each nerve. The lateral and medial cords are drawn by NORA² between the divisions and the terminal nerves.</div>
@@ -42,6 +43,6 @@
 <script src="assets/i18n-text.js?v=74"></script>
 <script src="assets/content.js"></script>
 <script src="assets/site.js?v=66"></script>
-<script type="module" src="assets/plexus3d.js?v=3"></script>
+<script type="module" src="assets/plexus3d.js?v=4"></script>
 </body>
 </html>
