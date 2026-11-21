@@ -1,7 +1,7 @@
 import * as THREE from './vendor/three.module.min.js';
 import { OrbitControls } from './vendor/OrbitControls.js';
 import { createSkin } from './a3skin.js?v=68';
-import { createRig, MOVES, GROUPS ,sonoo} from './a3move.js?v=69';
+import { createRig, MOVES, GROUPS ,sonoo} from './a3move.js?v=71';
 const BASE='media/model3d/';
 const $=s=>document.querySelector(s);
 const stage=$('#a3-stage'), panel=$('#a3-info'), legend=$('#a3-legend'), labelsEl=$('#a3-labels');
@@ -164,6 +164,12 @@ async function init(){
   view(Q.get('view')||'front',+Q.get('zoom')||0); if(Q.get('ty'))controls.target.y=+Q.get('ty'),view(Q.get('view')||'front',+Q.get('zoom')||0); if(Q.get('tx')){controls.target.x=+Q.get('tx');view(Q.get('view')||'front',+Q.get('zoom')||0);}
   setMode(mode);
   if(Q.get('move')){playMove(Q.get('move'));if(Q.get('phase'))RIG.setFrac(+Q.get('phase'));}
+  if(Q.get('hl')||Q.get('hr')){const re=Q.get('hl')?new RegExp(Q.get('hl'),'i'):null,hr=Q.get('hr'),pids=new Set();M.muscles.forEach((n,i)=>{if(!n.includes('right'))return;const r=M.mrow[i];if(re?re.test(n.replace(/\b(right|left) /,'')):(r>=0&&M.MT[r][0]===hr))pids.add(i);});
+    if(mode!=='myo')setMode('myo');autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');RIG.assist=new Set();sel={kind:'move',pids};paintMus();RIG.mark(pids,Q.get('hg')==='1');
+    const P=mus.geometry.attributes.position.array,pid=mus.userData.pid,bb=new THREE.Box3(),v=new THREE.Vector3();for(let i=0;i<pid.length;i++)if(pids.has(pid[i]))bb.expandByPoint(v.set(P[i*3],P[i*3+1],P[i*3+2]));
+    if(!bb.isEmpty()){ROOT.updateMatrixWorld(true);bb.applyMatrix4(ROOT.matrixWorld);const c=bb.getCenter(new THREE.Vector3()),rr=Math.max(140,bb.getSize(new THREE.Vector3()).length()*0.5),d=(Q.get('hv')||'-0.55,0.22,0.8').split(',').map(Number),l=Math.hypot(d[0],d[1],d[2])||1,k=rr*3.1;controls.target.copy(c);camera.position.set(c.x+d[0]/l*k,c.y+d[1]/l*k,c.z+d[2]/l*k);controls.update();}
+    const nm=[...pids].map(p=>M.muscles[p].replace(/\b(right|left) /,'').replace(/^(\w+) (head|part) of /,'')).filter((x,i,a)=>a.indexOf(x)===i);
+    info(`<p class="a3-where">Muscles supplied · right side shown</p><h3>${(Q.get('ht')||hr||'').replace(/[<>&]/g,'')}</h3><p>${nm.map(x=>x[0].toUpperCase()+x.slice(1)).join(', ')}.</p><p class="a3-ov">Shown in red. Select any muscle for its roots, nerve and action.</p>`);}
   let down=null;renderer.domElement.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY];autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');});
   renderer.domElement.addEventListener('pointerup',e=>{if(down&&Math.hypot(e.clientX-down[0],e.clientY-down[1])<5)pick(e);down=null;});
   document.querySelectorAll('[data-a3mode]').forEach(b=>b.onclick=()=>setMode(b.dataset.a3mode));

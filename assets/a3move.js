@@ -92,7 +92,8 @@ export async function createRig(mus,bone,M){const names=M.muscles;
         for(let i=0;i<nm;i++){const p=P[i];if(!acc[p])continue;const kk=key(p),e=by[alias[kk]||kk],dx=pos[i*3]-e.x,dy=pos[i*3+1]-e.y,dz=pos[i*3+2]-e.z,d=dx*dx+dy*dy+dz*dz;if(d<e.d){e.d=d;e.seg=msk[i*3+2]>127?msk[i*3+1]:msk[i*3];e.vx=pos[i*3];e.vy=pos[i*3+1];e.vz=pos[i*3+2];}}
         for(const k in by){const e=by[k];api.anchors.push({name:e.n[0].toUpperCase()+e.n.slice(1),p:new THREE.Vector3(e.vx,e.vy,e.vz),seg:e.seg,prime:e.prime});}}
       for(let i=0;i<nm;i++)hi[i]=set.has(P[i])?1:as.has(P[i])?0.5:0;mus.geometry.attributes.aHi.needsUpdate=true;U.uGhost.value=cur&&cur.ghost?1:0;if(!cur){pose({},side);U.uGlow.value=0;}return set;},
-    stop(){return api.select(null,0);},pause(p){paused=p;},setFrac(f){frac=f;paused=true;},
+    stop(){return api.select(null,0);},
+    mark(set,ghost){const P=mus.userData.pid;for(let i=0;i<nm;i++)hi[i]=set.has(P[i])?1:0;mus.geometry.attributes.aHi.needsUpdate=true;U.uGhost.value=ghost?1:0;U.uGlow.value=0.55;},pause(p){paused=p;},setFrac(f){frac=f;paused=true;},
     focus(m,root){/* world position of the joint to look at, mid-movement */
       const ang={};for(const d of m.dof)ang[d[0]]=(d[1]+d[2])/2;pose(ang,side);const j=rig.joints[m.focus+side],v=new THREE.Vector3(j.c[0],j.c[1],j.c[2]-(m.drop||0)).applyMatrix4(mats[rig.par[j.seg]]);return v.applyMatrix4(root.matrixWorld);},
     posed(a,out){return out.copy(a.p).applyMatrix4(mats[a.seg]);},

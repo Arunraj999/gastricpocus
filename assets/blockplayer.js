@@ -6,51 +6,76 @@
   var DATA = {
     interscalene: {
       title: "Interscalene block: posterior in-plane approach at C6",
-      entry: [640, 62], target: [396, 176],
+      entry: [640, 60], target: [389, 160],
       fascia: [
-        { id: "inv", n: "Investing layer of the deep cervical fascia", d: "M0 60Q210 34 410 78Q520 104 640 102", t: "The first fascial layer. It splits to enclose sternocleidomastoid and roofs the posterior triangle. A blunt needle gives a small click here." },
-        { id: "pre", n: "Prevertebral layer of the deep cervical fascia", d: "M150 196Q190 138 262 140Q306 118 352 124Q420 112 480 134Q570 132 632 214", t: "Covers the scalene muscles and the roots between them. The plexus lies deep to this layer; local anaesthetic left superficial to it does not reach the roots." }
+        { id: "inv", n: "Investing layer of the deep cervical fascia", d: "M0 61C130 47 262 49 352 65C400 75 470 88 640 100", t: "The first fascial layer. It splits to enclose sternocleidomastoid and roofs the posterior triangle. A blunt needle gives a small click here." },
+        { id: "pre", n: "Prevertebral layer of the deep cervical fascia", d: "M150 204C172 152 226 128 296 126C326 124 350 118 372 116C440 98 536 100 596 130C626 146 638 182 640 220", t: "Covers the scalene muscles, the roots between them and the phrenic nerve. The plexus lies deep to this layer; local anaesthetic left superficial to it does not reach the roots." }
       ],
       shapes: [
-        { id: "scm", t: "muscle", n: "Sternocleidomastoid", l: "SCM", k: "path", d: "M30 62Q210 40 408 80Q250 120 40 112Z", lx: 150, ly: 90, rec: "weak", x: "Roofs the groove medially and tapers towards its lateral edge. Accessory nerve (cranial nerve XI). Turns the head to the opposite side." },
-        { id: "ijv", t: "vein", n: "Internal jugular vein", l: "IJV", k: "ellipse", cx: 122, cy: 166, rx: 46, ry: 22, lx: 122, ly: 170, x: "Thin-walled and compressible under light probe pressure." },
-        { id: "ca", t: "artery", n: "Common carotid artery", l: "CA", k: "circle", cx: 96, cy: 246, r: 33, lx: 96, ly: 250, x: "Round, pulsatile and non-compressible. The starting landmark when tracing laterally to the scalene muscles." },
-        { id: "asm", t: "muscle", n: "Anterior scalene", l: "ASM", k: "ellipse", cx: 262, cy: 216, rx: 56, ry: 70, lx: 262, ly: 246, rec: "strong", x: "Medial wall of the groove. Anterior rami of the cervical nerves. Flexes the neck and raises the first rib. The phrenic nerve runs on its anterior surface.", c: 12 },
-        { id: "msm", t: "muscle", n: "Middle scalene", l: "MSM", k: "ellipse", cx: 492, cy: 226, rx: 116, ry: 86, lx: 540, ly: 250, rec: "strong", x: "Lateral wall of the groove and the muscle this needle crosses. The dorsal scapular and long thoracic nerves often lie within it.", c: 8 },
-        { id: "c5", t: "nerve", n: "C5 root", l: "C5", k: "circle", cx: 350, cy: 150, r: 17, lx: 350, ly: 154, rec: "strong", target: 1, m: "Deltoid and biceps, through the superior trunk", s: "Shoulder abducts, elbow flexes", mv: "sabd", x: "The most superficial of the round, dark roots stacked between the scalene muscles." },
-        { id: "c6", t: "nerve", n: "C6 root", l: "C6", k: "circle", cx: 360, cy: 206, r: 19, lx: 360, ly: 210, rec: "strong", target: 1, m: "Biceps, deltoid and the wrist extensors, through the superior trunk", s: "Elbow flexes, shoulder abducts", mv: "elbowflex", x: "With C5 it forms the superior trunk, the main target for shoulder surgery." },
-        { id: "c7", t: "nerve", n: "C7 root", l: "C7", k: "circle", cx: 366, cy: 266, r: 18, lx: 366, ly: 270, rec: "weak", m: "Triceps, through the middle trunk", s: "Elbow extends", mv: "elbowext", x: "The deepest root in this view." },
-        { id: "phr", t: "nerve", n: "Phrenic nerve", l: "Phr", k: "circle", cx: 232, cy: 148, r: 6, lx: 214, ly: 136, wrong: 1, m: "Diaphragm", s: "Hiccup-like twitch of the diaphragm: the tip is too anterior, on the anterior scalene", x: "Lies on the anterior scalene close to the C5 root. Its position explains why local anaesthetic placed here so often reaches the diaphragm.", c: 12 },
-        { id: "dsn", t: "nerve", n: "Dorsal scapular nerve", l: "DSN", k: "circle", cx: 456, cy: 206, r: 6, lx: 474, ly: 200, wrong: 1, m: "Levator scapulae and the rhomboids", s: "The scapula lifts and draws towards the spine: a nerve inside the middle scalene, not the plexus", x: "A nerve was visible in or on the middle scalene in 90% of 50 patients, about 0.7 cm posterior to the plexus; on stimulation 77% were the dorsal scapular nerve.", c: 8 },
-        { id: "ltn", t: "nerve", n: "Long thoracic nerve", l: "LTN", k: "circle", cx: 474, cy: 264, r: 6, lx: 494, ly: 270, wrong: 1, m: "Serratus anterior", s: "The chest wall twitches and the scapula is drawn forwards: a nerve inside the middle scalene, not the plexus", x: "Identified by stimulation in 23% of the nerves seen within the middle scalene.", c: 8 },
-        { id: "va", t: "artery", n: "Vertebral artery", l: "VA", k: "circle", cx: 300, cy: 322, r: 13, lx: 300, ly: 326, x: "Lies deep, close to the transverse process. Check with colour Doppler before needling." },
-        { id: "tp", t: "bone", n: "Transverse process", l: "TP", k: "path", d: "M330 334Q372 300 410 324Q444 302 484 334V400H330Z", cortex: "M330 334Q372 300 410 324Q444 302 484 334", lx: 408, ly: 366, x: "A bright line with a dark acoustic shadow beneath it." }
+        { id: "ejv", t: "vein", n: "External jugular vein", l: "EJV", k: "ellipse", cx: 430, cy: 62, rx: 15, ry: 4.5, lx: 470, ly: 60, avoid: 1, x: "Runs in the subcutaneous tissue and commonly crosses the posterior border of sternocleidomastoid at this level. It flattens under the probe: lighten the pressure to find it, and enter away from it." },
+        { id: "scm", t: "muscle", n: "Sternocleidomastoid", l: "SCM", k: "path", d: "M0 66C130 52 262 54 352 70C384 76 404 84 412 92C372 106 300 116 204 120C120 122 50 118 0 114Z", lx: 150, ly: 92, rec: "weak", x: "The superficial muscle. It covers the great vessels and tapers to a point over the groove. Accessory nerve (cranial nerve XI); turns the head to the opposite side." },
+        { id: "ijv", t: "vein", n: "Internal jugular vein", l: "IJV", k: "ellipse", cx: 118, cy: 174, rx: 46, ry: 22, lx: 118, ly: 178, x: "Thin-walled and compressible under light probe pressure. The plexus lies lateral to it." },
+        { id: "ca", t: "artery", n: "Common carotid artery", l: "CA", k: "circle", cx: 92, cy: 254, r: 31, lx: 92, ly: 258, x: "Round, pulsatile and non-compressible. The starting landmark: slide laterally from here to the scalene muscles." },
+        { id: "asm", t: "muscle", n: "Anterior scalene", l: "ASM", k: "path", d: "M212 170C230 138 292 130 322 144C338 158 344 196 346 232C346 262 332 290 300 296C258 300 220 268 208 226C204 204 204 186 212 170Z", lx: 270, ly: 236, rec: "strong", x: "Medial wall of the groove. Supplied by the anterior rami of the cervical nerves; flexes the neck and raises the first rib. The phrenic nerve runs down its front surface." },
+        { id: "msm", t: "muscle", n: "Middle scalene", l: "MSM", k: "path", d: "M370 126C420 108 524 110 584 140C624 162 638 212 628 258C616 302 556 324 498 320C452 318 412 306 396 286C396 262 388 236 384 220C382 196 376 170 372 152C368 142 366 132 370 126Z", lx: 530, ly: 236, rec: "strong", x: "Lateral wall of the groove and the muscle an in-plane needle crosses. The dorsal scapular and long thoracic nerves run through it.", c: 8 },
+        { id: "c5", t: "nerve", n: "C5 root", l: "C5", k: "circle", cx: 352, cy: 150, r: 14, lx: 352, ly: 154, rec: "strong", target: 1, m: "Deltoid, supraspinatus, infraspinatus and biceps, through the superior trunk", s: "Shoulder abducts", mv: "sabd", sup: ["c5", "hr=C5", "Muscles whose main root is C5, in red: deltoid, supraspinatus, infraspinatus, biceps, brachialis and brachioradialis among them."], x: "The most superficial root, and smaller than C6 or C7. It is the top circle of the stoplight sign and the root to aim beside for shoulder surgery.", c: 26 },
+        { id: "c6", t: "nerve", n: "C6 root", l: "C6", k: "duo", a: [360, 190, 15], b: [363, 219, 15], cx: 362, cy: 205, r: 15, lx: 361, ly: 209, rec: "strong", target: 1, m: "Biceps, brachioradialis and the wrist extensors, through the superior trunk", s: "Elbow flexes", mv: "elbowflex", sup: ["c6", "hr=C6", "Muscles whose main root is C6, in red: serratus anterior, the radial wrist extensors, pronator teres, subscapularis and teres major among them."], x: "Usually seen as two dark circles: the upper and lower fascicles of the one root. With C5 they make the three circles of the stoplight sign. The gap between them is inside the root, so never place the needle there.", c: 26 },
+        { id: "c7", t: "nerve", n: "C7 root", l: "C7", k: "circle", cx: 372, cy: 290, r: 16, lx: 372, ly: 294, rec: "weak", m: "Triceps, through the middle trunk", s: "Elbow extends", mv: "elbowext", sup: ["c7", "hr=C7", "Muscles whose main root is C7, in red: triceps, latissimus dorsi, the finger extensors and flexor carpi radialis among them."], x: "Deeper, lying on its own transverse process. It is not one of the three circles of the stoplight sign.", c: 26 },
+        { id: "phr", t: "nerve", n: "Phrenic nerve", l: "Phr", k: "circle", cx: 318, cy: 136, r: 4.5, lx: 290, ly: 152, wrong: 1, avoid: 1, m: "The diaphragm on that side", s: "Hiccup-like twitch of the diaphragm: the tip is too anterior, on the anterior scalene", x: "On the front of the anterior scalene, under the prevertebral fascia. At the level of the cricoid cartilage it lay a mean of 1.8 mm from C5 and measured 0.76 mm across; it moved about 3 mm further from the plexus for every centimetre down the neck.", c: 27 },
+        { id: "dsn", t: "nerve", n: "Dorsal scapular nerve", l: "DSN", k: "circle", cx: 452, cy: 188, r: 5, lx: 478, ly: 184, wrong: 1, avoid: 1, bright: 1, m: "Levator scapulae and the rhomboids", s: "The scapula lifts and draws towards the spine: a nerve inside the middle scalene, not the plexus", sup: ["dsn", "hl=rhomboid%7Clevator%20scapulae&hv=-0.35,0.3,-0.9&hg=1", "Rhomboid major, rhomboid minor and levator scapulae, in red, seen from behind through trapezius."], x: "A branch of C5 that crosses the middle scalene as a small bright dot. A nerve was visible in or on the muscle in 90% of 50 patients, about 0.7 cm posterior to the plexus; on stimulation 77% were the dorsal scapular nerve.", c: 8 },
+        { id: "ltn", t: "nerve", n: "Long thoracic nerve", l: "LTN", k: "circle", cx: 474, cy: 252, r: 5, lx: 500, ly: 256, wrong: 1, avoid: 1, bright: 1, m: "Serratus anterior", s: "The chest wall twitches and the scapula is drawn forwards: a nerve inside the middle scalene, not the plexus", sup: ["ltn", "hl=serratus%20anterior&hv=-0.95,0.12,0.3&hg=1", "Serratus anterior, in red, seen from the side. Injury leaves a winged scapula."], x: "Identified by stimulation in 23% of the nerves seen within the middle scalene.", c: 8 },
+        { id: "va", t: "artery", n: "Vertebral artery", l: "VA", k: "circle", cx: 322, cy: 322, r: 12, lx: 322, ly: 326, avoid: 1, x: "Lies deep, in front of the C7 transverse process. Confirm it with colour Doppler before needling." },
+        { id: "tp", t: "bone", n: "Transverse process of C7", l: "TP C7", k: "path", d: "M348 336Q380 312 420 320Q462 328 496 356V400H348Z", cortex: "M348 336Q380 312 420 320Q462 328 496 356", lx: 426, ly: 370, x: "A bright line with a dark acoustic shadow. C7 has no anterior tubercle, unlike C6 above it, and the C7 root lies on it." }
       ],
-      groove: "M318 128Q352 116 388 130Q404 180 406 240Q398 292 380 302Q350 308 330 296Q316 240 320 190Z",
+      groove: "M322 144C338 128 356 120 370 126C366 140 376 180 384 220C390 250 396 270 396 286C388 304 372 312 356 306C346 280 346 250 346 232C344 196 338 158 322 144Z",
       zones: {
         air: ["Above the skin", "The needle has not entered yet. Insert it at the lateral edge of the probe, in plane."],
-        subcut: ["Skin and subcutaneous tissue", "Platysma is a thin sheet in this layer. Look for the external jugular vein before you start."],
+        subcut: ["Skin and subcutaneous tissue", "Platysma is a thin sheet in this layer. Find the external jugular vein before you start."],
         tri: ["Posterior triangle, between the two fascial layers", "Fat and loose tissue under the investing layer. Branches of the superficial cervical plexus run at this depth; an injection here does not reach the roots."],
-        groove: ["Interscalene groove, beside the roots", "Deep to the prevertebral layer, between the scalene muscles. This is the compartment that holds C5, C6 and C7."],
+        groove: ["Interscalene groove, among the roots", "Deep to the prevertebral layer, between the scalene muscles. You have passed the inner edge of the middle scalene: the tip is now inside the sheath."],
         deep: ["Deep to the scalene muscles", "Too deep. The vertebral artery and the transverse process lie here."]
       },
-      la: { "in": [368, 178, 30, 46], ex: [404, 184, 24, 50] },
+      targetNote: "This is the target: at the inner edge of the middle scalene, beside C5.",
+      la: { "in": [360, 186, 24, 52], ex: [388, 186, 16, 46] },
       consensus: "Core structures for the block view by international consensus: anterior scalene, middle scalene, C5 root and C6 root. Sternocleidomastoid, the C7 root and the upper trunk carry a weaker recommendation.",
-      refs: { stim: 22, sens: 23, press: 24, cons: 25, where: 10 }
+      refs: { stim: 22, sens: 23, press: 24, cons: 25, where: 10 }, avoidNote: "Before the needle goes in, find and name these. The two small nerves cross the middle scalene in the needle path."
     }
   };
   var esc = function (s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); };
   function shapeSvg(s, st) {
     st = st ? ' style="' + st + '"' : "";
     if (s.k === "circle") return '<circle class="shape"' + st + ' cx="' + s.cx + '" cy="' + s.cy + '" r="' + s.r + '"/>' + (s.r < 10 ? '<circle class="hit" cx="' + s.cx + '" cy="' + s.cy + '" r="15"/>' : "");
+    if (s.k === "duo") return '<circle class="shape"' + st + ' cx="' + s.a[0] + '" cy="' + s.a[1] + '" r="' + s.a[2] + '"/><circle class="shape"' + st + ' cx="' + s.b[0] + '" cy="' + s.b[1] + '" r="' + s.b[2] + '"/>';
     if (s.k === "ellipse") return '<ellipse class="shape"' + st + ' cx="' + s.cx + '" cy="' + s.cy + '" rx="' + s.rx + '" ry="' + s.ry + '"/>';
     return '<path class="shape"' + st + ' d="' + s.d + '"/>' + (s.cortex ? '<path class="cortex" d="' + s.cortex + '"/>' : "");
+  }
+  function paintUS(B, bb) {
+    var W = 640, H = 400, K = 2, c = document.createElement("canvas"); c.width = W * K; c.height = H * K; var g = c.getContext("2d"); g.scale(K, K);
+    var seed = 11, R = function () { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+    var P = function (s) { if (s.k === "path") return new Path2D(s.d); var p = new Path2D(); if (s.k === "circle") p.arc(s.cx, s.cy, s.r, 0, 6.2832); else if (s.k === "duo") { p.arc(s.a[0], s.a[1], s.a[2], 0, 6.2832); p.moveTo(s.b[0] + s.b[2], s.b[1]); p.arc(s.b[0], s.b[1], s.b[2], 0, 6.2832); } else p.ellipse(s.cx, s.cy, s.rx, s.ry, 0, 0, 6.2832); return p; };
+    var of = function (t) { return B.shapes.filter(function (s) { return s.t === t; }); }, i, x, y, l;
+    var bg = g.createLinearGradient(0, 46, 0, H); bg.addColorStop(0, "#8d9096"); bg.addColorStop(1, "#4a4c51"); g.fillStyle = bg; g.fillRect(0, 0, W, H); g.lineCap = "round";
+    for (i = 0; i < 520; i++) { x = R() * W; y = 46 + R() * (H - 46); l = 5 + R() * 28; g.strokeStyle = "rgba(245,247,250," + (0.05 + R() * 0.2).toFixed(2) + ")"; g.lineWidth = 0.6 + R() * 1.3; g.beginPath(); g.moveTo(x, y); g.quadraticCurveTo(x + l / 2, y + (R() - 0.5) * 6, x + l, y + (R() - 0.5) * 5); g.stroke(); }
+    of("muscle").forEach(function (s) { var p = P(s), b = bb(s), n = Math.round(b.width * b.height / 22); g.save(); g.clip(p); g.fillStyle = "#33353a"; g.fillRect(0, 0, W, H);
+      for (i = 0; i < n; i++) { x = b.x + R() * b.width; y = b.y + R() * b.height; l = 1.5 + R() * 6; var a = (R() - 0.5) * 1.2; g.strokeStyle = "rgba(238,240,244," + (0.18 + R() * 0.5).toFixed(2) + ")"; g.lineWidth = 0.6 + R() * 1.1; g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke(); }
+      g.restore(); g.strokeStyle = "rgba(246,247,250,.85)"; g.lineWidth = 1.7; g.stroke(p); });
+    of("artery").concat(of("vein")).forEach(function (s) { var p = P(s), rx = s.rx || s.r, ry = s.ry || s.r, e = g.createLinearGradient(0, s.cy + ry, 0, s.cy + ry + 70); e.addColorStop(0, "rgba(255,255,255,.2)"); e.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = e; g.fillRect(s.cx - rx * 0.85, s.cy + ry, rx * 1.7, 70);
+      g.fillStyle = "#030405"; g.fill(p); g.strokeStyle = s.t === "artery" ? "rgba(252,252,254,.95)" : "rgba(214,218,226,.75)"; g.lineWidth = s.t === "artery" ? 2.8 : 1.3; g.stroke(p); });
+    B.fascia.forEach(function (f) { var p = new Path2D(f.d); g.strokeStyle = "rgba(255,255,255,.16)"; g.lineWidth = 5; g.stroke(p); g.strokeStyle = "rgba(252,252,254,.92)"; g.lineWidth = 1.9; g.stroke(p); });
+    of("nerve").forEach(function (s) { var p = P(s); if (s.bright) { g.fillStyle = "rgba(250,250,252,.95)"; g.fill(p); g.fillStyle = "#1a1b1e"; g.beginPath(); g.arc(s.cx, s.cy, s.r * 0.45, 0, 6.2832); g.fill(); return; }
+      g.fillStyle = "#1b1c20"; g.fill(p); g.strokeStyle = "rgba(248,249,252,.95)"; g.lineWidth = s.r < 8 ? 1.5 : 2.1; g.stroke(p); });
+    of("bone").forEach(function (s) { g.fillStyle = "#000"; g.fill(P(s)); if (s.cortex) { var p = new Path2D(s.cortex); g.strokeStyle = "rgba(255,255,255,.25)"; g.lineWidth = 12; g.stroke(p); g.strokeStyle = "#fff"; g.lineWidth = 6; g.stroke(p); } });
+    var n2 = document.createElement("canvas"); n2.width = W; n2.height = H; var nd = n2.getContext("2d"), im = nd.createImageData(W, H);
+    for (i = 0; i < im.data.length; i += 4) { var v = 105 + Math.floor(R() * 150); im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255; } nd.putImageData(im, 0, 0);
+    g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = "multiply"; g.drawImage(n2, 0, 0, W * K, H * K); g.globalCompositeOperation = "source-over";
+    var at = g.createLinearGradient(0, 46 * K, 0, H * K); at.addColorStop(0, "rgba(0,0,0,0)"); at.addColorStop(1, "rgba(0,0,0,.34)"); g.fillStyle = at; g.fillRect(0, 0, W * K, H * K);
+    return c.toDataURL("image/jpeg", 0.86);
   }
   function mount(el) {
     var B = DATA[el.getAttribute("data-block")]; if (!B) return;
     var u = "bp" + Math.random().toString(36).slice(2, 7), cite = function (n) { return n ? ' <a class="cite" href="#ref-' + n + '">' + n + "</a>" : ""; };
     var layer = function (an) {
-      return '<g class="lay">' + B.shapes.map(function (s) { return '<g class="st t-' + s.t + '" data-id="' + s.id + '" tabindex="0" role="button" aria-label="' + esc(s.n) + '">' + shapeSvg(s, an ? (s.t === "muscle" ? "fill:url(#" + u + "mp)" : s.t === "nerve" ? "fill:url(#" + u + "f)" : "") : "") + "</g>"; }).join("") +
+      return '<g class="lay">' + B.shapes.map(function (s) { return '<g class="st t-' + s.t + (s.avoid ? " av" : "") + '" data-id="' + s.id + '" tabindex="0" role="button" aria-label="' + esc(s.n) + '">' + shapeSvg(s, an ? (s.t === "muscle" ? "fill:url(#" + u + "mp)" : s.t === "nerve" ? "fill:url(#" + u + "f)" : "") : "") + "</g>"; }).join("") +
         B.fascia.map(function (f) { return '<path class="fas" data-f="' + f.id + '" d="' + f.d + '"/><path class="fas-hit" data-f="' + f.id + '" d="' + f.d + '"/>'; }).join("") + "</g>";
     };
     var svg = '<svg viewBox="0 0 640 400" class="bp-svg" role="img" aria-label="Schematic cross-section at the block site. Drag to move the needle tip.">' +
@@ -60,7 +85,7 @@
       '<linearGradient id="' + u + 'a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F1D892"/><stop offset=".16" stop-color="#E9C77C"/><stop offset="1" stop-color="#C99C5E"/></linearGradient>' +
       '<pattern id="' + u + 'f" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#F1DC83"/><circle cx="2.5" cy="2.5" r="1.7" fill="#D9B94C"/><circle cx="7" cy="6.5" r="1.7" fill="#D9B94C"/></pattern>' +
       '<clipPath id="' + u + 'w"><rect class="bp-clip" x="640" y="0" width="640" height="400"/></clipPath></defs>' +
-      '<g class="bp-us"><rect width="640" height="400" fill="url(#' + u + 'g)"/>' + layer(0) + '<rect width="640" height="400" filter="url(#' + u + 'n)" opacity=".3" pointer-events="none"/></g>' +
+      '<g class="bp-us"><rect width="640" height="400" fill="#101116"/><image class="bp-usimg" x="0" y="0" width="640" height="400" preserveAspectRatio="none"/>' + layer(0) + "</g>" +
       '<g class="bp-an" clip-path="url(#' + u + 'w)"><rect width="640" height="400" fill="url(#' + u + 'a)"/><rect y="46" width="640" height="5" fill="#D9A27E"/>' + layer(1) + "</g>" +
       '<rect y="0" width="640" height="46" class="bp-head"/><path d="M0 46H640" class="bp-skin"/>' +
       '<path class="bp-div" d="M640 0V400"/>' +
@@ -71,7 +96,7 @@
       [1, 2, 3].map(function (c) { return '<path d="M630 ' + (46 + c * 105) + 'h10" stroke="#fff" stroke-width="1.5"/><text class="ori" x="626" y="' + (50 + c * 105) + '" text-anchor="end">' + c + " cm</text>"; }).join("") +
       '<text class="bp-twitch" x="320" y="30" text-anchor="middle"></text></svg>';
     el.classList.add("bp");
-    el.innerHTML = '<div class="bp-bar" role="toolbar" aria-label="View"><span>View</span><button data-v="0" aria-pressed="true">Ultrasound</button><button data-v="50" aria-pressed="false">Half and half</button><button data-v="100" aria-pressed="false">Anatomy</button><input type="range" min="0" max="100" value="0" class="bp-wipe" aria-label="Wipe between ultrasound and anatomy"><button data-a="labels" aria-pressed="true">Labels</button><button data-a="play" class="bp-play">Play the block</button><button data-a="reset">Reset</button></div>' +
+    el.innerHTML = '<div class="bp-bar" role="toolbar" aria-label="View"><span>View</span><button data-v="0" aria-pressed="true">Ultrasound</button><button data-v="50" aria-pressed="false">Half and half</button><button data-v="100" aria-pressed="false">Anatomy</button><input type="range" min="0" max="100" value="0" class="bp-wipe" aria-label="Wipe between ultrasound and anatomy"><button data-a="labels" aria-pressed="true">Labels</button><button data-a="tint" aria-pressed="false">Colour the structures</button><button data-a="avoid" aria-pressed="false">Structures to avoid</button><button data-a="test" aria-pressed="false">Test me</button><button data-a="play" class="bp-play">Play the block</button><button data-a="reset">Reset</button></div>' +
       '<div class="bp-main"><div class="bp-stage">' + svg + '<p class="bp-hint">Drag anywhere on the image to steer the needle tip. Arrow keys also work: left and right advance and withdraw, up and down change the angle.</p></div>' +
       '<div class="bp-side"><div class="bp-card bp-where" aria-live="polite"></div>' +
       '<div class="bp-card bp-stim"><h4>Nerve stimulator <label class="bp-sw"><input type="checkbox" class="bp-on"> on</label></h4><div class="bp-cur"><button data-c="-0.1" aria-label="Reduce current">−</button><output>1.0 mA</output><button data-c="0.1" aria-label="Increase current">+</button><input type="range" min="0.1" max="2" step="0.1" value="1" class="bp-ma" aria-label="Stimulating current in milliamps"><small>2 Hz · 0.1 ms</small></div><div class="bp-resp" aria-live="polite"></div></div>' +
@@ -80,6 +105,8 @@
       '<p class="bp-cap">Original schematic, not to scale. The twitch thresholds are a teaching model: the current needed rises with the square of the distance from the nerve. Real thresholds vary between patients and are higher in diabetes.' + cite(B.refs.stim) + "</p>";
     var $ = function (q) { return el.querySelector(q); }, $$ = function (q) { return [].slice.call(el.querySelectorAll(q)); };
     var sv = $("svg"), byId = {}; B.shapes.forEach(function (s) { byId[s.id] = s; });
+    var scan = el.getAttribute("data-mode") === "scan"; el.classList.toggle("scan", scan);
+    try { $(".bp-usimg").setAttribute("href", paintUS(B, function (s) { return sv.querySelector('.bp-us [data-id="' + s.id + '"]').getBBox(); })); } catch (e) {}
     /* fascia as y(x) look-ups, and path regions for hit tests */
     var fy = {}; B.fascia.forEach(function (f) {
       var p = sv.querySelector('.bp-us .fas[data-f="' + f.id + '"]'), L = p.getTotalLength(), a = [];
@@ -92,6 +119,7 @@
     var pathNode = {}; B.shapes.forEach(function (s) { if (s.k === "path") pathNode[s.id] = sv.querySelector('.bp-us [data-id="' + s.id + '"] .shape'); });
     function inShape(s, x, y) {
       if (s.k === "circle") return Math.hypot(x - s.cx, y - s.cy) <= s.r;
+      if (s.k === "duo") return Math.hypot(x - s.a[0], y - s.a[1]) <= s.a[2] || Math.hypot(x - s.b[0], y - s.b[1]) <= s.b[2];
       if (s.k === "ellipse") { var a = (x - s.cx) / s.rx, b = (y - s.cy) / s.ry; return a * a + b * b <= 1; }
       return inPath(pathNode[s.id], x, y);
     }
@@ -117,8 +145,12 @@
       }
       return out;
     }
-    function thr(s) { var d = Math.hypot(S.tip[0] - s.cx, S.tip[1] - s.cy); if (d <= s.r) return 0.2; var mm = (d - s.r) * MM; return 0.3 + 0.04 * mm * mm; }
+    function gap(s, x, y) { /* px from a point to the surface of a nerve; 0 or less = inside */
+      if (s.k === "duo") return Math.min(Math.hypot(x - s.a[0], y - s.a[1]) - s.a[2], Math.hypot(x - s.b[0], y - s.b[1]) - s.b[2]);
+      return Math.hypot(x - s.cx, y - s.cy) - s.r; }
+    function thr(s) { var d = gap(s, S.tip[0], S.tip[1]); if (d <= 0) return 0.2; var mm = d * MM; return 0.3 + 0.04 * mm * mm; }
     function draw() {
+      if (scan) return;
       var e = B.entry, t = S.tip, dx = t[0] - e[0], dy = t[1] - e[1], L = Math.hypot(dx, dy) || 1, ux = dx / L, uy = dy / L;
       shaft.setAttribute("d", "M" + (t[0] - ux * (L + 60)).toFixed(1) + " " + (t[1] - uy * (L + 60)).toFixed(1) + "L" + t[0].toFixed(1) + " " + t[1].toFixed(1));
       tipm.setAttribute("d", "M" + t[0].toFixed(1) + " " + t[1].toFixed(1) + "l" + (-ux * 14 - uy * 5).toFixed(1) + " " + (-uy * 14 + ux * 5).toFixed(1) + "l" + (uy * 10).toFixed(1) + " " + (-ux * 10).toFixed(1) + "z");
@@ -134,7 +166,7 @@
         else if (z === "asm") { warn = "warn"; body = "You have crossed the groove and passed the roots. Withdraw. " + body; }
       } else { head = B.zones[z][0]; body = B.zones[z][1]; if (z === "deep") warn = "warn"; }
       var dT = Math.hypot(t[0] - B.target[0], t[1] - B.target[1]) * MM;
-      if (!warn && dT < 1.6) { warn = "good"; body += " <b>This is the target position: beside the roots, between C5 and C6.</b>"; }
+      if (!warn && dT < 1.6) { warn = "good"; body += " <b>" + B.targetNote + "</b>"; }
       $(".bp-where").className = "bp-card bp-where " + warn;
       $(".bp-where").innerHTML = "<h4>Needle tip · " + depth.toFixed(1) + " cm deep</h4><p class=\"bp-z\">" + esc(head) + "</p><p>" + body + "</p><ol class=\"bp-trk\">" +
         tr.map(function (k) { if (k.f) { var f = B.fascia.filter(function (q) { return q.id === k.f; })[0]; return '<li class="f" title="' + esc(f.t) + '">' + esc(f.n) + "</li>"; } return "<li>" + esc(name(k.z)) + "</li>"; }).join("") + "</ol>";
@@ -152,7 +184,7 @@
       else if (!ns.length && close) h = "<p class=\"bp-none\"><b>No twitch at " + S.ma.toFixed(1) + " mA.</b> The tip is close: the twitch returns at 0.5 mA.</p>";
       else if (!ns.length) h = "<p class=\"bp-none\"><b>No twitch at " + S.ma.toFixed(1) + " mA.</b> " + (S.ma < 0.95 ? "Raise the current to 1.0 mA to search, or advance a millimetre at a time." : "The tip is not yet close to a motor nerve. Advance.") + "</p>";
       else {
-        var q = ns[0], s = q.s, inside = Math.hypot(S.tip[0] - s.cx, S.tip[1] - s.cy) <= s.r;
+        var q = ns[0], s = q.s, inside = gap(s, S.tip[0], S.tip[1]) <= 0;
         el.classList.add("twitch"); tw.textContent = s.s.split(":")[0];
         h = "<p class=\"bp-tw\"><b>Twitch:</b> " + esc(s.s) + ".<br><small>" + esc(s.n) + " · " + esc(s.m) + "</small>" + (s.mv ? ' <a class="bp-3d" href="anatomy-3d.html?mode=myo&amp;move=' + s.mv + '" target="_blank" rel="noopener">See this movement in 3D</a>' : "") + "</p>";
         if (s.wrong) h += "<p class=\"bp-coach warn\">Not the plexus. " + (s.id === "phr" ? "Withdraw and redirect posteriorly, towards the groove." : "Note where this nerve lies and steer the needle away from it, then continue towards the groove.") + "</p>";
@@ -166,17 +198,17 @@
     }
     function inject() {
       var t = S.tip, z = where(t[0], t[1]), s = byId[z], o = $(".bp-injr"), good = 0, msg, shape = null;
-      var near = B.shapes.filter(function (k) { return k.t === "nerve" && Math.hypot(t[0] - k.cx, t[1] - k.cy) <= k.r + 2; })[0];
+      var near = B.shapes.filter(function (k) { return k.t === "nerve" && gap(k, t[0], t[1]) <= 2; })[0];
       if (near) msg = "<b>Injection refused.</b> The tip is against or inside the " + near.n.toLowerCase() + ". With the needle touching a root, opening injection pressure reached 15 psi or more in 35 of 36 injections; 1 mm away it stayed below 15 psi." + cite(B.refs.press);
       else if (s && (s.t === "artery" || s.t === "vein")) msg = "<b>Intravascular.</b> Aspirate, withdraw and reposition. Do not inject.";
       else if (s && s.t === "bone") msg = "<b>No flow.</b> The tip is on bone.";
       else if (z === "subcut" || z === "air") { msg = "A skin wheal only. The plexus lies two fascial layers deeper."; shape = [t[0], t[1] + 4, 20, 7]; }
       else if (z === "tri" || z === "scm") { msg = "The fluid spreads between the investing and prevertebral layers. This reaches branches of the superficial cervical plexus, not the roots."; shape = [t[0] - 8, t[1] + 2, 46, 11]; }
-      else if (z === "msm" && Math.hypot(t[0] - B.target[0], t[1] - B.target[1]) * MM > 2.2) { msg = "The fluid swells inside the middle scalene. Advance until the tip leaves the muscle at the edge of the groove."; shape = [t[0], t[1], 22, 15]; }
+      else if (z === "msm" && Math.hypot(t[0] - B.target[0], t[1] - B.target[1]) * MM > 2.2) { msg = "The fluid swells inside the middle scalene. Advance to the inner edge of the muscle, beside C5."; shape = [t[0], t[1], 22, 15]; }
       else if (z === "asm") { msg = "The fluid swells inside the anterior scalene, next to the phrenic nerve. Withdraw to the groove."; shape = [t[0], t[1], 20, 15]; }
       else if (z === "deep") { msg = "Too deep. Withdraw towards the groove."; shape = [t[0], t[1], 16, 10]; }
-      else { good = 1; var ex = z === "msm" || t[0] > 392; shape = ex ? B.la.ex : B.la["in"];
-        msg = "<b>Good spread.</b> The fluid tracks " + (ex ? "along the lateral side of the roots, outside the sheath" : "between C5 and C6, inside the sheath") + ". With 20 mL, hemidiaphragmatic paresis followed in 21% when the injection was 4 mm lateral to the sheath and in 90% when it was between C5 and C6, with similar analgesia." + cite(B.refs.where) + ' <a href="#coverage">See what the block covers</a>.'; }
+      else { good = 1; var ex = z === "msm"; shape = ex ? B.la.ex : B.la["in"];
+        msg = "<b>Good spread.</b> The fluid tracks " + (ex ? "down the outer side of C5 and C6, outside the sheath" : "around C5 and C6, inside the sheath") + ". With 20 mL, hemidiaphragmatic paresis followed in 21% when the injection was 4 mm lateral to the sheath and in 90% when it was between C5 and C6, with similar analgesia." + cite(B.refs.where) + ' <a href="#coverage">See what the block covers</a>.'; }
       o.className = "bp-injr " + (good ? "good" : shape ? "warn" : "bad"); o.innerHTML = "<p>" + msg + "</p>";
       if (shape) { laE.setAttribute("cx", shape[0]); laE.setAttribute("cy", shape[1]); laE.setAttribute("rx", 2); laE.setAttribute("ry", 2); laE.style.opacity = 1; var t0 = performance.now(); (function g(now) { var k = Math.max(0, Math.min(1, (now - t0) / 1600)), e2 = 1 - Math.pow(1 - k, 3); laE.setAttribute("rx", (2 + (shape[2] - 2) * e2).toFixed(1)); laE.setAttribute("ry", (2 + (shape[3] - 2) * e2).toFixed(1)); if (k < 1) requestAnimationFrame(g); })(t0);
         el.classList.toggle("blocked", !!good); } else clearLa();
@@ -185,27 +217,39 @@
     function setTip(x, y) { var e = B.entry; x = Math.max(8, Math.min(e[0] - 4, x)); y = Math.max(e[1] + 1, Math.min(392, y)); S.tip = [x, y]; draw(); }
     function setView(v) { v = Math.max(0, Math.min(100, +v)); var x = 640 * (1 - v / 100); $(".bp-clip").setAttribute("x", x); $(".bp-div").setAttribute("d", "M" + x + " 0V400"); $(".bp-div").style.opacity = v > 0 && v < 100 ? 1 : 0; $(".bp-wipe").value = v; $$("[data-v]").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.getAttribute("data-v") === v)); }); el.classList.toggle("an-full", v >= 100); }
     function pick(id) { var s = byId[id]; if (!s) return; S.seen[id] = 1; var li = $('.bp-chk li[data-id="' + id + '"]'); if (li) li.classList.add("ok");
-      $(".bp-where").className = "bp-card bp-where"; $(".bp-where").innerHTML = "<h4>" + esc(s.n) + (s.rec ? ' <span class="chip ' + (s.rec === "strong" ? "sy" : "obs") + '">' + (s.rec === "strong" ? "Core structure" : "Also recommended") + "</span>" : "") + "</h4><p>" + s.x + cite(s.c) + "</p>" + (s.m ? "<p><b>Supplies:</b> " + esc(s.m) + ".<br><b>On stimulation:</b> " + esc(s.s) + "." + (s.mv ? ' <a class="bp-3d" href="anatomy-3d.html?mode=myo&amp;move=' + s.mv + '" target="_blank" rel="noopener">See this movement in 3D</a>' : "") + "</p>" : "");
+      $(".bp-where").className = "bp-card bp-where"; $(".bp-where").innerHTML = "<h4>" + esc(s.n) + (s.rec ? ' <span class="chip ' + (s.rec === "strong" ? "sy" : "obs") + '">' + (s.rec === "strong" ? "Core structure" : "Also recommended") + "</span>" : "") + "</h4><p>" + s.x + cite(s.c) + "</p>" + (s.m ? "<p><b>Supplies:</b> " + esc(s.m) + ".<br><b>On stimulation:</b> " + esc(s.s) + "." + (s.mv ? ' <a class="bp-3d" href="anatomy-3d.html?mode=myo&amp;move=' + s.mv + '" target="_blank" rel="noopener">See this movement in 3D</a>' : "") + "</p>" : "") +
+        (s.sup ? '<figure class="bp-sup"><a href="anatomy-3d.html?' + s.sup[1].replace(/&/g, "&amp;") + '&amp;ht=' + encodeURIComponent(s.n) + '" target="_blank" rel="noopener"><img loading="lazy" src="media/figures/supply-' + s.sup[0] + '.jpg" alt="' + esc(s.sup[2]) + '"></a><figcaption>' + esc(s.sup[2]) + ' <a class="bp-3d" href="anatomy-3d.html?' + s.sup[1].replace(/&/g, "&amp;") + '&amp;ht=' + encodeURIComponent(s.n) + '" target="_blank" rel="noopener">Turn it in 3D</a></figcaption></figure>' : "") +
+        (s.avoid ? '<p class="bp-coach warn"><b>Structure to avoid.</b> Find it before the needle goes in.</p>' : "");
       $$(".st").forEach(function (g) { g.classList.toggle("sel", g.getAttribute("data-id") === id); }); }
     /* pointer: a short tap selects a structure, a drag steers the needle */
     var drag = null, toSvg = function (ev) { var m = sv.getScreenCTM().inverse(); pt.x = ev.clientX; pt.y = ev.clientY; var p = pt.matrixTransform(m); return [p.x, p.y]; };
     sv.addEventListener("pointerdown", function (ev) { stop(); drag = { p: toSvg(ev), moved: false, id: (ev.target.closest && ev.target.closest(".st") || { getAttribute: function () { return null; } }).getAttribute("data-id"), f: ev.target.getAttribute && ev.target.getAttribute("data-f") }; try { sv.setPointerCapture(ev.pointerId); } catch (e) {} });
-    sv.addEventListener("pointermove", function (ev) { if (!drag) return; var p = toSvg(ev); if (!drag.moved && Math.hypot(p[0] - drag.p[0], p[1] - drag.p[1]) < 6) return; drag.moved = true; clearLa(); setTip(p[0], p[1]); ev.preventDefault(); });
-    var up = function () { if (!drag) return; var d = drag; drag = null; if (!d.moved) { if (d.id) pick(d.id); else if (d.f) { var f = B.fascia.filter(function (q) { return q.id === d.f; })[0]; $(".bp-where").className = "bp-card bp-where"; $(".bp-where").innerHTML = "<h4>" + esc(f.n) + "</h4><p>" + esc(f.t) + "</p>"; } } };
+    sv.addEventListener("pointermove", function (ev) { if (!drag || scan) return; var p = toSvg(ev); if (!drag.moved && Math.hypot(p[0] - drag.p[0], p[1] - drag.p[1]) < 6) return; drag.moved = true; clearLa(); setTip(p[0], p[1]); ev.preventDefault(); });
+    var up = function () { if (!drag) return; var d = drag; drag = null; if (!d.moved) { if (TQ.on) { if (d.id) answer(d.id); return; } if (d.id) pick(d.id); else if (d.f) { var f = B.fascia.filter(function (q) { return q.id === d.f; })[0]; $(".bp-where").className = "bp-card bp-where"; $(".bp-where").innerHTML = "<h4>" + esc(f.n) + "</h4><p>" + esc(f.t) + "</p>"; } } };
     sv.addEventListener("pointerup", up); sv.addEventListener("pointercancel", up);
     sv.addEventListener("keydown", function (ev) { var k = ev.key, e = B.entry, t = S.tip, dx = t[0] - e[0], dy = t[1] - e[1], L = Math.hypot(dx, dy), a = Math.atan2(dy, -dx);
       if (ev.target.closest && ev.target.closest(".st") && (k === "Enter" || k === " ")) { pick(ev.target.closest(".st").getAttribute("data-id")); ev.preventDefault(); return; }
-      if (k === "ArrowLeft") L += 4; else if (k === "ArrowRight") L -= 4; else if (k === "ArrowDown") a += 0.03; else if (k === "ArrowUp") a -= 0.03; else return;
+      if (scan) return; if (k === "ArrowLeft") L += 4; else if (k === "ArrowRight") L -= 4; else if (k === "ArrowDown") a += 0.03; else if (k === "ArrowUp") a -= 0.03; else return;
       ev.preventDefault(); stop(); clearLa(); L = Math.max(6, L); setTip(e[0] - Math.cos(a) * L, e[1] + Math.sin(a) * L); });
     sv.setAttribute("tabindex", "0");
     el.addEventListener("click", function (ev) { var b = ev.target.closest("button"); if (!b) return;
+      if (b.hasAttribute("data-pick")) { pick(b.getAttribute("data-pick")); return; }
       if (b.hasAttribute("data-v")) setView(b.getAttribute("data-v"));
       else if (b.hasAttribute("data-c")) { stop(); S.on = true; S.ma = Math.max(0.1, Math.min(2, Math.round((S.ma + +b.getAttribute("data-c")) * 10) / 10)); draw(); }
-      else { var a = b.getAttribute("data-a"); if (a === "labels") { var on = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", String(on)); el.classList.toggle("no-lbl", !on); } else if (a === "inject") { stop(); inject(); } else if (a === "clear") clearLa(); else if (a === "reset") { stop(); reset(); } else if (a === "play") { if (S.play) stop(); else play(); } } });
+      else { var a = b.getAttribute("data-a"); if (a === "labels") { var on = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", String(on)); el.classList.toggle("no-lbl", !on); } else if (a === "tint") { var tn = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", String(tn)); el.classList.toggle("tint", tn); }
+        else if (a === "avoid") { var av = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", String(av)); el.classList.toggle("avoid", av); if (scan || av) home(); else draw(); }
+        else if (a === "test") { TQ.on = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", String(TQ.on)); el.classList.toggle("testing", TQ.on); if (TQ.on) { TQ.ok = TQ.n = 0; TQ.q = null; ask(); } else home(); }
+        else if (a === "inject") { stop(); inject(); } else if (a === "clear") clearLa(); else if (a === "reset") { stop(); reset(); } else if (a === "play") { if (S.play) stop(); else play(); } } });
     $(".bp-wipe").addEventListener("input", function () { setView(this.value); });
     $(".bp-ma").addEventListener("input", function () { stop(); S.on = true; S.ma = +this.value; draw(); });
     $(".bp-on").addEventListener("change", function () { stop(); S.on = this.checked; draw(); });
-    function reset() { S.on = false; S.ma = 1; clearLa(); setTip(B.entry[0] - 6, B.entry[1] + 3); $$(".st").forEach(function (g) { g.classList.remove("sel"); }); }
+    function home() { var av = B.shapes.filter(function (s) { return s.avoid; });
+      $(".bp-where").className = "bp-card bp-where"; $(".bp-where").innerHTML = el.classList.contains("avoid") ? "<h4>Structures to avoid</h4><p>" + esc(B.avoidNote) + '</p><ul class="bp-av">' + av.map(function (s) { return '<li><button data-pick="' + s.id + '">' + esc(s.n) + "</button> " + esc(s.x.split(". ")[0]) + ".</li>"; }).join("") + "</ul>" : "<h4>Sonoanatomy at C6</h4><p>Tap any structure on the image. Its colour shows what it is: muscle, artery, vein, nerve or bone. Tap a nerve to see what it supplies.</p>"; }
+    var TQ = { on: false, q: null, ok: 0, n: 0 };
+    function ask(fb) { var pool = B.shapes.filter(function (s) { return s.id !== TQ.q; }), s = pool[Math.floor(Math.random() * pool.length)]; TQ.q = s.id; $$(".st").forEach(function (g) { g.classList.remove("sel"); });
+      $(".bp-where").className = "bp-card bp-where"; $(".bp-where").innerHTML = (fb || "") + "<h4>Test me · " + TQ.ok + " of " + TQ.n + '</h4><p class="bp-z">Find: ' + esc(s.n) + ".</p><p><small>Labels are hidden while the test runs.</small></p>"; }
+    function answer(id) { TQ.n++; var good = id === TQ.q, s = byId[TQ.q]; if (good) TQ.ok++; ask('<p class="bp-coach ' + (good ? "good" : "bad") + '">' + (good ? "<b>Correct.</b> " : "<b>Not quite.</b> You tapped: " + esc(byId[id] ? byId[id].n : "background") + ". ") + esc(s.n) + ": " + esc(s.x.split(". ")[0]) + ".</p>"); }
+    function reset() { if (scan) { home(); return; } S.on = false; S.ma = 1; clearLa(); setTip(B.entry[0] - 6, B.entry[1] + 3); $$(".st").forEach(function (g) { g.classList.remove("sel"); }); }
     /* guided run: the same controls, moved for the learner, with a caption at each step */
     var cap = document.createElement("div"); cap.className = "bp-capn"; $(".bp-stage").appendChild(cap);
     function stop() { if (!S.play) return; S.play = 0; cap.classList.remove("on"); $(".bp-play").textContent = "Play the block"; }
@@ -218,7 +262,7 @@
         { to: c("inv") + 3, say: F("inv").n + ". " + F("inv").t, hold: 2600 },
         { to: c("pre") + 2, say: "Fat of the posterior triangle, then the " + F("pre").n.toLowerCase() + ". " + F("pre").t, hold: 3000 },
         { to: c("msm") + 26, say: "Into the middle scalene. The stimulator goes on at 1.0 mA: the dorsal scapular and long thoracic nerves run through this muscle.", fn: function () { S.on = true; S.ma = 1; }, hold: 2600 },
-        { to: L - 2, say: "The tip leaves the muscle at the edge of the groove. Deltoid and biceps twitch: the superior trunk is answering.", hold: 2600 },
+        { to: L - 2, say: "The tip reaches the inner edge of the muscle, beside C5. The deltoid twitches and the shoulder abducts: C5 is answering.", hold: 2800 },
         { say: "Turn the current down. At 0.5 mA the twitch fades.", fn: function () { S.ma = 0.5; }, hold: 2400 },
         { to: L + 7, say: "Advance a millimetre. The twitch returns at 0.5 mA: the tip is close.", hold: 2400 },
         { say: "Down to 0.2 mA. No twitch: the tip is not inside the nerve.", fn: function () { S.ma = 0.2; }, hold: 2800 },
