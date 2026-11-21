@@ -761,3 +761,6 @@ table.live td:first-child{min-width:280px}
 .citepop a{color:#FFD05A;font-weight:700}
 .citepop-n{display:inline-block;min-width:22px;padding:1px 7px;margin-bottom:6px;border-radius:999px;background:#FFC61A;color:#06102b;font-weight:800;font-size:.75rem;text-align:center}
 @media (hover:none){.citepop{display:none}}
+
+.a3-maps{margin-top:-4px}.a3-maplab{font:600 13px/1 var(--sans,inherit);color:var(--mute,#5b6780);margin-right:2px}.a3-source{font-size:11px;line-height:1.45;color:var(--mute,#5b6780);margin:8px 2px 0}.a3-source a{color:inherit}body.a3-shot .a3-maps,body.a3-shot .a3-source{display:none!important}
+.a3-nl{margin:4px 0 10px 18px;padding:0;font-size:13.5px;line-height:1.45}.a3-nl li{margin:1px 0}

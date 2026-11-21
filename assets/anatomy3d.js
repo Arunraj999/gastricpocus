@@ -1,10 +1,13 @@
 import * as THREE from './vendor/three.module.min.js';
 import { OrbitControls } from './vendor/OrbitControls.js';
+import { createSkin } from './a3skin.js?v=65';
 const BASE='media/model3d/';
 const $=s=>document.querySelector(s);
 const stage=$('#a3-stage'), panel=$('#a3-info'), legend=$('#a3-legend'), labelsEl=$('#a3-labels');
 const Q=new URLSearchParams(location.search);
-const SK={"V": "#E2B58F", "C2": "#D9A877", "C3": "#1F7A35", "C4": "#2C8C3F", "C5": "#3F9E4B", "C6": "#55AF58", "C7": "#74C06C", "C8": "#97CF86", "T1": "#8C6A2C", "T2": "#B37F22", "T3": "#BA8930", "T4": "#C0933E", "T5": "#C79D4D", "T6": "#CEA75B", "T7": "#D4B069", "T8": "#DBBA77", "T9": "#E2C485", "T10": "#E9CE94", "T11": "#EFD8A2", "T12": "#F6E2B0", "L1": "#24389E", "L2": "#2F49B4", "L3": "#3F5CC4", "L4": "#5674D0", "L5": "#7C95DD", "S1": "#E0502F", "S2": "#EE8E73", "S3": "#D4674E", "S4-5": "#A9503F"};
+const SK={"V":"#E2B58F","C2":"#C99B6B","C3":"#0E6B3A","C4":"#58B56B","C5":"#1F8A4C","C6":"#9AD98A","C7":"#12806F","C8":"#C4EBB0","T1":"#6E4B14","T2":"#D9A235","T3":"#9C6B12","T4":"#F0C766","T5":"#B07D18","T6":"#F5D58A","T7":"#BE8B24","T8":"#F7DFA2","T9":"#C99A33","T10":"#FAE8B8","T11":"#D2A640","T12":"#FCF0CC","L1":"#14267F","L2":"#6C8FE8","L3":"#2B45A8","L4":"#A9C0F5","L5":"#4A6BD0","S1":"#C8402A","S2":"#F3A08A","S3":"#8E2A1C","S4-5":"#E8C1B6","X":"#CFC8BC"};
+const MAPS={eb:{label:'Evidence-based',src:'Evidence-based map: drawn on the NORA² model after Lee MWL, McPhee RW, Stringer MD. An evidence-based approach to human dermatomes. Clin Anat 2008;21:363–373. Coloured areas are the most consistent tactile area of each root; the neutral tone marks the areas that paper leaves blank for major variability and overlap. Key sensory points: ISNCSCI, revised 2019.'},
+ std:{label:'ASIA / ISNCSCI',src:'ASIA/ISNCSCI map: drawn on the NORA² model to the key sensory points and outlines of the International Standards for Neurological Classification of Spinal Cord Injury worksheet (ASIA and ISCoS, revised 2019). The worksheet does not chart the back of the trunk; those borders follow the vertebral levels.'}};
 const DCOL={V:'#9AA7B8',C2:'#C9B6F2',C3:'#8E6CD9',C4:'#5567D8',C5:'#E5484D',C6:'#F58A1F',C7:'#F6CF2B',C8:'#7CB83F',T1:'#0E9F8E',T2:'#35C6E0',
  T3:'#2A7DE1',T4:'#9AD0F5',T5:'#3D4FB8',T6:'#35C6E0',T7:'#2A7DE1',T8:'#9AD0F5',T9:'#3D4FB8',T10:'#35C6E0',T11:'#2A7DE1',T12:'#9AD0F5',
  L1:'#F28BB3',L2:'#D43D78',L3:'#FF7A4D',L4:'#F6B92B',L5:'#9BCB5A',S1:'#1FA898',S2:'#5C6BD6',S3:'#A855C7',"S4-5":'#7A5A46',XI:'#8FA0B8',T:'#6FA8DC',DR:'#7D8AA3'};
@@ -33,20 +36,13 @@ const JOINT={
  cfacet:['Cervical facet joints',[['Medial branches of posterior rami','core',''],['Direct branches from the posterior root region','variable','']],'Büsken 2022'],
  tfacet:['Thoracic facet joints',[['Posterior ramus, articular branches','core','origin varies side to side']],'Joshi 2019']};
 const DIG=['','thumb','index finger','middle finger','ring finger','little finger'],TOE=['','great toe','second toe','third toe','fourth toe','little toe'],PH=['','proximal phalanx','middle phalanx','distal phalanx (tip)'];
-const AS=14;let lineD,lineC;let M,scene,camera,renderer,controls,skin,mus,bone,joints=[],mode=Q.get('mode')||'derm',sel=null,att,autoRot=Q.get('spin')!=='0'&&!Q.get('view');
+let SKIN,MAP=MAPS[Q.get('map')]?Q.get('map'):'eb';let M,scene,camera,renderer,controls,skin,mus,bone,joints=[],mode=Q.get('mode')||'derm',sel=null,att,autoRot=Q.get('spin')!=='0'&&!Q.get('view');
 let showOv=Q.get('ov')==='1';const WHITE=new THREE.Color('#ffffff');const ray=new THREE.Raycaster(), col=new THREE.Color(), col2=new THREE.Color();
 async function buf(n,T){const r=await fetch(BASE+n+'?v=34');return new T(await r.arrayBuffer());}
 function nervePalette(n){const a=[];for(let i=0;i<n;i++){const c=new THREE.Color().setHSL((i*0.61803)%1,0.62,0.56);a.push('#'+c.getHexString());}return a;}
 let NCOL;
 function geom(pos,idx){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setIndex(new THREE.BufferAttribute(idx,1));g.computeVertexNormals();return g;}
-function paintSkin(){
-  const n=att.length/AS, c=skin.geometry.attributes.color.array, useD=mode!=='nerve';
-  for(let i=0;i<n;i++){const o=i*AS; const a=useD?att[o]:att[o+3], b=useD?att[o+1]:att[o+4], w=(useD?att[o+2]:att[o+5])/255*0.5;
-    col.set(useD?SK[M.DN[a]]:NCOL[a]); const dd=(useD?att[o+8]:att[o+9])/10; if(showOv&&b&&w>0){col2.set(useD?SK[M.DN[b]]:NCOL[b]);col.lerp(col2,w);}else{const e=useD?att[o+10]:att[o+12],ew=(useD?att[o+11]:att[o+13])/255*0.5;if(e&&ew>0){col2.set(useD?SK[M.DN[e]]:NCOL[e]);col.lerp(col2,ew);col.multiplyScalar(1-0.32*ew*2*ew*2);}}
-    if(sel&&sel.kind==='skin'){const hit=(a===sel.id)||(b===sel.id&&w>0.12); if(!hit){const g=(col.r+col.g+col.b)/3; col.setRGB(g*0.55+0.12,g*0.55+0.13,g*0.55+0.17);} }
-    c[i*3]=col.r;c[i*3+1]=col.g;c[i*3+2]=col.b;}
-  skin.geometry.attributes.color.needsUpdate=true;
-}
+function paintSkin(){SKIN.paint(M.DN.map(n=>n?SK[n]:null),sel&&sel.kind==='skin'?sel.id:null);SKIN.U.uSoft.value=showOv?0.42:0;}
 function paintMus(){const pid=mus.userData.pid,c=mus.geometry.attributes.color.array;
   for(let i=0;i<pid.length;i++){const r=M.mrow[pid[i]]; col.set(r<0?'#8A6F6F':DCOL[M.MT[r][0]]||'#B56A6A');
     if(sel&&sel.kind==='mus'&&M.mrow[pid[i]]!==sel.row){const g=(col.r+col.g+col.b)/3;col.setRGB(g*0.5+0.14,g*0.5+0.13,g*0.5+0.15);}
@@ -54,24 +50,26 @@ function paintMus(){const pid=mus.userData.pid,c=mus.geometry.attributes.color.a
 function paintBone(){const a=bone.userData.att,c=bone.geometry.attributes.color.array,on=mode==='bone';for(let i=0;i<a.length;i++){col.set(on?M.BT[a[i]][2]:'#CFC6B4');if(on&&sel&&sel.kind==='bone'&&a[i]!==sel.id){const g=(col.r+col.g+col.b)/3;col.setRGB(g*0.5+0.16,g*0.5+0.16,g*0.5+0.18);}c[i*3]=col.r;c[i*3+1]=col.g;c[i*3+2]=col.b;}bone.geometry.attributes.color.needsUpdate=true;}
 function setMode(m){mode=m;sel=null;
   document.querySelectorAll('[data-a3mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.a3mode===m));
-  skin.visible=(m==='derm'||m==='nerve');lineD.visible=false;lineC.visible=false; mus.visible=(m==='myo'); bone.visible=(m==='myo'||m==='bone'); joints.forEach(j=>j.visible=(m==='bone'));
+  skin.visible=(m==='derm'||m==='nerve'); mus.visible=(m==='myo'); bone.visible=(m==='myo'||m==='bone'); joints.forEach(j=>j.visible=(m==='bone'));
   paintBone();
-  if(skin.visible)paintSkin(); if(mus.visible)paintMus(); drawLegend(); buildLabels(); info(null);}
+  if(skin.visible)paintSkin(); if(mus.visible)paintMus(); drawLegend(); buildLabels(); info(null); showSrc();}
+function showSrc(){const el=$('#a3-source'),mb=$('#a3-maps');if(mb)mb.style.display=mode==='derm'?'':'none';if(el)el.textContent=mode==='derm'?MAPS[MAP].src:'';}
+async function setMap(k){if(!MAPS[k])return;MAP=k;document.querySelectorAll('[data-a3map]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.a3map===k));$('#a3-source').textContent='Loading map…';await SKIN.setMap(k);sel=null;paintSkin();drawLegend();buildLabels();info(null);showSrc();}
 function chip(t,c){return `<span class="a3-chip" style="--c:${c}">${t}</span>`;}
 function drawLegend(){let h='';
-  if(mode==='derm')h=M.DN.slice(1).map(n=>chip(n==='V'?'CN V':n,SK[n])).join('');
+  if(mode==='derm')h=M.DN.slice(1).filter(n=>n!=='X').map(n=>chip(n==='V'?'CN V':n,SK[n])).join('')+(MAP==='eb'?chip('Variable, overlapping',SK.X):'');
   else if(mode==='myo')h=['C4','C5','C6','C7','C8','T1','L2','L3','L4','L5','S1','S2'].map(n=>chip(n,DCOL[n])).join('')+chip('Accessory (XI)',DCOL.XI)+chip('Intercostal, segmental',DCOL.T)+chip('Posterior rami',DCOL.DR);
   else if(mode==='bone')h=M.BT.slice(1).map(t=>chip(t[0],t[2])).join('')+chip('White marker: joint with reviewed nerve supply','#ffffff');
   else h='<span class="a3-hint">Each colour is one cutaneous nerve. Select the skin to name it.</span>';
   legend.innerHTML=h;}
-function where(o){const b7=att[o+6],b8=att[o+7],reg=M.REG[b7&15],side=(b7>>4&1)?'Left':'Right',pal=b7>>5&1,pl=b7>>6&1,r=b8&7,ph=b8>>3&3;
+function where(v){const b7=att[v*4+1],b8=att[v*4+2],reg=M.REG[b7&15],side=(b7>>4&1)?'Left':'Right',pal=b7>>5&1,pl=b7>>6&1,r=b8&7,ph=b8>>3&3;
   if(reg==='digit')return `${side} ${DIG[r]}, ${PH[ph]}, ${pal?'palmar':'dorsal'} surface`;
   if(reg==='hand')return `${side} hand, ${pal?'palm':'dorsum'}${r?', in line with the '+DIG[r]:''}`;
   if(reg==='toe')return `${side} ${TOE[r]}, ${pl?'plantar':'dorsal'} surface`;
   if(reg==='foot')return `${side} foot, ${pl?'sole':'dorsum or border'}`;
   if(reg==='head'||reg==='neck'||reg==='trunk')return reg[0].toUpperCase()+reg.slice(1)+', '+side.toLowerCase()+' side';
   return `${side} ${({arm:'upper arm',forearm:'forearm',thigh:'thigh',leg:'leg'})[reg]}`;}
-function extra(o){const b7=att[o+6],b8=att[o+7],reg=M.REG[b7&15],r=b8&7;
+function extra(v){const b7=att[v*4+1],b8=att[v*4+2],reg=M.REG[b7&15],r=b8&7;
   if(reg==='digit'&&r===2)return 'Published maps place the index finger in C6 or C7. Treat it as shared between the two.';
   if(reg==='digit'&&r===4)return 'The ring finger is shared: C7 and C8 by root, median and ulnar nerves by nerve, split along its midline.';
   if(reg==='digit'&&r===1)return 'The dorsal surface of the proximal phalanx is the C6 key sensory point.';
@@ -79,15 +77,17 @@ function extra(o){const b7=att[o+6],b8=att[o+7],reg=M.REG[b7&15],r=b8&7;
 function info(h){
   if(!h){panel.innerHTML=`<p class="a3-hint">${({derm:'Select any point on the skin to see its spinal root (dermatome) and the nerve that supplies it.',nerve:'Select any point on the skin to see the cutaneous nerve and the root level.',myo:'Select a muscle to see its root supply, nerve and action.',bone:'Bones are coloured by the nerve that supplies them. Select any bone for the nerve and its roots, or a white marker for the full nerve supply of that joint.'})[mode]}</p>`;return;}
   panel.innerHTML=h;}
-function skinInfo(vi){const o=vi*AS,d=M.DN[att[o]],d2=att[o+1]?M.DN[att[o+1]]:'',dw=att[o+2]/255*0.5,n=M.NN[att[o+3]],n2=att[o+4]?M.NN[att[o+4]]:'',nw=att[o+5]/255*0.5;
-  const nm=x=>x==='V'?'Trigeminal nerve (cranial nerve V)':x; const ex=extra(o);
-  info(`<p class="a3-where">${where(o)}</p>
+function skinInfo(h){const v=h.v,d=M.DN[h.cls],d2=h.second?M.DN[h.second]:'',ni=att[v*4],n=M.NN[ni];
+  if(d==='X'){info(`<p class="a3-where">${where(v)}</p><h3>${chip('Variable, overlapping',SK.X)}</h3><p class="a3-ov">No single root supplies this skin consistently. The evidence-based map leaves it blank because overlap and variation between people are the rule here${d2&&d2!=='X'?'; the nearest consistent area is '+chip(d2,SK[d2]):''}.</p><h3>${chip(n,NCOL[ni])}</h3><p class="a3-ov"><small>nerve that carries sensation from this spot</small></p><p class="a3-note">Switch to the ASIA / ISNCSCI map to see the conventional root label for this area.</p><p class="a3-src">Lee, McPhee, Stringer. Clin Anat 2008;21:363–373.</p>`);return;}
+  const nm=x=>x==='V'?'Trigeminal nerve (cranial nerve V)':x; const ex=extra(v);
+  info(`<p class="a3-where">${where(v)}</p>
   <h3>${chip(nm(d),SK[d])} <small>dermatome</small></h3>
-  ${d2&&dw>0.06?`<p class="a3-ov">Overlap zone: also ${chip(nm(d2),SK[d2])}. Adjacent dermatomes share skin, so a single root block or lesion rarely leaves this area numb.</p>`:`<p class="a3-ov">Core zone of ${nm(d)}.</p>`}
+  ${d2&&h.margin<0.45?`<p class="a3-ov">Border zone with ${chip(nm(d2),SK[d2])}. Adjacent dermatomes share skin, so a single root block or lesion rarely leaves this area numb.</p>`:`<p class="a3-ov">Core zone of ${nm(d)}.</p>`}
   <p><b>Key sensory point:</b> ${KEY[d]||''}</p>
-  <h3>${chip(n,NCOL[att[o+3]])}</h3><p class="a3-ov"><small>nerve that carries sensation from this spot</small>${n2&&nw>0.06?' · border with '+n2:''}</p>
+  <h3>${chip(n,NCOL[ni])}</h3><p class="a3-ov"><small>nerve that carries sensation from this spot</small></p>
+  ${(SKIN.nerves[h.cls]||[]).length>1?`<p><b>Nerves that carry ${nm(d)} fibres to the skin:</b></p><ul class="a3-nl">${SKIN.nerves[h.cls].map(k=>`<li>${M.NN[k]}</li>`).join('')}</ul>`:''}
   ${ex?`<p class="a3-note">${ex}</p>`:''}
-  <p class="a3-src">Dermatomes: international key sensory points and evidence-based maps (Lee 2008; Downs 2011; Wolff 2001). Nerve fields are typical; they vary between people (Keplinger 2018).</p>`);}
+  <p class="a3-src">${MAP==='eb'?'Dermatome: Lee, McPhee, Stringer. Clin Anat 2008;21:363–373.':'Dermatome: ISNCSCI worksheet, ASIA and ISCoS, revised 2019.'} Nerve fields are typical; they vary between people (Keplinger 2018).</p>`);}
 function musInfo(p){const r=M.mrow[p],name=M.muscles[p];const t=r<0?null:M.MT[r];
   info(`<p class="a3-where">${name[0].toUpperCase()+name.slice(1)}</p>`+(t?`<h3>${chip(t[0]==='XI'?'Accessory nerve':t[0]==='T'?'Thoracic, segmental':t[0]==='DR'?'Segmental':t[0],DCOL[t[0]])} <small>main root</small></h3>
   <p><b>All roots:</b> ${t[1]}</p><p><b>Nerve:</b> ${t[2]}</p><p><b>Action:</b> ${t[3]}</p>
@@ -99,33 +99,25 @@ function pick(ev){const r=renderer.domElement.getBoundingClientRect();const p=ne
     const hb=ray.intersectObject(bone)[0];if(hb){sel={kind:'bone',id:bone.userData.att[hb.face.a]};joints.forEach(j=>j.material.opacity=0.6);paintBone();boneInfo(bone.userData.pid[hb.face.a],hb.face.a);}else{sel=null;paintBone();info(null);}return;}
   if(mode==='myo'){const h=ray.intersectObject(mus)[0];if(!h){sel=null;paintMus();info(null);return;}const p=mus.userData.pid[h.face.a];sel={kind:'mus',row:M.mrow[p]};paintMus();musInfo(p);return;}
   const h=ray.intersectObject(skin)[0];if(!h){sel=null;paintSkin();info(null);return;}
-  const f=h.face,P=skin.geometry.attributes.position;let best=f.a,bd=1e9;for(const v of [f.a,f.b,f.c]){const d=h.point.distanceToSquared(new THREE.Vector3().fromBufferAttribute(P,v));if(d<bd){bd=d;best=v;}}
-  sel={kind:'skin',id:att[best*AS+(mode==='nerve'?3:0)]};paintSkin();skinInfo(best);}
+  const hi=SKIN.hit(h);sel={kind:'skin',id:hi.cls};paintSkin();skinInfo(hi);}
 /* labels for dermatome and myotome views */
 let LAB=[];
-function buildLabels(){LAB=[];labelsEl.innerHTML='';if(mode!=='derm')return;
-  const P=skin.geometry.attributes.position.array,N=skin.geometry.attributes.normal.array,n=att.length/AS,acc={};
-  for(let i=0;i<n;i+=2){const o=i*AS;if(att[o+8]<60&&att[o+1])continue;const d=att[o],ny=N[i*3+1],face=ny<-0.45?'F':ny>0.45?'B':null;if(!face)continue;const side=P[i*3]<0?'R':'L';
-    const k=d+face+side+((att[o+6]&15)>=7?'l':(att[o+6]&15)>=3?'u':'t');(acc[k]=acc[k]||{d,face,side,x:0,y:0,z:0,c:0,pts:[]});const a=acc[k];a.x+=P[i*3];a.y+=P[i*3+1];a.z+=P[i*3+2];a.c++;if(a.c%3===0)a.pts.push(i);}
-  const bestK={};for(const k in acc){const a=acc[k],g=a.d+a.face+a.side;if(!bestK[g]||acc[bestK[g]].c<a.c)bestK[g]=k;}
-  for(const k in acc){const a=acc[k];if(a.c<45||bestK[a.d+a.face+a.side]!==k)continue;const cx=a.x/a.c,cy=a.y/a.c,cz=a.z/a.c;let bi=-1,by=a.face==='F'?1e9:-1e9;for(const i of a.pts){const dx=P[i*3]-cx,dz=P[i*3+2]-cz;if(dx*dx+dz*dz>18*18)continue;const yy=P[i*3+1];if(a.face==='F'?yy<by:yy>by){by=yy;bi=i;}}if(bi<0)continue;if(a.side==='L'&&/^(T([2-9]|1[0-2])|C[234]|V|L1|S[345].*)$/.test(M.DN[a.d]))continue;if(a.face==='F'&&(M.DN[a.d]==='S3'||M.DN[a.d]==='S4-5'))continue;const el=document.createElement('span');el.textContent=M.DN[a.d]==='V'?'CN V':M.DN[a.d];el.style.background='transparent';el.style.color='#0B1020';el.style.textShadow='0 0 3px #fff,0 0 3px #fff,0 0 2px #fff';const tr=/^(T([2-9]|1[0-2])|C[34]|L1)$/.test(M.DN[a.d]);if(tr){el.style.fontSize='9px';el.style.padding='1px 3px';}labelsEl.appendChild(el);LAB.push({el,tr,off:tr&&/^T/.test(M.DN[a.d])?((+M.DN[a.d].slice(1))%2?-12:12):0,face:a.face,p:new THREE.Vector3(P[bi*3],P[bi*3+1],P[bi*3+2]).applyMatrix4(skin.matrixWorld)});}}
+function buildLabels(){LAB=[];labelsEl.innerHTML='';if(mode!=='derm'||!SKIN.lab)return;
+  for(const l of SKIN.lab){const el=document.createElement('span');el.textContent=l.t;el.style.background='transparent';el.style.color='#0B1020';el.style.textShadow='0 0 3px #fff,0 0 3px #fff,0 0 2px #fff';
+    const tr=/^(T([2-9]|1[0-2])|C[34]|L1)$/.test(l.t);if(tr){el.style.fontSize='9px';el.style.padding='1px 3px';}labelsEl.appendChild(el);
+    LAB.push({el,tr,off:tr&&/^T/.test(l.t)?((+l.t.slice(1))%2?-12:12):0,face:l.f,p:new THREE.Vector3(l.p[0],l.p[1],l.p[2]).applyMatrix4(skin.matrixWorld)});}}
 function placeLabels(){if(!LAB.length)return;const dir=new THREE.Vector3();camera.getWorldDirection(dir);const w=stage.clientWidth,h=stage.clientHeight,show=$('#a3-lab').getAttribute('aria-pressed')==='true';
   const used=[];for(const L of LAB){const front=dir.z<-0.5?'F':dir.z>0.5?'B':null;const v=L.p.clone().project(camera);let ok=show&&front===L.face&&v.z<1;const sx=(v.x+1)/2*w,sy=(1-v.y)/2*h;if(ok&&!L.tr){for(const u of used){if(Math.abs(u[0]-sx)<20&&Math.abs(u[1]-sy)<8){ok=false;break;}}if(ok)used.push([sx,sy]);}L.el.style.display=ok?'':'none';if(ok){L.el.style.left=((v.x+1)/2*w+L.off)+'px';L.el.style.top=((1-v.y)/2*h)+'px';}}}
 function view(v,zoom){const d=({front:[0,0,1],back:[0,0,-1],right:[-1,0,0],left:[1,0,0]})[v];const t=controls.target;const dist=zoom||3550;camera.position.set(t.x+d[0]*dist,t.y+d[1]*dist,t.z+d[2]*dist);controls.update();}
 async function init(){
-  M=await (await fetch(BASE+'model.json?v=34')).json(); NCOL=nervePalette(M.NN.length);
+  M=await (await fetch(BASE+'model.json?v=34')).json(); NCOL=nervePalette(M.NN.length); if(!M.DN.includes('X'))M.DN.push('X');
   renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));stage.appendChild(renderer.domElement);
   scene=new THREE.Scene();camera=new THREE.PerspectiveCamera(30,1,50,12000);
   scene.add(new THREE.HemisphereLight(0xffffff,0x33405e,1.25));const dl=new THREE.DirectionalLight(0xffffff,1.6);dl.position.set(600,900,1500);camera.add(dl);scene.add(camera);
   const root=new THREE.Group();root.rotation.x=-Math.PI/2;scene.add(root); /* model: z up, front -y */
   controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.target.set(0,815,0);controls.minDistance=300;controls.maxDistance=5200;controls.autoRotateSpeed=1.1;
   $('#a3-load').textContent='Loading skin…';
-  const [sp,si,sa]=await Promise.all([buf('skin_pos.wasm',Float32Array),buf('skin_idx.wasm',Uint32Array),buf('skin_att.wasm',Uint8Array)]);att=sa;
-  const sg=geom(sp,si);sg.setAttribute('color',new THREE.BufferAttribute(new Float32Array(sp.length),3));
-  skin=new THREE.Mesh(sg,new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.7,metalness:0,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1}));root.add(skin);
-  const [ld,lc]=await Promise.all([buf('skin_lnd.wasm',Float32Array),buf('skin_lnc.wasm',Float32Array)]);
-  const mkL=a=>{const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(a,3));const l=new THREE.LineSegments(g,new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:0.6}));root.add(l);return l;};
-  lineD=mkL(ld);lineC=mkL(lc);
+  SKIN=await createSkin(root);skin=SKIN.mesh;att=SKIN.att;await SKIN.setMap(MAP);
   $('#a3-load').textContent='Loading bones and muscles…';
   const [bp,bi,bpid,batt,mp,mi,mpid]=await Promise.all([buf('bone_pos.wasm',Float32Array),buf('bone_idx.wasm',Uint32Array),buf('bone_pid.wasm',Uint16Array),buf('bone_att.wasm',Uint8Array),buf('mus_pos.wasm',Float32Array),buf('mus_idx.wasm',Uint32Array),buf('mus_pid.wasm',Uint16Array)]);
   const bg=geom(bp,bi);bg.setAttribute('color',new THREE.BufferAttribute(new Float32Array(bp.length),3));bone=new THREE.Mesh(bg,new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.6}));bone.userData.pid=bpid;bone.userData.att=batt;root.add(bone);
@@ -138,6 +130,7 @@ async function init(){
   let down=null;renderer.domElement.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY];autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');});
   renderer.domElement.addEventListener('pointerup',e=>{if(down&&Math.hypot(e.clientX-down[0],e.clientY-down[1])<5)pick(e);down=null;});
   document.querySelectorAll('[data-a3mode]').forEach(b=>b.onclick=()=>setMode(b.dataset.a3mode));
+  document.querySelectorAll('[data-a3map]').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.a3map===MAP);b.onclick=()=>setMap(b.dataset.a3map);});
   document.querySelectorAll('[data-a3view]').forEach(b=>b.onclick=()=>{autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');view(b.dataset.a3view);});
   $('#a3-spin').onclick=e=>{autoRot=!autoRot;e.currentTarget.setAttribute('aria-pressed',autoRot);};$('#a3-spin').setAttribute('aria-pressed',autoRot);
   $('#a3-ov').onclick=e=>{showOv=!showOv;e.currentTarget.setAttribute('aria-pressed',showOv);if(skin.visible)paintSkin();};$('#a3-ov').setAttribute('aria-pressed',showOv);$('#a3-lab').onclick=e=>{const b=e.currentTarget;b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true');};

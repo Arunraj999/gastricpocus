@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=64">
+<link rel="stylesheet" href="assets/site.css?v=65">
 
 </head>
 <body data-page="basics">
@@ -32,12 +32,15 @@
 <span class="a3-sp"></span>
 <button class="btn" data-a3view="front">Front</button><button class="btn" data-a3view="back">Back</button><button class="btn" data-a3view="right">Right</button><button class="btn" data-a3view="left">Left</button>
 <button class="btn" id="a3-ov" aria-pressed="false" style="display:none">Show overlap</button><button class="btn" id="a3-lab" aria-pressed="true">Labels</button><button class="btn" id="a3-spin" aria-pressed="true">Rotate</button></div>
+<div class="a3-bar a3-maps" id="a3-maps" role="toolbar" aria-label="Dermatome map"><span class="a3-maplab">Dermatome map:</span>
+<button class="btn" data-a3map="eb" aria-pressed="true">Evidence-based</button><button class="btn" data-a3map="std" aria-pressed="false">ASIA / ISNCSCI</button></div>
 <div class="a3-grid"><div class="a3-stagebox"><div id="a3-stage"><div id="a3-load">Loading model…</div><div id="a3-labels" aria-hidden="true"></div></div>
+<p class="a3-source" id="a3-source"></p>
 <p class="a3-help">Drag to turn. Scroll or pinch to zoom, which helps with fingers and toes. Right-drag or two-finger drag to move.</p></div>
 <aside class="a3-side"><div id="a3-info" aria-live="polite"></div><div id="a3-legend"></div></aside></div>
 <p class="a3-credit">Anatomy: BodyParts3D, © The Database Center for Life Science, licensed under CC Attribution-Share Alike 2.1 Japan. Zone assignments: NORA², Dr Arun Mohanraj FRCA EDRA, Wrightington, Wigan and Leigh NHS Foundation Trust.</p>
 </section>
-<section class="wrap"><div class="notice a3-notice"><b>Draft for clinical sign-off.</b> Revised 13 November 2026. Dermatomes follow the standard clinical charts and the international key sensory points (ISNCSCI, revised 2019). Borders between neighbouring dermatomes overlap in life, and published charts differ in detail.</div></section>
+<section class="wrap"><div class="notice a3-notice"><b>Draft for clinical sign-off.</b> Revised 21 November 2026. Two dermatome maps are shown on the same model: the evidence-based map of Lee, McPhee and Stringer (2008), and a map drawn to the international key sensory points (ISNCSCI, revised 2019). Published charts differ, and neighbouring dermatomes overlap in life.</div></section>
 <section class="wrap a3-figs"><h2>Reference figures</h2>
 <p class="a3-help">Front and back views from the same model, for teaching slides and print.</p>
 <figure><img src="media/figures/a3-derm.webp?v=34" alt="Dermatomes, front and back views" loading="lazy" width="1280" height="900"><figcaption><b>Dermatomes.</b> Each colour is one spinal root. Core zones are anchored on the international key sensory points: C6 thumb, C7 middle finger, C8 little finger, T4 nipple line, T10 umbilicus, T12 inguinal ligament, L3 medial knee, L4 medial malleolus, L5 dorsum of the foot, S1 lateral heel. Neighbouring dermatomes overlap, so each line marks the middle of a shared border and not a sharp edge.</figcaption></figure>
@@ -54,9 +57,9 @@
 <div id="site-footer"></div>
 
 <script src="assets/i18n.js?v=56"></script>
-<script src="assets/i18n-text.js?v=63"></script>
+<script src="assets/i18n-text.js?v=65"></script>
 <script src="assets/content.js"></script>
 <script src="assets/site.js?v=64"></script>
-<script type="module" src="assets/anatomy3d.js?v=34"></script>
+<script type="module" src="assets/anatomy3d.js?v=65"></script>
 </body>
 </html>
