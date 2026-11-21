@@ -38,7 +38,8 @@ const JOINT={
  tfacet:['Thoracic facet joints',[['Posterior ramus, articular branches','core','origin varies side to side']],'Joshi 2019']};
 const DIG=['','thumb','index finger','middle finger','ring finger','little finger'],TOE=['','great toe','second toe','third toe','fourth toe','little toe'],PH=['','proximal phalanx','middle phalanx','distal phalanx (tip)'];
 let RIG=null,ROOT=null;let SKIN,MAP=MAPS[Q.get('map')]?Q.get('map'):'eb';let M,scene,camera,renderer,controls,skin,mus,bone,joints=[],mode=Q.get('mode')||'derm',sel=null,att,autoRot=Q.get('spin')!=='0'&&!Q.get('view');
-let showOv=Q.get('ov')==='1';const WHITE=new THREE.Color('#ffffff');const ray=new THREE.Raycaster(), col=new THREE.Color(), col2=new THREE.Color();
+let showOv=Q.get('ov')==='1';let HID=new Set(),HIST=[],PEEL=0,DIS=false,LAYER=null,NL=1,FIDX=null; /* dissection: muscles lifted away, depth layers removed */
+const WHITE=new THREE.Color('#ffffff');const ray=new THREE.Raycaster(), col=new THREE.Color(), col2=new THREE.Color();
 async function buf(n,T){const r=await fetch(BASE+n+'?v=34');return new T(await r.arrayBuffer());}
 function nervePalette(n){const a=[];for(let i=0;i<n;i++){const c=new THREE.Color().setHSL((i*0.61803)%1,0.62,0.56);a.push('#'+c.getHexString());}return a;}
 let NCOL;
@@ -50,7 +51,7 @@ function paintMus(){const pid=mus.userData.pid,c=mus.geometry.attributes.color.a
     else{col.set(r<0?'#8A6F6F':DCOL[M.MT[r][0]]||'#B56A6A');if(sel&&sel.kind==='mus'&&r!==sel.row){const g=(col.r+col.g+col.b)/3;col.setRGB(g*0.5+0.14,g*0.5+0.13,g*0.5+0.15);}}
     c[i*3]=col.r;c[i*3+1]=col.g;c[i*3+2]=col.b;} mus.geometry.attributes.color.needsUpdate=true;}
 function paintBone(){const a=bone.userData.att,c=bone.geometry.attributes.color.array,on=mode==='bone';for(let i=0;i<a.length;i++){col.set(on?M.BT[a[i]][2]:'#CFC6B4');if(on&&sel&&sel.kind==='bone'&&a[i]!==sel.id){const g=(col.r+col.g+col.b)/3;col.setRGB(g*0.5+0.16,g*0.5+0.16,g*0.5+0.18);}c[i*3]=col.r;c[i*3+1]=col.g;c[i*3+2]=col.b;}bone.geometry.attributes.color.needsUpdate=true;}
-function setMode(m){mode=m;sel=null;if(RIG){RIG.stop();markMove(null);clearMove();}const mv=$('#a3-moves');if(mv)mv.style.display=m==='myo'?'':'none';
+function setMode(m){mode=m;sel=null;if(RIG){RIG.stop();markMove(null);clearMove();}const mv=$('#a3-moves');if(mv)mv.style.display=m==='myo'?'':'none';const db=$('#a3-dis');if(db)db.style.display=m==='myo'?'':'none';const dh=$('#a3-dhelp');if(dh)dh.style.display=m==='myo'?'':'none';
   document.querySelectorAll('[data-a3mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.a3mode===m));
   skin.visible=(m==='derm'||m==='nerve'); mus.visible=(m==='myo'); bone.visible=(m==='myo'||m==='bone'); joints.forEach(j=>j.visible=(m==='bone'));
   paintBone();
@@ -77,7 +78,7 @@ function extra(v){const b7=att[v*4+1],b8=att[v*4+2],reg=M.REG[b7&15],r=b8&7;
   if(reg==='digit'&&r===1)return 'The dorsal surface of the proximal phalanx is the C6 key sensory point.';
   if(reg==='toe'&&r===4)return 'The fourth toe lies on the L5 and S1 border.';return '';}
 function info(h){
-  if(!h){panel.innerHTML=`<p class="a3-hint">${trx(({derm:'Select any point on the skin to see its spinal root (dermatome) and the nerve that supplies it.',nerve:'Select any point on the skin to see the cutaneous nerve and the root level.',myo:'Select a muscle to see its root supply, nerve and action.',bone:'Bones are coloured by the nerve that supplies them. Select any bone for the nerve and its roots, or a white marker for the full nerve supply of that joint.'})[mode])}</p>`;return;}
+  if(!h){panel.innerHTML=`<p class="a3-hint">${trx(({derm:'Select any point on the skin to see its spinal root (dermatome) and the nerve that supplies it.',nerve:'Select any point on the skin to see the cutaneous nerve and the root level.',myo:DIS?'Tap a muscle to lift it away and see what lies beneath. Its root supply, nerve and action appear here.':'Select a muscle to see its root supply, nerve and action.',bone:'Bones are coloured by the nerve that supplies them. Select any bone for the nerve and its roots, or a white marker for the full nerve supply of that joint.'})[mode])}</p>`;return;}
   panel.innerHTML=h;}
 function skinInfo(h){const v=h.v,d=M.DN[h.cls],d2=h.second?M.DN[h.second]:'',ni=att[v*4],n=M.NN[ni];
   if(d==='X'){info(`<p class="a3-where">${where(v)}</p><h3>${chip('Variable, overlapping',SK.X)}</h3><p class="a3-ov">No single root supplies this skin consistently. The evidence-based map leaves it blank because overlap and variation between people are the rule here${d2&&d2!=='X'?'; the nearest consistent area is '+chip(d2,SK[d2]):''}.</p><h3>${chip(n,NCOL[ni])}</h3><p class="a3-ov"><small>nerve that carries sensation from this spot</small></p><p class="a3-note">Switch to the ASIA / ISNCSCI map to see the conventional root label for this area.</p><p class="a3-src">Lee, McPhee, Stringer. Clin Anat 2008;21:363–373.</p>`);return;}
@@ -90,8 +91,8 @@ function skinInfo(h){const v=h.v,d=M.DN[h.cls],d2=h.second?M.DN[h.second]:'',ni=
   ${(SKIN.nerves[h.cls]||[]).length>1?`<p><b>Nerves that carry ${nm(d)} fibres to the skin:</b></p><ul class="a3-nl">${SKIN.nerves[h.cls].map(k=>`<li>${M.NN[k]}</li>`).join('')}</ul>`:''}
   ${ex?`<p class="a3-note">${ex}</p>`:''}
   <p class="a3-src">${MAP==='eb'?'Dermatome: Lee, McPhee, Stringer. Clin Anat 2008;21:363–373.':'Dermatome: ISNCSCI worksheet, ASIA and ISCoS, revised 2019.'} Nerve fields are typical; they vary between people (Keplinger 2018).</p>`);}
-function musInfo(p){const r=M.mrow[p],name=M.muscles[p];const t=r<0?null:M.MT[r];
-  info(`<p class="a3-where">${name[0].toUpperCase()+name.slice(1)}</p>`+(t?`<h3>${chip(t[0]==='XI'?'Accessory nerve':t[0]==='T'?'Thoracic, segmental':t[0]==='DR'?'Segmental':t[0],DCOL[t[0]])} <small>main root</small></h3>
+function musInfo(p,rm){const r=M.mrow[p],name=M.muscles[p];const t=r<0?null:M.MT[r];
+  info(`<p class="a3-where">${name[0].toUpperCase()+name.slice(1)}</p>${rm?'<p class="a3-rm">'+trx('Lifted away. Tap the muscle beneath it, or put it back.')+'</p>':''}`+(t?`<h3>${chip(t[0]==='XI'?'Accessory nerve':t[0]==='T'?'Thoracic, segmental':t[0]==='DR'?'Segmental':t[0],DCOL[t[0]])} <small>main root</small></h3>
   <p><b>All roots:</b> ${t[1]}</p><p><b>Nerve:</b> ${t[2]}</p><p><b>Action:</b> ${t[3]}</p>${sonoo(name)?`<p><b>EMG chart (Sonoo 2023):</b> ${sonoo(name)}</p>`:''}
   <p class="a3-src">${t[4]==='R'?'Root values from nerve root stimulation, lesion and EMG studies in the NORA² review (Schirmer 2011; Bell 2016; Furukawa 2021; Chiba 2015; Zhu 2015; Hashimoto 2024) and the international key muscles.':'Standard anatomical root values. Not yet checked against primary studies in the NORA² review.'} Every muscle receives more than one root.${sonoo(name)?' EMG chart: Sonoo M. J Neurol Neurosurg Psychiatry 2023;94:643–648.':''}</p>`:'<p>Root supply not classified.</p>'));}
 function jointInfo(k){const j=JOINT[k];info(`<p class="a3-where">${j[0]}</p><table class="a3-t">${j[1].map(r=>`<tr><td><span class="a3-lv a3-${r[1]}">${r[1]}</span></td><td><b>${r[0]}</b>${r[2]?'<br><small>'+r[2]+'</small>':''}</td></tr>`).join('')}</table><p class="a3-src">${j[2]}</p>`);}
@@ -99,10 +100,26 @@ function boneInfo(p,vi){const n=M.bones[p],t=M.BT[bone.userData.att[vi]];info(`<
 function pick(ev){const r=renderer.domElement.getBoundingClientRect();const p=new THREE.Vector2(((ev.clientX-r.left)/r.width)*2-1,-((ev.clientY-r.top)/r.height)*2+1);ray.setFromCamera(p,camera);
   if(mode==='bone'){const hj=ray.intersectObjects(joints)[0];if(hj){sel={kind:'joint'};paintBone();joints.forEach(j=>j.material.opacity=j===hj.object?0.95:0.45);jointInfo(hj.object.userData.k);return;}
     const hb=ray.intersectObject(bone)[0];if(hb){sel={kind:'bone',id:bone.userData.att[hb.face.a]};joints.forEach(j=>j.material.opacity=0.6);paintBone();boneInfo(bone.userData.pid[hb.face.a],hb.face.a);}else{sel=null;paintBone();info(null);}return;}
-  if(mode==='myo'){if(RIG&&RIG.active()){RIG.stop();markMove(null);clearMove();sel=null;paintMus();info(null);return;}const h=ray.intersectObject(mus)[0];if(!h){sel=null;paintMus();info(null);return;}const p=mus.userData.pid[h.face.a];sel={kind:'mus',row:M.mrow[p]};paintMus();musInfo(p);return;}
+  if(mode==='myo'){if(RIG&&RIG.active()){RIG.stop();markMove(null);clearMove();sel=null;paintMus();info(null);return;}const h=ray.intersectObject(mus)[0];if(!h){sel=null;paintMus();info(null);return;}const p=mus.userData.pid[h.face.a];
+    if(DIS){HID.add(p);HIST.push(p);sel=null;paintMus();applyDis();musInfo(p,1);return;}
+    sel={kind:'mus',row:M.mrow[p]};paintMus();musInfo(p);return;}
   const h=ray.intersectObject(skin)[0];if(!h){sel=null;paintSkin();info(null);return;}
   const hi=SKIN.hit(h);sel={kind:'skin',id:hi.cls};paintSkin();skinInfo(hi);}
 
+function applyDis(){if(!mus||!FIDX)return;const ia=mus.geometry.index,a=ia.array,P=mus.userData.pid,off=new Uint8Array(M.muscles.length);let n=0;
+  if(!HID.size&&!PEEL){a.set(FIDX);n=FIDX.length;}
+  else{for(let i=0;i<off.length;i++)off[i]=(HID.has(i)||(LAYER&&LAYER[i]<=PEEL))?1:0;for(let t=0;t<FIDX.length;t+=3){if(off[P[FIDX[t]]])continue;a[n]=FIDX[t];a[n+1]=FIDX[t+1];a[n+2]=FIDX[t+2];n+=3;}}
+  ia.needsUpdate=true;mus.geometry.setDrawRange(0,n);drawDis();}
+function resetDis(){if(!HID.size&&!PEEL&&!DIS)return;HID.clear();HIST=[];PEEL=0;DIS=false;applyDis();}
+function drawDis(){const el=$('#a3-dis');if(!el)return;const any=HID.size||PEEL;
+  el.innerHTML='<span class="a3-maplab">'+trx('Dissect:')+'</span><button class="btn" id="a3-dtap" aria-pressed="'+DIS+'">'+trx('Tap a muscle to remove it')+'</button>'+
+    (LAYER?'<span class="a3-maplab a3-dl">'+trx('Depth:')+'</span>'+Array.from({length:NL},(_,i)=>`<button class="btn" data-a3peel="${i}" aria-pressed="${i===PEEL}">${!i?trx('Surface'):i===NL-1?trx('Deepest'):trx('Layer')+' '+(i+1)}</button>`).join(''):'')+
+    `<button class="btn" id="a3-dundo"${HID.size?'':' disabled'}>${trx('Put back last')}</button><button class="btn" id="a3-dall"${any?'':' disabled'}>${trx('Put everything back')}</button>`;
+  const quiet=()=>{if(RIG&&RIG.active()){RIG.stop();markMove(null);clearMove();}autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');};
+  $('#a3-dtap').onclick=()=>{DIS=!DIS;quiet();sel=null;paintMus();drawDis();info(null);};
+  el.querySelectorAll('[data-a3peel]').forEach(b=>b.onclick=()=>{PEEL=+b.dataset.a3peel;quiet();sel=null;paintMus();applyDis();info(null);});
+  $('#a3-dundo').onclick=()=>{const p=HIST.pop();if(p==null)return;HID.delete(p);sel=null;paintMus();applyDis();musInfo(p);};
+  $('#a3-dall').onclick=()=>{HID.clear();HIST=[];PEEL=0;sel=null;paintMus();applyDis();info(null);};}
 function markMove(id){document.querySelectorAll('[data-a3move]').forEach(b=>b.setAttribute('aria-pressed',!!id&&b.dataset.a3move===id));}
 function trx(t){let l='en';try{l=JSON.parse(localStorage.getItem('nora2.lang'))||'en';}catch(e){}const i=['fr','es','de','it','tr','sv','ta'].indexOf(l),d=window.NORA_TEXT&&window.NORA_TEXT[t];return i>=0&&d&&d[i]?d[i]:t;}
 let GRP=0;
@@ -113,7 +130,7 @@ function buildMoves(){const el=$('#a3-moves');if(!el)return;const cur=RIG&&RIG.a
   el.querySelectorAll('[data-a3move]').forEach(b=>b.onclick=()=>playMove(b.dataset.a3move));}
 let arcG=null,MLAB=[];const _v=new THREE.Vector3();
 function clearMove(){if(arcG){ROOT.remove(arcG);arcG.traverse(o=>{if(o.geometry)o.geometry.dispose();});arcG=null;}MLAB.forEach(l=>l.el.remove());MLAB=[];const h=$('#a3-hud');if(h)h.style.display='none';}
-function playMove(id){if(mode!=='myo')setMode('myo');const m=MOVES.find(x=>x.id===id);autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');clearMove();
+function playMove(id){if(mode!=='myo')setMode('myo');const m=MOVES.find(x=>x.id===id);if(m)resetDis();autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');clearMove();
   if(!m){RIG.stop();markMove(null);sel=null;paintMus();info(null);return;}
   const pids=RIG.select(id,performance.now());sel={kind:'move',pids};paintMus();if(!GROUPS[GRP][1].includes(id)){GRP=GROUPS.findIndex((g,i)=>i>0&&g[1].includes(id));if(GRP<0)GRP=0;buildMoves();}markMove(id);
   const t=RIG.focus(m,ROOT),cq=Q.get('cam'),cm=cq?cq.split(',').map(Number):m.cam,cl=Math.hypot(cm[0],cm[1],cm[2])||1;const asp=stage.clientWidth/Math.max(1,stage.clientHeight),ds=cm[3]*(asp<0.85?Math.min(1.9,0.85/asp):1);controls.target.copy(t);camera.position.set(t.x+cm[0]/cl*ds,t.y+cm[1]/cl*ds,t.z+cm[2]/cl*ds);controls.update();
@@ -156,13 +173,14 @@ async function init(){
   $('#a3-load').textContent='Loading bones and muscles…';
   const [bp,bi,bpid,batt,mp,mi,mpid]=await Promise.all([buf('bone_pos.wasm',Float32Array),buf('bone_idx.wasm',Uint32Array),buf('bone_pid.wasm',Uint16Array),buf('bone_att.wasm',Uint8Array),buf('mus_pos.wasm',Float32Array),buf('mus_idx.wasm',Uint32Array),buf('mus_pid.wasm',Uint16Array)]);
   const bg=geom(bp,bi);bg.setAttribute('color',new THREE.BufferAttribute(new Float32Array(bp.length),3));bone=new THREE.Mesh(bg,new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.6}));bone.userData.pid=bpid;bone.userData.att=batt;root.add(bone);
-  const mg=geom(mp,mi);mg.setAttribute('color',new THREE.BufferAttribute(new Float32Array(mp.length),3));mus=new THREE.Mesh(mg,new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.5,metalness:0.03}));mus.userData.pid=mpid;root.add(mus);
+  const mg=geom(mp,mi);mg.setAttribute('color',new THREE.BufferAttribute(new Float32Array(mp.length),3));mus=new THREE.Mesh(mg,new THREE.MeshStandardMaterial({vertexColors:true,roughness:0.5,metalness:0.03}));mus.userData.pid=mpid;root.add(mus);FIDX=mi.slice();try{const lr=await fetch(BASE+'mus_layer.json?v=1');if(lr.ok){LAYER=await lr.json();NL=Math.max.apply(null,LAYER);}}catch(e){LAYER=null;}
   ROOT=root;RIG=await createRig(mus,bone,M);buildMoves();
   for(const j of M.joints){const s=new THREE.Mesh(new THREE.SphereGeometry(j.r,20,14),new THREE.MeshBasicMaterial({color:'#ffffff',transparent:true,opacity:0.6,depthTest:false}));s.position.set(j.p[0],j.p[1],j.p[2]);s.userData.k=j.k;s.renderOrder=5;root.add(s);joints.push(s);}
   root.updateMatrixWorld(true);$('#a3-load').remove();
   const rs=()=>{const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();};new ResizeObserver(rs).observe(stage);rs();
   view(Q.get('view')||'front',+Q.get('zoom')||0); if(Q.get('ty'))controls.target.y=+Q.get('ty'),view(Q.get('view')||'front',+Q.get('zoom')||0); if(Q.get('tx')){controls.target.x=+Q.get('tx');view(Q.get('view')||'front',+Q.get('zoom')||0);}
-  setMode(mode);
+  setMode(mode);drawDis();
+  if(Q.get('peel')||Q.get('hide')||Q.get('dis')){if(mode!=='myo')setMode('myo');autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');PEEL=Math.max(0,Math.min(NL-1,+Q.get('peel')||0));DIS=Q.get('dis')==='1';if(Q.get('hide')){const re=new RegExp(Q.get('hide'),'i');M.muscles.forEach((n,i)=>{if(re.test(n))HID.add(i);});}applyDis();info(null);}
   if(Q.get('move')){playMove(Q.get('move'));if(Q.get('phase'))RIG.setFrac(+Q.get('phase'));}
   if(Q.get('hl')||Q.get('hr')){const re=Q.get('hl')?new RegExp(Q.get('hl'),'i'):null,hr=Q.get('hr'),pids=new Set();M.muscles.forEach((n,i)=>{if(!n.includes('right'))return;const r=M.mrow[i];if(re?re.test(n.replace(/\b(right|left) /,'')):(r>=0&&M.MT[r][0]===hr))pids.add(i);});
     if(mode!=='myo')setMode('myo');autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');RIG.assist=new Set();sel={kind:'move',pids};paintMus();RIG.mark(pids,Q.get('hg')==='1');
