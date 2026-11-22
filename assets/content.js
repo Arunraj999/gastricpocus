@@ -200,7 +200,7 @@ window.NORA = {
     { name: "Superior trunk block", region: "upper", page: "superior-trunk.html", also: "STB upper trunk phrenic sparing shoulder" },
     { name: "Supraclavicular block", region: "upper", page: "" },
     { name: "Infraclavicular block (costoclavicular)", region: "upper", page: "" },
-    { name: "Retroclavicular block (RAPTIR)", region: "upper", page: "", also: "retroclavicular approach to the infraclavicular region infraclavicular raptir" },
+    { name: "Retroclavicular block (RAPTIR)", region: "upper", page: "retroclavicular.html", also: "retroclavicular approach to the infraclavicular region infraclavicular raptir" },
     { name: "Axillary brachial plexus block", region: "upper", page: "" },
     { name: "Suprascapular nerve block", region: "upper", page: "suprascapular.html", also: "SSNB shoulder block subomohyoid anterior posterior supraspinous fossa axillary nerve phrenic sparing" },
     { name: "Axillary nerve block", region: "upper", page: "" },

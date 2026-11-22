@@ -235,6 +235,61 @@
     ];
     return s;
   })();
+  DATA.raptir = {
+      title: "Retroclavicular approach to the infraclavicular block (RAPTIR)",
+      entry: [556, 292], target: [367, 322], mm: 0.125, up: 64, ori: ["Caudad", "Cephalad"],
+      scanTitle: "Sonoanatomy below the clavicle",
+      recLab: { strong: ["Named in the technique", "technique"], weak: ["Worth finding", "worth finding"] },
+      fascia: [
+        { id: "inv", n: "Pectoral fascia", d: "M0 80C200 74 420 74 556 86", t: "The first layer under the subcutaneous tissue, covering pectoralis major." },
+        { id: "pre", n: "Fascia beneath pectoralis minor", d: "M0 218C200 216 400 212 556 196", t: "The layer under pectoralis minor. The artery, the vein and the three cords lie beneath it." }
+      ],
+      shapes: [
+        { id: "clav", t: "bone", n: "Clavicle and its acoustic shadow", l: "CLAV", k: "path", d: "M556 100C568 76 612 66 640 72V400H556Z", cortex: "M556 100C568 76 612 66 640 72", lx: 600, ly: 96, rec: "strong", x: "A bright curved line with nothing visible beneath it. The needle enters the skin behind this bone and crosses the shadow unseen. In six cadaver dissections the suprascapular nerve touched the needle there in four, and lay within 2 cm in the other two.", c: 11 },
+        { id: "pmaj", t: "muscle", n: "Pectoralis major", l: "PMaj", k: "path", d: "M0 84C200 78 420 78 556 90V150C420 142 200 144 0 152Z", lx: 150, ly: 120, rec: "strong", x: "The superficial muscle of the chest wall. Medial and lateral pectoral nerves." },
+        { id: "pmin", t: "muscle", n: "Pectoralis minor", l: "PMin", k: "path", d: "M0 160C200 152 400 154 520 172C480 206 300 214 0 214Z", lx: 170, ly: 188, rec: "strong", x: "Deep to pectoralis major. The artery, vein and cords lie beneath it." },
+        { id: "aa", t: "artery", n: "Axillary artery", l: "AA", k: "circle", cx: 330, cy: 290, r: 24, lx: 330, ly: 294, avoid: 1, rec: "strong", x: "Round and pulsatile, about 3 cm deep: a mean of 3.1 cm in the first clinical study. The three cords are arranged around it, and the needle is aimed at its back wall.", c: 1 },
+        { id: "av", t: "vein", n: "Axillary vein", l: "AV", k: "ellipse", cx: 232, cy: 300, rx: 32, ry: 23, lx: 232, ly: 304, avoid: 1, rec: "strong", x: "Caudad and medial to the artery, and compressible. It is on the far side of the artery from the needle." },
+        { id: "lc", t: "nerve", n: "Lateral cord", l: "LC", k: "circle", cx: 372, cy: 262, r: 9, lx: 396, ly: 252, rec: "strong", target: 1, bright: 1, m: "Biceps and brachialis through the musculocutaneous nerve, and the lateral root of the median nerve", s: "Elbow flexes", x: "Usually on the cephalad side of the artery. The arrangement of the cords around the artery varies between patients." },
+        { id: "pc", t: "nerve", n: "Posterior cord", l: "PC", k: "circle", cx: 338, cy: 326, r: 9, lx: 318, ly: 350, rec: "strong", target: 1, bright: 1, m: "Triceps and the wrist and finger extensors through the radial nerve, and deltoid through the axillary nerve", s: "Wrist and fingers extend", x: "Usually behind the artery. This approach brings the needle straight to it." },
+        { id: "mc", t: "nerve", n: "Medial cord", l: "MC", k: "circle", cx: 285, cy: 296, r: 8, lx: 285, ly: 332, rec: "strong", target: 1, bright: 1, m: "Finger flexors and the small muscles of the hand through the ulnar nerve and the medial root of the median nerve", s: "Fingers flex", x: "Usually between the artery and the vein, the cord furthest from the needle." },
+        { id: "chest", t: "bone", n: "Chest wall: rib and pleura", l: "PLEURA", k: "path", d: "M0 368C100 362 200 368 280 392V400H0Z", cortex: "M0 368C100 362 200 368 280 392", lx: 120, ly: 392, avoid: 1, wrong: 1, x: "Deep and caudad to the vessels. A needle aimed too deep or carried too far is heading here.", wn: "Withdraw to the back of the artery." }
+      ],
+      groove: "M0 198H556V360H0Z",
+      zones: {
+        air: ["Above the skin", "The needle has not entered yet."],
+        subcut: ["Skin and subcutaneous tissue", "The first layer. Pectoralis major lies beneath."],
+        tri: ["Between the pectoral muscles", "The plane between pectoralis major and pectoralis minor. An injection here does not reach the cords."],
+        groove: ["Beneath pectoralis minor, around the axillary artery", "Fat around the artery, the vein and the three cords. The local anaesthetic should go behind the artery."],
+        deep: ["Deep to the vessels", "Too deep: the chest wall and pleura lie this way. Withdraw."]
+      },
+      zoneNote: { pmaj: ["", "Too superficial. Withdraw and aim behind the artery. "], pmin: ["", "Too superficial. Withdraw and aim behind the artery. "], chest: ["warn", "Stop: the tip is at the chest wall. Withdraw. "] },
+      wrongNote: "Redirect to the back of the artery.",
+      targetNote: "This is the target: behind the axillary artery, beside the posterior cord.",
+      la: { "in": [340, 324, 52, 15] },
+      consensus: "No consensus list has been published for this block. These are the structures named in the published technique.",
+      refs: { stim: 24, sens: 25, press: 26, cons: 8, where: 1 }, avoidNote: "Find the artery and the vein before the needle moves, and look for the pleura. The first part of the needle path, behind the clavicle, cannot be seen at all.",
+      inj: {
+        skin: "A skin wheal only.",
+        refuse: "In a study at the interscalene roots, opening injection pressure reached 15 psi or more in 35 of 36 injections with the needle touching a root; 1 mm away it stayed below 15 psi.",
+        tri: "The fluid spreads between the pectoral muscles. It does not reach the cords.", triZ: [],
+        z: { pmaj: ["The fluid swells inside pectoralis major. The cords are two layers deeper.", 26, 10], pmin: ["The fluid swells inside pectoralis minor. The cords lie beneath this muscle.", 24, 9] },
+        deep: "Too deep. Withdraw to the back of the artery.",
+        medial: [304, "The fluid is on the caudad side of the artery, beside the vein. The published technique places it behind the artery."],
+        good: { "in": "The fluid spreads behind the artery and lifts it forwards, reaching the three cords." },
+        tail: "In the first clinical study of this approach, 40 mL of mepivacaine 1.5% placed here gave surgical anaesthesia in 96% of 50 patients."
+      },
+      steps: [
+        { to: 5, say: "The needle went in behind the clavicle and has crossed its shadow out of sight. It comes into view here, almost parallel to the probe.", hold: 4600 },
+        { to: 96, say: "Clear of the shadow the whole shaft is bright, because the beam meets it almost at a right angle. Advance towards the back of the artery.", hold: 3400 },
+        { to: "L-2", say: "The tip is behind the artery, near the posterior cord. With the stimulator at 1.0 mA the wrist and fingers extend.", on: 1, ma: 1, hold: 3000 },
+        { say: "Turn the current down. At 0.5 mA the twitch fades.", ma: 0.5, hold: 2400 },
+        { to: "L+7", say: "Advance a millimetre. The twitch returns at 0.5 mA: the tip is close.", hold: 2400 },
+        { say: "Down to 0.2 mA. No twitch: the tip is not inside the cord.", ma: 0.2, hold: 2800 },
+        { say: "Inject against low pressure. The fluid spreads behind the artery and lifts it forwards.", inject: 1, hold: 3800 },
+        { say: "Now try it yourself: drag the needle, change the current, and see what happens off target.", hold: 3200 }
+      ]
+  };
   var esc = function (s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); };
   function shapeSvg(s, st) {
     st = st ? ' style="' + st + '"' : "";
@@ -450,7 +505,7 @@
         el.classList.toggle("blocked", !!good); } else clearLa();
     }
     function clearLa() { laE.style.opacity = 0; el.classList.remove("blocked"); $(".bp-injr").innerHTML = ""; }
-    function setTip(x, y) { var e = B.entry; x = Math.max(8, Math.min(e[0] - 4, x)); y = Math.max(e[1] + 1, Math.min(392, y)); S.tip = [x, y]; draw(); }
+    function setTip(x, y) { var e = B.entry; x = Math.max(8, Math.min(e[0] - 4, x)); y = Math.max(e[1] + 1 - (B.up || 0), Math.min(392, y)); S.tip = [x, y]; draw(); }
     function setView(v) { v = Math.max(0, Math.min(100, +v)); var x = 640 * (1 - v / 100); $(".bp-clip").setAttribute("x", x); $(".bp-clipu").setAttribute("width", x); $(".bp-div").setAttribute("d", "M" + x + " 0V400"); $(".bp-div").style.opacity = v > 0 && v < 100 ? 1 : 0; $(".bp-wipe").value = v; $$("[data-v]").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.getAttribute("data-v") === v)); }); el.classList.toggle("an-full", v >= 100); }
     function pick(id) { var s = byId[id]; if (!s) return; S.seen[id] = 1; var li = $('.bp-chk li[data-id="' + id + '"]'); if (li) li.classList.add("ok");
       $(".bp-where").className = "bp-card bp-where"; $(".bp-where").innerHTML = "<h4>" + esc(s.n) + (s.rec ? ' <span class="chip ' + (s.rec === "strong" ? "sy" : "obs") + '">' + RL[s.rec === "strong" ? "strong" : "weak"][0] + "</span>" : "") + "</h4><p>" + s.x + cite(s.c) + "</p>" + (s.m ? "<p><b>Supplies:</b> " + esc(s.m) + ".<br><b>On stimulation:</b> " + esc(s.s) + "." + (s.mv ? ' <a class="bp-3d" href="anatomy-3d.html?mode=myo&amp;move=' + s.mv + '" target="_blank" rel="noopener">See this movement in 3D</a>' : "") + "</p>" : "") +
