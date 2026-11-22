@@ -225,7 +225,7 @@
   var CONTENT = { empty: "Empty antrum", fluid: "Clear fluid with bubbles", fluidbig: "Clear fluid", milk: "Thick fluid (milk)", solid: "Solid: frosted glass", solidlate: "Solid, mixed content" };
   function labels(st) {
     var A = antrum(st), L = [
-      ["Rectus abdominis", 62, 15.5, 62, 15.5, 1], ["Liver", -48, 40, -48, 40, 0], ["Stomach (antrum)", A.cx + A.rx * 0.45, A.cy - A.ry * 0.85, A.cx + A.rx * 0.45 + 14, A.cy - A.ry - 9, 0],
+      ["Rectus abdominis", -33, 15.5, -33, 15.5, 1], ["Liver", -48, 40, -48, 40, 0], ["Stomach (antrum)", A.cx + A.rx * 0.45, A.cy - A.ry * 0.85, A.cx + A.rx * 0.45 + 14, A.cy - A.ry - 9, 0],
       [CONTENT[st], A.cx, A.cy + (st === "solid" ? -A.ry * 0.55 : 0), A.cx + (st === "empty" ? 34 : 0), A.cy + (st === "solid" ? -A.ry * 0.55 : st === "empty" ? 14 : 0), 0], ["Pancreas", -14, 66, -14, 66, 0],
       ["Superior mesenteric artery", -64, 77, -70, 64, 0], ["Aorta", 10, 96, 10, 96, 0], ["Vertebral body", 40, 118, 40, 118, 0], ["Bowel", 64, 46, 84, 54, 0]];
     return L;
