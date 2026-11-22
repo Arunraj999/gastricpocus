@@ -198,7 +198,7 @@ window.NORA = {
   blocks: [
     { name: "Interscalene brachial plexus block", region: "upper", page: "interscalene.html", also: "ISB shoulder" },
     { name: "Superior trunk block", region: "upper", page: "superior-trunk.html", also: "STB upper trunk phrenic sparing shoulder" },
-    { name: "Supraclavicular block", region: "upper", page: "" },
+    { name: "Supraclavicular block", region: "upper", page: "supraclavicular.html", also: "SCB corner pocket intracluster intertruncal first rib subclavian artery trunks divisions" },
     { name: "Infraclavicular block (costoclavicular)", region: "upper", page: "" },
     { name: "Retroclavicular block (RAPTIR)", region: "upper", page: "retroclavicular.html", also: "retroclavicular approach to the infraclavicular region infraclavicular raptir" },
     { name: "Axillary brachial plexus block", region: "upper", page: "" },

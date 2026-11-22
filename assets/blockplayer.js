@@ -153,7 +153,7 @@
         { id: "tra", t: "muscle", n: "Trapezius", l: "TRAP", k: "path", d: "M0 70C200 64 440 64 640 72V120C440 112 200 114 0 124Z", lx: 150, ly: 102, rec: "strong", x: "The thin superficial muscle. Accessory nerve (cranial nerve XI); it lifts and steadies the scapula." },
         { id: "ssp", t: "muscle", n: "Supraspinatus", l: "SSP", k: "path", d: "M0 130C200 120 440 118 640 126V294C560 306 470 318 380 322C280 324 150 316 0 298Z", lx: 170, ly: 222, rec: "strong", x: "Fills the supraspinous fossa. Supplied by the suprascapular nerve; it starts abduction of the shoulder. The needle passes through it to reach the floor of the fossa." },
         { id: "floor", t: "bone", n: "Floor of the supraspinous fossa", l: "SCAPULA", k: "path", d: "M0 318C150 338 290 348 380 346C470 342 560 328 640 314V400H0Z", cortex: "M0 318C150 338 290 348 380 346C470 342 560 328 640 314", lx: 470, ly: 376, rec: "strong", x: "A bright concave line with a dark shadow beneath: the scapula, between the suprascapular notch and the spinoglenoid notch. This line, and not the notch itself, is what the scan shows.", c: 3 },
-        { id: "ssn", t: "nerve", n: "Suprascapular nerve", l: "SSN", k: "circle", cx: 330, cy: 334, r: 9, lx: 330, ly: 310, rec: "strong", target: 1, bright: 1, m: "Supraspinatus and infraspinatus", s: "Shoulder abducts and turns outwards", sup: ["ssn", "hl=supraspinatus%7Cinfraspinatus&hv=-0.35,0.3,-0.9&hg=1", "Supraspinatus and infraspinatus, in red, seen from behind."], x: "A small bright oval on the floor of the fossa, beneath the fascia of supraspinatus and beside its artery. It is often hard to make out at this depth: in volunteers it was identified with certainty in 36% of scans here.", c: 2 },
+        { id: "ssn", t: "nerve", n: "Suprascapular nerve", l: "SSN", k: "circle", cx: 330, cy: 334, r: 9, lx: 330, ly: 310, rec: "strong", target: 1, bright: 1, m: "Supraspinatus and infraspinatus", s: "Shoulder abducts and turns outwards", sup: ["ssn", "hl=supraspinatus%7Cinfraspinatus&hv=-0.35,0.3,-0.9&hg=1", "Supraspinatus and infraspinatus, in red, seen from behind."], x: "A small bright oval on the floor of the fossa, beneath the fascia of supraspinatus and beside its artery. It is often hard to make out at this depth: in volunteers it was identified with certainty in 36% of scans here.", c: 1 },
         { id: "ssa", t: "artery", n: "Suprascapular artery", l: "SSA", k: "circle", cx: 304, cy: 335, r: 7, lx: 284, ly: 312, avoid: 1, rec: "strong", x: "Runs beneath the fascia beside the nerve. Colour Doppler finds it more easily than the nerve and marks the place to inject.", c: 3 }
       ],
       groove: "M0 296H640V352H0Z",
@@ -204,7 +204,8 @@
     by.st.target = 0; by.st.wrong = 1; by.st.rec = "weak"; by.st.a = [378, 174, 11.5]; by.st.b = [400, 174, 11.5]; by.st.sheath = [389, 174, 27, 16]; by.st.cx = 389; by.st.cy = 174; by.st.c = 16;
     by.st.wn = "Too medial: this is the brachial plexus. Withdraw to the lateral side of the suprascapular nerve."; by.st.x = "The suprascapular nerve has just left its lateral side. Local anaesthetic placed here can track back to the trunk: in cadavers 5 mL stained it in 9 of 10 injections.";
     by.omo.rec = "strong"; by.omo.c = 1; by.omo.x = "The landmark for this approach. The suprascapular nerve runs laterally beneath this thin strap muscle."; by.tca.c = 0; by.msm.c = 0; by.msm.x = "The nerve runs over its surface. The needle stays superficial to this muscle."; by.mt.x = "Deeper, between the scalene muscles. It is not the target."; by.dsn.c = 0; by.dsn.x = "Runs through the middle scalene, below the needle path of this approach."; by.ltn.c = 0;
-    by.phr.c = 15; by.phr.x = "On the front of the anterior scalene, under the same fascia. With this approach and an axillary nerve block, 10 mL on each nerve, the diaphragm was paralysed in 40% of patients."; by.phr.wn = "Withdraw to the lateral side of the suprascapular nerve.";
+    by.phr.c = 18; by.phr.x = "On the front of the anterior scalene, under the same fascia. With this approach and an axillary nerve block, 10 mL on each nerve, the diaphragm was paralysed in 40% of patients."; by.phr.wn = "Withdraw to the lateral side of the suprascapular nerve.";
+    s.shapes.forEach(function (q) { if (["ssn", "st", "omo", "phr"].indexOf(q.id) < 0) q.c = 0; });
     s.zones.groove = ["Under omohyoid, beside the suprascapular nerve", "Between the fascia and the surface of the middle scalene, lateral to the brachial plexus. This is where the local anaesthetic should go."];
     s.zoneNote.asm = ["warn", "Far too medial: you have passed the brachial plexus. Withdraw. "]; s.zoneNote.msm = ["warn", "Too deep: the tip has entered the muscle beneath the nerve. Withdraw until it lies on the surface. "];
     s.zones.tri = ["Posterior triangle, between the two fascial layers", "Fat and loose tissue under the investing layer, with omohyoid and the supraclavicular nerves. An injection here does not reach the nerve."];
@@ -253,7 +254,7 @@
         { id: "lc", t: "nerve", n: "Lateral cord", l: "LC", k: "circle", cx: 372, cy: 262, r: 9, lx: 396, ly: 252, rec: "strong", target: 1, bright: 1, m: "Biceps and brachialis through the musculocutaneous nerve, and the lateral root of the median nerve", s: "Elbow flexes", x: "Usually on the cephalad side of the artery. The arrangement of the cords around the artery varies between patients." },
         { id: "pc", t: "nerve", n: "Posterior cord", l: "PC", k: "circle", cx: 338, cy: 326, r: 9, lx: 318, ly: 350, rec: "strong", target: 1, bright: 1, m: "Triceps and the wrist and finger extensors through the radial nerve, and deltoid through the axillary nerve", s: "Wrist and fingers extend", x: "Usually behind the artery. This approach brings the needle straight to it." },
         { id: "mc", t: "nerve", n: "Medial cord", l: "MC", k: "circle", cx: 285, cy: 296, r: 8, lx: 285, ly: 332, rec: "strong", target: 1, bright: 1, m: "Finger flexors and the small muscles of the hand through the ulnar nerve and the medial root of the median nerve", s: "Fingers flex", x: "Usually between the artery and the vein, the cord furthest from the needle." },
-        { id: "chest", t: "bone", n: "Chest wall: rib and pleura", l: "PLEURA", k: "path", d: "M0 368C100 362 200 368 280 392V400H0Z", cortex: "M0 368C100 362 200 368 280 392", lx: 120, ly: 392, avoid: 1, wrong: 1, x: "Deep and caudad to the vessels. A needle aimed too deep or carried too far is heading here.", wn: "Withdraw to the back of the artery." }
+        { id: "chest", t: "bone", n: "Chest wall: rib and pleura", l: "PLEURA", k: "path", d: "M0 368C100 362 200 368 280 392V400H0Z", cortex: "M0 368C100 362 200 368 280 392", lx: 120, ly: 392, avoid: 1, wrong: 1, x: "Deep and caudad to the vessels. A needle aimed too deep or carried too far is heading here.", wn: "Withdraw to the back of the artery.", hit: ["Chest wall", "Stop and withdraw. The tip is at the chest wall, next to the pleura."] }
       ],
       groove: "M0 198H556V360H0Z",
       zones: {
@@ -287,6 +288,69 @@
         { to: "L+7", say: "Advance a millimetre. The twitch returns at 0.5 mA: the tip is close.", hold: 2400 },
         { say: "Down to 0.2 mA. No twitch: the tip is not inside the cord.", ma: 0.2, hold: 2800 },
         { say: "Inject against low pressure. The fluid spreads behind the artery and lifts it forwards.", inject: 1, hold: 3800 },
+        { say: "Now try it yourself: drag the needle, change the current, and see what happens off target.", hold: 3200 }
+      ]
+  };
+  DATA.supraclavicular = {
+      title: "Supraclavicular brachial plexus block",
+      entry: [640, 60], target: [302, 270], ori: ["Medial", "Lateral"],
+      scanTitle: "Sonoanatomy in the supraclavicular fossa", varLabel: "Variations",
+      recLab: { strong: ["Named in the technique", "technique"], weak: ["Worth finding", "worth finding"] },
+      fascia: [
+        { id: "inv", n: "Investing layer of the deep cervical fascia", d: "M0 72C200 66 440 66 640 74", t: "The first layer under the subcutaneous tissue." },
+        { id: "pre", n: "Prevertebral layer of the deep cervical fascia", d: "M0 128C160 120 330 110 470 114C540 116 600 124 640 132", t: "The layer over the scalene muscles and the plexus. Beneath it the needle is in the same compartment as the trunks." }
+      ],
+      shapes: [
+        { id: "omo", t: "muscle", n: "Omohyoid, inferior belly", l: "OH", k: "path", d: "M250 92C300 82 400 82 450 94C400 104 300 104 250 92Z", lx: 350, ly: 97, rec: "weak", x: "A thin strap muscle crossing above the plexus. Ansa cervicalis (C1 to C3)." },
+        { id: "asm", t: "muscle", n: "Anterior scalene", l: "ASM", k: "path", d: "M70 150C110 136 170 140 196 170C210 200 204 250 180 272C140 286 90 270 76 236C62 204 56 170 70 150Z", lx: 130, ly: 214, rec: "weak", x: "Medial to the artery, attaching to the first rib. The phrenic nerve runs on its surface. If the needle is here it has crossed the artery." },
+        { id: "msm", t: "muscle", n: "Middle scalene", l: "MSM", k: "path", d: "M420 150C480 140 560 146 640 160V300C580 300 520 290 470 268C440 240 420 190 420 150Z", lx: 545, ly: 222, rec: "strong", x: "Lateral and deep to the plexus. A needle coming from the lateral side often crosses its edge." },
+        { id: "sa", t: "artery", n: "Subclavian artery", l: "SA", k: "circle", cx: 262, cy: 232, r: 34, lx: 262, ly: 236, avoid: 1, rec: "strong", x: "Round and pulsatile, resting on the first rib. It is the landmark for the whole block: the plexus lies on its lateral side." },
+        { id: "rib", t: "bone", n: "First rib", l: "1st RIB", k: "path", d: "M150 300C230 276 380 270 500 296V400H150Z", cortex: "M150 300C230 276 380 270 500 296", lx: 330, ly: 332, rec: "strong", x: "A bright line with a clean dark shadow beneath it. The artery and the plexus sit on it, and it stands between the needle and the lung.", hit: ["On the first rib", "The tip is on bone. Withdraw a millimetre: the corner pocket is just above the rib, beside the artery."] },
+        { id: "pleura", t: "bone", n: "Pleura", l: "PLEURA", k: "path", d: "M0 286C60 290 110 296 150 304V400H0ZM500 300C550 306 600 318 640 332V400H500Z", cortex: "M0 286C60 290 110 296 150 304M500 300C550 306 600 318 640 332", lx: 66, ly: 332, avoid: 1, rec: "strong", x: "A bright line on either side of the rib that slides with breathing, with lung beneath it. This is the structure the block is built around avoiding.", hit: ["Pleura", "Stop and withdraw. The tip has reached the pleura. A pneumothorax can declare itself hours or days later."], c: 31 },
+        { id: "ut", t: "nerve", n: "Upper trunk and its divisions", l: "UT", k: "duo", a: [383, 129, 9], b: [401, 127, 9], sheath: [392, 128, 23, 12], cx: 392, cy: 128, lx: 434, ly: 128, rec: "strong", target: 1, m: "Deltoid, biceps and the shoulder muscles (C5, C6)", s: "Shoulder abducts and elbow flexes", x: "The most superficial and lateral part of the cluster. In this fossa the trunks are dividing, and the plexus looks like a bunch of grapes." },
+        { id: "mt", t: "nerve", n: "Middle trunk", l: "MT", k: "duo", a: [358, 154, 10], b: [378, 150, 10], sheath: [368, 152, 24, 14], cx: 368, cy: 152, lx: 412, ly: 156, rec: "strong", target: 1, m: "Triceps and the wrist extensors (C7)", s: "Elbow and wrist extend", x: "The middle of the cluster." },
+        { id: "lt", t: "nerve", n: "Lower trunk", l: "LT", k: "duo", a: [333, 188, 10.5], b: [354, 180, 10.5], sheath: [344, 184, 25, 16], cx: 344, cy: 184, lx: 390, ly: 192, rec: "strong", target: 1, m: "Finger flexors and the small muscles of the hand (C8, T1)", s: "Fingers flex", x: "The deepest part of the cluster, nearest the artery and the rib. It carries the ulnar side of the hand and is the part most often missed.", c: 14 },
+        { id: "phr", t: "nerve", n: "Phrenic nerve", l: "", k: "circle", cx: 150, cy: 146, r: 4, lx: 150, ly: 132, avoid: 1, wrong: 1, rec: "weak", m: "Diaphragm", s: "Hiccup-like twitch of the diaphragm: the tip is far too medial", wn: "Withdraw to the lateral side of the artery.", x: "On the front of the anterior scalene, well medial to the needle path. It is still reached by the local anaesthetic in many patients.", c: 21 },
+        { id: "dsa", t: "artery", n: "Artery crossing the plexus", l: "", k: "circle", cx: 386, cy: 171, r: 6, lx: 414, ly: 176, avoid: 1, hide: 1, rec: "weak", x: "A branch of the subclavian artery, the dorsal scapular or the transverse cervical artery, running through the plexus. Colour Doppler shows it.", c: 34 }
+      ],
+      groove: "M196 112H470V284H196Z",
+      zones: {
+        air: ["Above the skin", "The needle has not entered yet. Insert it at the lateral end of the probe, in plane."],
+        subcut: ["Skin and subcutaneous tissue", "The first layer."],
+        tri: ["Posterior triangle, between the two fascial layers", "Fat and loose tissue under the investing layer, with omohyoid. An injection here does not reach the plexus."],
+        groove: ["Beside the plexus, lateral to the artery", "Beneath the prevertebral layer, in the compartment that holds the trunks. The corner pocket is its deepest point, where the artery meets the first rib."],
+        deep: ["Outside the plexus compartment", "Withdraw and redirect towards the lateral side of the artery."]
+      },
+      zoneNote: { omo: ["", "Too superficial: this muscle lies above the plexus. "], asm: ["warn", "Too medial: you have crossed the artery. Withdraw. "] },
+      wrongNote: "Withdraw to the lateral side of the artery.",
+      targetNote: "This is the corner pocket: the angle between the subclavian artery and the first rib, beneath the lower trunk.",
+      la: { "in": [322, 262, 40, 12] },
+      consensus: "No consensus list has been published for this block. These are the structures named in the published technique.",
+      refs: { stim: 24, sens: 25, press: 26, cons: 3, where: 3, "var": 34 }, varRef: 34, avoidNote: "Find and name these before the needle goes in. The pleura lies on both sides of the first rib, a few millimetres from the target.",
+      variants: [
+        { n: "Usual anatomy", t: "The trunks and their divisions lie in a cluster on the lateral side of the subclavian artery, above the first rib." },
+        { n: "Artery through the plexus", t: "A branch of the subclavian artery can run through or over the plexus. It has been reported to wall off part of the plexus from the local anaesthetic and cause a partial block, and it is a vessel to avoid. Scan with colour Doppler before the block.", set: { dsa: { hide: 0 } } }
+      ],
+      inj: {
+        skin: "A skin wheal only. The plexus lies beneath two layers of fascia.",
+        refuse: "At the interscalene roots, opening injection pressure reached 15 psi or more in 35 of 36 injections with the needle touching a root; 1 mm away it stayed below 15 psi.",
+        tri: "The fluid spreads above the prevertebral layer, around omohyoid. It does not reach the plexus.", triZ: ["omo"],
+        z: { msm: ["The fluid swells inside the middle scalene, lateral to the plexus. Advance out of the muscle towards the artery.", 24, 14], asm: ["The fluid swells inside the anterior scalene, on the wrong side of the artery and next to the phrenic nerve. Withdraw.", 20, 15] },
+        deep: "The fluid is outside the compartment that holds the plexus. Withdraw and redirect.",
+        medial: [290, "The fluid is over the artery, on its medial side. The plexus lies lateral to the artery."],
+        good: { "in": "The fluid fills the corner pocket and lifts the plexus up and away from the rib." },
+        tail: "In 510 consecutive blocks, surgical anaesthesia followed a single attempt in 94.6%, with no symptomatic pneumothorax."
+      },
+      steps: [
+        { to: 14, say: "The needle enters at the lateral end of the probe, in plane, and appears in the subcutaneous tissue." },
+        { to: "inv+3", fas: "inv", hold: 2600 },
+        { to: "pre+3", pre: "Through the ", fas: "pre", hold: 3000 },
+        { to: 310, say: "The needle passes beneath the plexus, aiming for the angle between the artery and the first rib. With the stimulator at 1.0 mA the fingers flex: the lower trunk is just above the needle.", on: 1, ma: 1, hold: 3600 },
+        { say: "Turn the current down. At 0.5 mA the twitch fades: the tip is not against the trunk.", ma: 0.5, hold: 2600 },
+        { to: "L", say: "Advance to the corner pocket, where the artery meets the first rib. Keep the tip in view the whole way: the pleura lies on either side of the rib.", hold: 3800 },
+        { say: "Down to 0.2 mA. No twitch.", ma: 0.2, hold: 2400 },
+        { say: "Inject against low pressure. The fluid lifts the plexus up and away from the rib.", inject: 1, hold: 3800 },
+        { say: "Many operators then place a second injection higher, among the trunks. Open Variations, above the image, to see a vessel that can cross the plexus.", flash: 1, hold: 5400 },
         { say: "Now try it yourself: drag the needle, change the current, and see what happens off target.", hold: 3200 }
       ]
   };
@@ -453,7 +517,7 @@
         head = s.n; body = s.x + cite(s.c);
         if (s.t === "nerve") { warn = "bad"; head = "Tip inside the " + s.n.toLowerCase(); body = "Stop. Withdraw until the tip lies outside the nerve. Do not inject."; }
         else if (s.t === "artery" || s.t === "vein") { warn = "bad"; head = "Tip inside the " + s.n.toLowerCase(); body = "Stop and withdraw. Do not inject. " + s.x; }
-        else if (s.t === "bone") { warn = "bad"; head = "Bone contact: " + s.n.toLowerCase(); body = "Too deep. Withdraw and redirect more superficially."; }
+        else if (s.t === "bone") { warn = "bad"; head = s.hit ? s.hit[0] : "Bone contact: " + s.n.toLowerCase(); body = s.hit ? s.hit[1] : "Too deep. Withdraw and redirect more superficially."; }
         else if (B.zoneNote && B.zoneNote[z]) { if (B.zoneNote[z][0]) warn = B.zoneNote[z][0]; body = B.zoneNote[z][1] + body; }
       } else { head = B.zones[z][0]; body = B.zones[z][1]; if (z === "deep") warn = "warn"; }
       var dT = Math.hypot(t[0] - B.target[0], t[1] - B.target[1]) * MM;
@@ -492,7 +556,7 @@
       var near = B.shapes.filter(function (k) { return k.t === "nerve" && gap(k, t[0], t[1]) <= 2; })[0];
       if (near) msg = "<b>Injection refused.</b> The tip is against or inside the " + near.n.toLowerCase() + ". " + (I.refuse || "With the needle touching a root, opening injection pressure reached 15 psi or more in 35 of 36 injections; 1 mm away it stayed below 15 psi.") + cite(B.refs.press);
       else if (s && (s.t === "artery" || s.t === "vein")) msg = "<b>Intravascular.</b> Aspirate, withdraw and reposition. Do not inject.";
-      else if (s && s.t === "bone") msg = "<b>No flow.</b> The tip is on bone.";
+      else if (s && s.t === "bone") msg = s.hit ? "<b>Do not inject.</b> " + s.hit[1] : "<b>No flow.</b> The tip is on bone.";
       else if (z === "subcut" || z === "air") { msg = I.skin; shape = [t[0], t[1] + 4, 20, 7]; }
       else if (z === "tri" || (I.triZ || []).indexOf(z) > -1) { msg = I.tri; shape = [t[0] - 8, t[1] + 2, 46, 11]; }
       else if (I.z[z] && !(z === I.ex && Math.hypot(t[0] - B.target[0], t[1] - B.target[1]) * MM <= 2.2)) { msg = I.z[z][0]; shape = [t[0], t[1], I.z[z][1], I.z[z][2]]; }
