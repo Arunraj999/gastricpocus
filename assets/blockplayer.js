@@ -338,6 +338,7 @@
         z: { msm: ["The fluid swells inside the middle scalene, lateral to the plexus. Advance out of the muscle towards the artery.", 24, 14], asm: ["The fluid swells inside the anterior scalene, on the wrong side of the artery and next to the phrenic nerve. Withdraw.", 20, 15] },
         deep: "The fluid is outside the compartment that holds the plexus. Withdraw and redirect.",
         medial: [290, "The fluid is over the artery, on its medial side. The plexus lies lateral to the artery."],
+        far: [62, "The fluid is beside the plexus but away from the corner pocket. Spread to the lower trunk, deepest in the cluster, is not assured."],
         good: { "in": "The fluid fills the corner pocket and lifts the plexus up and away from the rib." },
         tail: "In 510 consecutive blocks, surgical anaesthesia followed a single attempt in 94.6%, with no symptomatic pneumothorax."
       },
@@ -562,11 +563,12 @@
       else if (I.z[z] && !(z === I.ex && Math.hypot(t[0] - B.target[0], t[1] - B.target[1]) * MM <= 2.2)) { msg = I.z[z][0]; shape = [t[0], t[1], I.z[z][1], I.z[z][2]]; }
       else if (z === "deep") { msg = I.deep; shape = [t[0], t[1], 16, 10]; }
       else if (I.medial && t[0] < I.medial[0]) { msg = I.medial[1]; shape = [t[0], t[1], 20, 13]; }
+      else if (I.far && Math.hypot(t[0] - B.target[0], t[1] - B.target[1]) > I.far[0]) { msg = I.far[1]; shape = [t[0], t[1], 22, 12]; }
       else { good = 1; var ex = z === I.ex; shape = ex ? B.la.ex : B.la["in"];
         msg = "<b>Good spread.</b> " + (ex ? I.good.ex : I.good["in"]) + " " + I.tail + cite(B.refs.where) + ' <a href="#coverage">See what the block covers</a>.'; }
       o.className = "bp-injr " + (good ? "good" : shape ? "warn" : "bad"); o.innerHTML = "<p>" + msg + "</p>";
       if (shape) { laE.setAttribute("cx", shape[0]); laE.setAttribute("cy", shape[1]); laE.setAttribute("rx", 2); laE.setAttribute("ry", 2); laE.style.opacity = 1; var t0 = performance.now(); (function g(now) { var k = Math.max(0, Math.min(1, (now - t0) / 1600)), e2 = 1 - Math.pow(1 - k, 3); laE.setAttribute("rx", (2 + (shape[2] - 2) * e2).toFixed(1)); laE.setAttribute("ry", (2 + (shape[3] - 2) * e2).toFixed(1)); if (k < 1) requestAnimationFrame(g); })(t0);
-        el.classList.toggle("blocked", !!good); } else clearLa();
+        el.classList.toggle("blocked", !!good); } else { laE.style.opacity = 0; el.classList.remove("blocked"); }
     }
     function clearLa() { laE.style.opacity = 0; el.classList.remove("blocked"); $(".bp-injr").innerHTML = ""; }
     function setTip(x, y) { var e = B.entry; x = Math.max(8, Math.min(e[0] - 4, x)); y = Math.max(e[1] + 1 - (B.up || 0), Math.min(392, y)); S.tip = [x, y]; draw(); }
