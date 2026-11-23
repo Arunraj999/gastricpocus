@@ -1,0 +1,78 @@
+NORA2 gastric ultrasound videos: narration scripts
+Dr Arun Mohanraj FRCA EDRA, Wrightington, Wigan and Leigh NHS Foundation Trust
+
+1. Gastric ultrasound: how to scan
+
+GASTRIC ULTRASOUND
+  Right, let's talk about gastric ultrasound. It's a quick bedside scan, about two and a half minutes, and it answers one simple question.
+  Is this stomach actually empty?
+
+WHY SCAN
+  We all know a fasting history isn't always reliable.
+  In one study of five hundred and thirty-eight elective patients who'd all fasted, just over six per cent still had a full stomach on ultrasound.
+  And in emergency cases, another study found a full stomach in more than half of them, fifty-six per cent.
+
+SET UP
+  For most adults, you'll want the curved, low-frequency probe, on an abdominal preset.
+  In smaller children, under about forty kilos, the linear high-frequency probe usually gives you a nicer picture.
+  Start with the patient lying flat, or sitting up a little.
+
+PROBE POSITION
+  Pop the probe in the epigastrium, just below the xiphisternum, in a sagittal plane.
+  Keep it upright on the skin, with the marker pointing towards the head.
+  Then sweep gently across from the left costal margin.
+
+FIND THE ANTRUM
+  Now, let's find the antrum.
+  Right at the top of the screen, you'll see the lower edge of the left lobe of the liver.
+  Tucked just underneath it is the antrum, which we're seeing in cross-section.
+  Behind the antrum sits the pancreas.
+  And deeper still, the aorta runs along in long axis, just in front of the spine.
+  That's your standard view: the antrum, at the level of the aorta.
+
+RIGHT LATERAL POSITION
+  Next, roll the patient onto their right side.
+  Gravity brings any fluid or food down into the antrum, so this is the view that really picks things up.
+  So, don't call a stomach empty until you've had a look in this position.
+  And if turning them isn't practical, sitting them up a bit is a reasonable alternative.
+
+WHAT YOU SEE
+  Empty first. The antrum is small and flat, with thick walls, and sometimes it looks a bit like a bull's eye.
+  Clear fluid. Now it's round and thin-walled, and dark inside. Those little bright dots are swallowed air, which gives you the starry night look.
+  Thicker fluids, like milk, look evenly bright.
+  Solid food, soon after a meal, gives a frosted glass appearance, and it hides everything behind it.
+  And a little later on, solid food looks more mixed and patchy, in a nice distended antrum.
+
+GRADE CLEAR FLUID
+  If what you're seeing is clear fluid, give it a grade.
+  Grade zero: empty in both positions.
+  Grade one: you only see fluid when they're on their right side. That fits with a small volume.
+  Grade two: you can see fluid in both positions, which suggests it's probably one and a half mils per kilo, or more.
+
+MEASURE THE VOLUME
+  To measure the volume, freeze the image with the patient on their right side, between contractions, when the antrum is at its biggest.
+  Trace right round the outer wall, the serosa, and take the average of three readings.
+  In non-pregnant adults, the volume in mils is twenty-seven, plus fourteen point six times the area, minus one point two eight times the age.
+
+FROM SCAN TO DECISION
+  So, if it's empty, or there's clear fluid under one and a half mils per kilo, that's what you'd expect in a fasted patient.
+  But clear fluid at or above that level, or any thick fluid or solid at all, and you treat it as a full stomach.
+  The scan informs your plan. You still make the decision with the whole patient in mind.
+
+LEARNING THE SCAN
+  So, how many scans does it take to get good at this?
+  In a study of anaesthetists, it took about thirty-three supervised scans to reach a ninety-five per cent success rate at telling empty from fluid from solid.
+  So, get scanning, and start counting.
+
+2. The 2½-minute gastric scan
+
+  [intro] Here's a gastric ultrasound, against the clock.
+  [0:00] Right, clock's running. Machine on, abdominal preset, curved probe, and some gel.
+  [0:12] The patient's sitting up a little. Probe goes in the epigastrium, sagittal plane, marker towards the head.
+  [0:31] Sweep across until you've got the liver edge, the antrum and the aorta all in one picture.
+  [0:49] Now look at the antrum. Empty, clear fluid, or solid? Here it's flat, so it looks empty.
+  [1:08] Now let's roll them onto their right side.
+  [1:25] Same plane again. And look, fluid's moved into the antrum. Empty lying back, fluid on the right side. That's grade one.
+  [1:50] Freeze it between contractions, trace round the serosa, and do that three times.
+  [2:11] Average area, eight square centimetres. That's seventy-three mils, just under one mil per kilo.
+  [2:30] Two and a half minutes. Clear fluid, under one and a half mils per kilo. That fits with a fasted stomach.
