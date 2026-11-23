@@ -273,5 +273,5 @@
     size(); draw(); var to; window.addEventListener("resize", function () { clearTimeout(to); to = setTimeout(function () { size(); draw(); }, 200); });
     return { set: function (s) { st = s; draw(); }, labels: function (v) { showLab = v; lab(); }, measure: function (v) { showMeas = v; lab(); }, wall: function (v) { showWall = v; lab(); }, split: function (v) { split = v; clip(); }, state: function () { return st; } };
   }
-  window.GVIEW = { mount: mount, CONTENT: CONTENT };
+  window.GVIEW = { mount: mount, CONTENT: CONTENT, renderUS: renderUS, fan: fan, toCanvas: toCanvas, antrum: antrum, geo: { R: R, TH: TH, DEPTH: DEPTH } };
 })();
