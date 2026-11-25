@@ -52,7 +52,7 @@ function paintMus(){const pid=mus.userData.pid,c=mus.geometry.attributes.color.a
     c[i*3]=col.r;c[i*3+1]=col.g;c[i*3+2]=col.b;} mus.geometry.attributes.color.needsUpdate=true;}
 function paintBone(){const a=bone.userData.att,c=bone.geometry.attributes.color.array,on=mode==='bone';for(let i=0;i<a.length;i++){col.set(on?M.BT[a[i]][2]:'#CFC6B4');if(on&&sel&&sel.kind==='bone'&&a[i]!==sel.id){const g=(col.r+col.g+col.b)/3;col.setRGB(g*0.5+0.16,g*0.5+0.16,g*0.5+0.18);}c[i*3]=col.r;c[i*3+1]=col.g;c[i*3+2]=col.b;}bone.geometry.attributes.color.needsUpdate=true;}
 function setMode(m){mode=m;sel=null;if(RIG){RIG.stop();markMove(null);clearMove();}const mv=$('#a3-moves');if(mv)mv.style.display=m==='myo'?'':'none';const db=$('#a3-dis');if(db)db.style.display=m==='myo'?'':'none';const dh=$('#a3-dhelp');if(dh)dh.style.display=m==='myo'?'':'none';
-  document.querySelectorAll('[data-a3mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.a3mode===m));
+  document.querySelectorAll('[data-a3mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.a3mode===m));{const j=document.getElementById('a3-jm');if(j)j.setAttribute('aria-pressed',m==='myo');}
   skin.visible=(m==='derm'||m==='nerve'); mus.visible=(m==='myo'); bone.visible=(m==='myo'||m==='bone'); joints.forEach(j=>j.visible=(m==='bone'));
   paintBone();
   if(skin.visible)paintSkin(); if(mus.visible)paintMus(); drawLegend(); buildLabels(); info(null); showSrc();}
@@ -191,6 +191,7 @@ async function init(){
   let down=null;renderer.domElement.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY];autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');});
   renderer.domElement.addEventListener('pointerup',e=>{if(down&&Math.hypot(e.clientX-down[0],e.clientY-down[1])<5)pick(e);down=null;});
   document.querySelectorAll('[data-a3mode]').forEach(b=>b.onclick=()=>setMode(b.dataset.a3mode));
+  const jm=$('#a3-jm');const goMoves=()=>{playMove(MOVES[0].id);const mv=$('#a3-moves');if(mv)mv.scrollIntoView({behavior:'smooth',block:'center'});};if(jm)jm.onclick=goMoves;const hm=()=>/^#(movements?|joint-movements)$/.test(location.hash);if(hm()||Q.get('mode')==='move')goMoves();window.addEventListener('hashchange',()=>{if(hm())goMoves();});
   document.querySelectorAll('[data-a3map]').forEach(b=>{b.setAttribute('aria-pressed',b.dataset.a3map===MAP);b.onclick=()=>setMap(b.dataset.a3map);});
   document.querySelectorAll('[data-a3view]').forEach(b=>b.onclick=()=>{autoRot=false;$('#a3-spin').setAttribute('aria-pressed','false');view(b.dataset.a3view);});
   $('#a3-spin').onclick=e=>{autoRot=!autoRot;e.currentTarget.setAttribute('aria-pressed',autoRot);};$('#a3-spin').setAttribute('aria-pressed',autoRot);

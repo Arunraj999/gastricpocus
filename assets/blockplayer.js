@@ -448,7 +448,7 @@
       '<path d="M10.5 -1.9H830" stroke="rgba(255,255,255,.6)" stroke-width=".8"/><path d="M0 .8L10.5 -3V3Z" fill="#DCE2E8" stroke="#59616b" stroke-width=".6"/><ellipse cx="6.8" cy="-.4" rx="2.9" ry="1" transform="rotate(-20 6.8 -.4)" fill="#30363d"/></g></g>' +
       '<g class="nx"><circle class="pulse" r="0"/></g></g>' +
       '<text class="ori" x="8" y="20">' + ORI[0] + '</text><text class="ori" x="632" y="20" text-anchor="end">' + ORI[1] + '</text><circle cx="12" cy="34" r="5" fill="#FFC61A"/>' +
-      [1, 2, 3, 4].filter(function (c) { return 46 + c * PC < 392; }).map(function (c) { return '<path d="M630 ' + (46 + c * PC) + 'h10" stroke="#fff" stroke-width="1.5"/><text class="ori" x="626" y="' + (50 + c * PC) + '" text-anchor="end">' + c + " cm</text>"; }).join("") +
+      [1, 2, 3, 4, 5, 6, 7, 8, 9].filter(function (c) { return 46 + c * PC < 392; }).map(function (c) { return '<path d="M630 ' + (46 + c * PC) + 'h10" stroke="#fff" stroke-width="1.5"/><text class="ori" x="626" y="' + (50 + c * PC) + '" text-anchor="end">' + c + " cm</text>"; }).join("") +
       '<text class="bp-twitch" x="320" y="30" text-anchor="middle"></text></svg>';
     el.classList.add("bp");
     el.innerHTML = '<div class="bp-bar" role="toolbar" aria-label="View"><span>View</span><button data-v="0" aria-pressed="true">Ultrasound</button><button data-v="50" aria-pressed="false">Half and half</button><button data-v="100" aria-pressed="false">Anatomy</button><input type="range" min="0" max="100" value="0" class="bp-wipe" aria-label="Wipe between ultrasound and anatomy"><button data-a="labels" aria-pressed="true">Labels</button><button data-a="tint" aria-pressed="false">Colour the structures</button><button data-a="avoid" aria-pressed="false">Structures to avoid</button><button data-a="test" aria-pressed="false">Test me</button><button data-a="play" class="bp-play">Play the block</button><button data-a="reset">Reset</button></div>' +
@@ -543,7 +543,7 @@
         var q = ns[0], s = q.s, inside = gap(s, S.tip[0], S.tip[1]) <= 0;
         el.classList.add("twitch"); tw.textContent = s.s.split(":")[0];
         h = "<p class=\"bp-tw\"><b>Twitch:</b> " + esc(s.s) + ".<br><small>" + esc(s.n) + " · " + esc(s.m) + "</small>" + (s.mv ? ' <a class="bp-3d" href="anatomy-3d.html?mode=myo&amp;move=' + s.mv + '" target="_blank" rel="noopener">See this movement in 3D</a>' : "") + "</p>";
-        if (s.wrong) h += "<p class=\"bp-coach warn\">Not the plexus. " + (s.wn || B.wrongNote) + "</p>";
+        if (s.wrong) h += "<p class=\"bp-coach warn\">" + (B.wrongLead != null ? B.wrongLead + " " : "Not the plexus. ") + (s.wn || B.wrongNote) + "</p>";
         else if (S.ma <= 0.2 + 1e-9) h += "<p class=\"bp-coach bad\"><b>Stop. Do not inject.</b> A twitch at 0.2 mA or less was never seen with the needle outside the nerve, so treat this tip as inside it. Withdraw until the twitch is lost at 0.2 mA." + cite(B.refs.stim) + "</p>";
         else if (S.ma <= 0.5 + 1e-9) h += "<p class=\"bp-coach good\"><b>Close to the nerve.</b> Now turn the current down to 0.2 mA. The twitch should disappear; if it stays, the tip may be inside the nerve. A twitch between 0.2 and 0.5 mA did not rule out an intraneural tip, so confirm the tip position on ultrasound and inject only against low pressure." + cite(B.refs.stim) + cite(B.refs.press) + "</p>";
         else h += "<p class=\"bp-coach\">Right muscle group. Reduce the current in steps and advance only when the twitch fades, until it is still present at 0.5 mA or less." + (inside ? "" : "") + "</p>";
@@ -592,7 +592,7 @@
     el.addEventListener("click", function (ev) { var b = ev.target.closest("button"); if (!b) return;
       if (b.hasAttribute("data-pick")) { pick(b.getAttribute("data-pick")); return; }
       if (b.hasAttribute("data-alt")) { S.play = 0; var to = b.getAttribute("data-alt"), ids = B.alts.map(function (q) { return q[0]; });
-        [].forEach.call(document.querySelectorAll(".block-player"), function (pl) { if (ids.indexOf(pl.getAttribute("data-block")) < 0) return; var nn = pl.cloneNode(false); nn.className = "block-player"; nn.setAttribute("data-block", to); nn.removeAttribute("data-var"); pl.parentNode.replaceChild(nn, pl); mount(nn); }); return; }
+        [].forEach.call(B.altsLocal ? [el] : document.querySelectorAll(".block-player"), function (pl) { if (ids.indexOf(pl.getAttribute("data-block")) < 0) return; var nn = pl.cloneNode(false); nn.className = "block-player"; nn.setAttribute("data-block", to); nn.removeAttribute("data-var"); pl.parentNode.replaceChild(nn, pl); mount(nn); }); return; }
       if (b.hasAttribute("data-var")) { S.play = 0; var nn = el.cloneNode(false); nn.className = "block-player"; nn.setAttribute("data-var", b.getAttribute("data-var")); el.parentNode.replaceChild(nn, el); mount(nn); return; }
       if (b.hasAttribute("data-v")) setView(b.getAttribute("data-v"));
       else if (b.hasAttribute("data-c")) { stop(); S.on = true; S.ma = Math.max(0.1, Math.min(2, Math.round((S.ma + +b.getAttribute("data-c")) * 10) / 10)); draw(); }
@@ -630,6 +630,6 @@
       var k = "This interactive figure and the notes beneath it are in English for now. Translation is in progress.", d = window.NORA_TEXT && window.NORA_TEXT[k], n = document.createElement("p"); n.className = "langnote"; n.style.cssText = "border-radius:12px;text-align:left;padding:10px 14px;margin:0 0 12px"; n.textContent = d && d[i] ? d[i] : k; el.insertBefore(n, el.firstChild); })();
     var Q = new URLSearchParams(location.search); if (Q.get("bp") === "play") play(); if (Q.get("bpv")) setView(Q.get("bpv")); if (Q.get("bpt")) { var a = Q.get("bpt").split(",").map(Number); setTip(a[0], a[1]); if (a[2]) { S.on = true; S.ma = a[2]; draw(); } if (a[3]) inject(); }
   }
-  function boot() { [].forEach.call(document.querySelectorAll(".block-player[data-block]"), mount); }
+  function boot() { var X = window.BP_SCENES || {}, k; for (k in X) if (!DATA[k]) { DATA[k] = typeof X[k] === "function" ? X[k](DATA) : X[k]; if (DATA[k].altsLocal == null) DATA[k].altsLocal = true; if (DATA[k].wrongLead == null) DATA[k].wrongLead = "Not the target nerve."; } window.NORA_BP = DATA; [].forEach.call(document.querySelectorAll(".block-player[data-block]"), mount); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
 })();

@@ -88,3 +88,10 @@ PATIENT LEAFLETS, AWAKE SURGERY, RESOURCES
 ------------------------------------------
 These pages are leaflets.html, awake.html, emergency.html, anticoagulation.html, societies.html,
 prospect.html and resources.html. Dashed boxes mark where your own material is still to be added.
+
+INTERACTIVE SCAN AND NEEDLE PLAYERS
+-----------------------------------
+The engine is assets/blockplayer.js. Newer blocks keep their scenes in assets/scenes/<page>.js
+(infraclavicular, axillary, axillary-nerve, distal-nerves, parasternal, quadratus-lumborum), loaded just
+before blockplayer.js on that page. Each scene lists its structures, fascial layers, target, injection
+messages and the "Play the block" steps. Reference numbers in a scene (c: 12) point to that page's list.
