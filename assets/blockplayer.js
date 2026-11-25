@@ -406,9 +406,11 @@
     of("artery").concat(of("vein")).forEach(function (s) { var p = P(s), rx = s.rx || s.r, ry = s.ry || s.r, e = g.createLinearGradient(0, s.cy + ry, 0, s.cy + ry + 70); e.addColorStop(0, "rgba(255,255,255,.2)"); e.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = e; g.fillRect(s.cx - rx * 0.85, s.cy + ry, rx * 1.7, 70);
       g.fillStyle = "#030405"; g.fill(p); g.strokeStyle = s.t === "artery" ? "rgba(252,252,254,.95)" : "rgba(214,218,226,.75)"; g.lineWidth = s.t === "artery" ? 2.8 : 1.3; g.stroke(p); });
     B.fascia.forEach(function (f) { var p = new Path2D(f.d); g.strokeStyle = "rgba(255,255,255,.16)"; g.lineWidth = 5; g.stroke(p); g.strokeStyle = "rgba(252,252,254,.92)"; g.lineWidth = 1.9; g.stroke(p); });
-    of("nerve").forEach(function (s) { var p = P(s); if (s.sheath) { var q0 = s.sheath; g.beginPath(); g.ellipse(q0[0], q0[1], q0[2], q0[3], 0, 0, 6.2832); g.fillStyle = "rgba(196,199,206,.96)"; g.fill(); g.strokeStyle = "rgba(252,252,254,.98)"; g.lineWidth = 2.6; g.stroke(); g.fillStyle = "#1b1c20"; g.fill(p); g.strokeStyle = "rgba(248,249,252,.7)"; g.lineWidth = 1; g.stroke(p); return; }
+    of("nerve").forEach(function (s) { var p = P(s); if (s.sheath) { var q0 = s.sheath; g.beginPath(); g.ellipse(q0[0], q0[1], q0[2], q0[3], 0, 0, 6.2832); g.fillStyle = "rgba(196,199,206,.96)"; g.fill(); g.strokeStyle = "rgba(252,252,254,.98)"; g.lineWidth = 2.6; g.stroke(); g.fillStyle = "#50535b"; g.fill(p); g.strokeStyle = "rgba(248,249,252,.7)"; g.lineWidth = 1; g.stroke(p); return; }
       if (s.bright) { g.fillStyle = "rgba(250,250,252,.95)"; g.fill(p); g.fillStyle = "#1a1b1e"; g.beginPath(); g.arc(s.cx, s.cy, s.r * 0.45, 0, 6.2832); g.fill(); return; }
-      g.fillStyle = "#1b1c20"; g.fill(p); g.strokeStyle = "rgba(248,249,252,.95)"; g.lineWidth = s.r < 8 ? 1.5 : 2.1; g.stroke(p); });
+      g.fillStyle = "#3b3e45"; g.fill(p);   /* roots and trunks: hypoechoic, but grey, never as black as a vessel lumen */
+      (s.k === "duo" ? [s.a, s.b] : s.k === "circle" ? [[s.cx, s.cy, s.r]] : []).forEach(function (q) { if (q[2] < 6) return; for (var j = 0; j < Math.round(q[2] * 0.8); j++) { var a2 = R() * 6.2832, d2 = Math.sqrt(R()) * q[2] * 0.7; g.beginPath(); g.arc(q[0] + Math.cos(a2) * d2, q[1] + Math.sin(a2) * d2, 0.7 + R() * 1.1, 0, 6.2832); g.fillStyle = "rgba(150,154,162,.45)"; g.fill(); } });
+      g.strokeStyle = "rgba(248,249,252,.95)"; g.lineWidth = s.r < 8 ? 1.5 : 2.1; g.stroke(p); });
     of("bone").forEach(function (s) { g.fillStyle = "#000"; g.fill(P(s)); if (s.cortex) { var p = new Path2D(s.cortex); g.strokeStyle = "rgba(255,255,255,.25)"; g.lineWidth = 12; g.stroke(p); g.strokeStyle = "#fff"; g.lineWidth = 6; g.stroke(p); } });
     var n2 = document.createElement("canvas"); n2.width = W; n2.height = H; var nd = n2.getContext("2d"), im = nd.createImageData(W, H);
     for (i = 0; i < im.data.length; i += 4) { var v = 105 + Math.floor(R() * 150); im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255; } nd.putImageData(im, 0, 0);
@@ -422,6 +424,7 @@
     B.shapes = B.shapes.filter(function (s) { return !s.hide; });
     B.shapes.forEach(function (s) { if (s.sheath) s.fas = s.k === "duo" ? [s.a, s.b] : [[s.cx, s.cy, s.r]]; });
     var I = B.inj, RL = B.recLab || { strong: ["Core structure", "core"], weak: ["Also recommended", "also recommended"] }, ORI = B.ori || ["Anteromedial", "Posterolateral"];
+    var LX = { on: false, move: function () {}, off: function () {} };
     var u = "bp" + Math.random().toString(36).slice(2, 7), cite = function (n) { return n ? ' <a class="cite" href="#ref-' + n + '">' + n + "</a>" : ""; };
     var layer = function (an) {
       return '<g class="lay">' + B.shapes.map(function (s) { return '<g class="st t-' + s.t + (s.avoid ? " av" : "") + '" data-id="' + s.id + '" tabindex="0" role="button" aria-label="' + esc(s.n) + '">' + shapeSvg(s, an ? (s.t === "muscle" ? "fill:url(#" + u + "mp)" : s.t === "nerve" ? "fill:url(#" + u + "f)" : "") : "") + "</g>"; }).join("") +
@@ -435,13 +438,19 @@
       '<pattern id="' + u + 'f" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#F1DC83"/><circle cx="2.5" cy="2.5" r="1.7" fill="#D9B94C"/><circle cx="7" cy="6.5" r="1.7" fill="#D9B94C"/></pattern>' +
       '<clipPath id="' + u + 'w"><rect class="bp-clip" x="640" y="0" width="640" height="400"/></clipPath><clipPath id="' + u + 'v"><rect class="bp-clipu" x="0" y="0" width="640" height="400"/></clipPath>' +
       '<linearGradient id="' + u + 's" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5E6772"/><stop offset=".3" stop-color="#F2F5F8"/><stop offset=".62" stop-color="#A9B1BB"/><stop offset="1" stop-color="#3F454D"/></linearGradient>' +
-      '<pattern id="' + u + 'e" width="4" height="3" patternUnits="userSpaceOnUse"><rect width="4" height="3" fill="#77808b"/><path d="M0 1.5L2 0L4 1.5L2 3Z" fill="#EEF1F5"/></pattern></defs>' +
-      '<g class="bp-us"><rect width="640" height="400" fill="#101116"/><image class="bp-usimg" x="0" y="0" width="640" height="400" preserveAspectRatio="none"/>' + layer(0) + "</g>" +
-      '<g class="bp-an" clip-path="url(#' + u + 'w)"><rect width="640" height="400" fill="#DDB564"/><image class="bp-animg" x="0" y="0" width="640" height="400" preserveAspectRatio="none"/>' + layer(0) + "</g>" +
+      '<pattern id="' + u + 'e" width="4" height="3" patternUnits="userSpaceOnUse"><rect width="4" height="3" fill="#77808b"/><path d="M0 1.5L2 0L4 1.5L2 3Z" fill="#EEF1F5"/></pattern>' +
+      '<clipPath id="' + u + 'L"><circle class="bp-lensc" cx="-300" cy="-300" r="82"/></clipPath>' +
+      '<radialGradient id="' + u + 'ar" cx=".38" cy=".34" r=".75"><stop offset="0" stop-color="#B31616"/><stop offset="1" stop-color="#4E0505"/></radialGradient>' +
+      '<radialGradient id="' + u + 'dr"><stop offset="0" stop-color="#FFE45C"/><stop offset=".38" stop-color="#FF5A1F"/><stop offset=".78" stop-color="#D31A10"/><stop offset="1" stop-color="#7E0A06"/></radialGradient>' +
+      '<radialGradient id="' + u + 'db"><stop offset="0" stop-color="#7DEBFF"/><stop offset=".4" stop-color="#2F86FF"/><stop offset=".8" stop-color="#1B3FD6"/><stop offset="1" stop-color="#0C1A7A"/></radialGradient>' +
+      '<linearGradient id="' + u + 'cb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE45C"/><stop offset=".25" stop-color="#E8240F"/><stop offset=".48" stop-color="#2A0503"/><stop offset=".52" stop-color="#03072A"/><stop offset=".75" stop-color="#1B3FD6"/><stop offset="1" stop-color="#7DEBFF"/></linearGradient>' +
+      '<filter id="' + u + 'cd" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="turbulence" baseFrequency="0.42 0.6" numOctaves="1" seed="3" result="t"/><feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.6 2.15" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter></defs>' +
+      '<g class="bp-us"><rect width="640" height="400" fill="#101116"/><image class="bp-usimg" x="0" y="0" width="640" height="400" preserveAspectRatio="none"/><g class="bp-live-us"></g><g class="bp-dop" style="display:none"></g>' + layer(0) + "</g>" +
+      '<g class="bp-an" clip-path="url(#' + u + 'w)"><rect width="640" height="400" fill="#DDB564"/><image class="bp-animg" x="0" y="0" width="640" height="400" preserveAspectRatio="none"/><g class="bp-live-an"></g>' + layer(0) + "</g>" +
       '<rect y="0" width="640" height="46" class="bp-head"/><path d="M0 46H640" class="bp-skin"/>' +
       '<path class="bp-div" d="M640 0V400"/>' +
       '<g class="bp-la"><ellipse class="la" cx="0" cy="0" rx="0" ry="0"/></g>' +
-      '<g class="bp-lbl">' + B.shapes.map(function (s) { return '<text x="' + s.lx + '" y="' + s.ly + '" text-anchor="middle">' + s.l + "</text>"; }).join("") + "</g>" +
+      '<g class="bp-lensr" style="display:none"><circle r="82"/><text y="-88" text-anchor="middle">Anatomy</text></g>' + '<g class="bp-lbl">' + B.shapes.map(function (s) { return '<text x="' + s.lx + '" y="' + s.ly + '" text-anchor="middle">' + s.l + "</text>"; }).join("") + "</g>" +
       '<g class="bp-ndl"><g class="ndl-us" clip-path="url(#' + u + 'v)"><g class="nx"><path class="rv r3" d="M70 15H830"/><path class="rv r2" d="M40 10H830"/><path class="rv r1" d="M22 5H830"/><path class="ln" d="M2 0H830"/><path class="eg" d="M15 0H31M37 0H53"/><path d="M0 .8L9.5 -2.4V2.4Z" fill="#fff"/></g></g>' +
       '<g class="ndl-an" clip-path="url(#' + u + 'w)"><g class="nx"><rect x="10.5" y="-3" width="820" height="6" fill="url(#' + u + 's)"/><rect x="15" y="-3" width="16" height="6" fill="url(#' + u + 'e)"/><rect x="37" y="-3" width="16" height="6" fill="url(#' + u + 'e)"/>' +
       [1, 2, 3, 4, 5, 6, 7, 8, 9].map(function (k) { return '<path d="M' + (k * PC) + ' -3v6" stroke="#20242a" stroke-width="1.6"/><path d="M' + (k * PC - PC / 2) + ' -3v3" stroke="#20242a" stroke-width=".9"/>'; }).join("") +
@@ -452,6 +461,9 @@
       '<text class="bp-twitch" x="320" y="30" text-anchor="middle"></text></svg>';
     el.classList.add("bp");
     el.innerHTML = '<div class="bp-bar" role="toolbar" aria-label="View"><span>View</span><button data-v="0" aria-pressed="true">Ultrasound</button><button data-v="50" aria-pressed="false">Half and half</button><button data-v="100" aria-pressed="false">Anatomy</button><input type="range" min="0" max="100" value="0" class="bp-wipe" aria-label="Wipe between ultrasound and anatomy"><button data-a="labels" aria-pressed="true">Labels</button><button data-a="tint" aria-pressed="false">Colour the structures</button><button data-a="avoid" aria-pressed="false">Structures to avoid</button><button data-a="test" aria-pressed="false">Test me</button><button data-a="play" class="bp-play">Play the block</button><button data-a="reset">Reset</button></div>' +
+      '<div class="bp-bar bp-bar2" role="toolbar" aria-label="Live tools"><span>Live</span><button data-x="motion" aria-pressed="true">Motion</button><button data-x="doppler" aria-pressed="false">Colour Doppler</button>' +
+      (B.shapes.some(function (s) { return s.t === "vein" && s.k === "ellipse"; }) ? '<label class="bp-prs">Probe pressure <input type="range" min="0" max="100" value="10" class="bp-press" aria-label="Probe pressure"></label>' : "") +
+      '<button data-x="lens" aria-pressed="false">Anatomy lens</button><button data-x="3d" aria-pressed="false">3D probe view</button></div>' +
       (B.alts ? '<div class="bp-var bp-alt"><span>' + esc(B.altLabel || "Approach") + '</span>' + B.alts.map(function (q) { return '<button data-alt="' + q[0] + '" aria-pressed="' + (q[0] === el.getAttribute("data-block")) + '">' + esc(q[1]) + "</button>"; }).join("") + "</div>" : "") +
       (B.variants ? '<div class="bp-var"><span>' + esc(B.varLabel || "Variations") + '</span>' + B.variants.map(function (v, i) { return '<button data-var="' + i + '" aria-pressed="' + (i === VI) + '">' + esc(v.n) + (v.f ? " <b>" + v.f + "</b>" : "") + "</button>"; }).join("") + '<p class="bp-varn">' + esc(VV.t) + cite(B.varRef) + "</p></div>" : "") +
       '<div class="bp-main"><div class="bp-stage">' + svg + '<p class="bp-hint">Drag anywhere on the image to steer the needle tip. Arrow keys also work: left and right advance and withdraw, up and down change the angle.</p></div>' +
@@ -581,7 +593,7 @@
     /* pointer: a short tap selects a structure, a drag steers the needle */
     var drag = null, toSvg = function (ev) { var m = sv.getScreenCTM().inverse(); pt.x = ev.clientX; pt.y = ev.clientY; var p = pt.matrixTransform(m); return [p.x, p.y]; };
     sv.addEventListener("pointerdown", function (ev) { stop(); drag = { p: toSvg(ev), moved: false, id: (ev.target.closest && ev.target.closest(".st") || { getAttribute: function () { return null; } }).getAttribute("data-id"), f: ev.target.getAttribute && ev.target.getAttribute("data-f") }; try { sv.setPointerCapture(ev.pointerId); } catch (e) {} });
-    sv.addEventListener("pointermove", function (ev) { if (!drag || scan) return; var p = toSvg(ev); if (!drag.moved && Math.hypot(p[0] - drag.p[0], p[1] - drag.p[1]) < 6) return; drag.moved = true; clearLa(); setTip(p[0], p[1]); ev.preventDefault(); });
+    sv.addEventListener("pointermove", function (ev) { if (LX.on) LX.move(toSvg(ev)); if (!drag || scan || LX.on) return; var p = toSvg(ev); if (!drag.moved && Math.hypot(p[0] - drag.p[0], p[1] - drag.p[1]) < 6) return; drag.moved = true; clearLa(); setTip(p[0], p[1]); ev.preventDefault(); });
     var up = function () { if (!drag) return; var d = drag; drag = null; if (!d.moved) { if (TQ.on) { if (d.id) answer(d.id); return; } if (d.id) pick(d.id); else if (d.f) { var f = B.fascia.filter(function (q) { return q.id === d.f; })[0]; $(".bp-where").className = "bp-card bp-where"; $(".bp-where").innerHTML = "<h4>" + esc(f.n) + "</h4><p>" + esc(f.t) + "</p>"; } } };
     sv.addEventListener("pointerup", up); sv.addEventListener("pointercancel", up);
     sv.addEventListener("keydown", function (ev) { var k = ev.key, e = B.entry, t = S.tip, dx = t[0] - e[0], dy = t[1] - e[1], L = Math.hypot(dx, dy), a = Math.atan2(dy, -dx);
@@ -594,13 +606,13 @@
       if (b.hasAttribute("data-alt")) { S.play = 0; var to = b.getAttribute("data-alt"), ids = B.alts.map(function (q) { return q[0]; });
         [].forEach.call(document.querySelectorAll(".block-player"), function (pl) { if (ids.indexOf(pl.getAttribute("data-block")) < 0) return; var nn = pl.cloneNode(false); nn.className = "block-player"; nn.setAttribute("data-block", to); nn.removeAttribute("data-var"); pl.parentNode.replaceChild(nn, pl); mount(nn); }); return; }
       if (b.hasAttribute("data-var")) { S.play = 0; var nn = el.cloneNode(false); nn.className = "block-player"; nn.setAttribute("data-var", b.getAttribute("data-var")); el.parentNode.replaceChild(nn, el); mount(nn); return; }
-      if (b.hasAttribute("data-v")) setView(b.getAttribute("data-v"));
+      if (b.hasAttribute("data-v")) { LX.off(); setView(b.getAttribute("data-v")); }
       else if (b.hasAttribute("data-c")) { stop(); S.on = true; S.ma = Math.max(0.1, Math.min(2, Math.round((S.ma + +b.getAttribute("data-c")) * 10) / 10)); draw(); }
       else { var a = b.getAttribute("data-a"); if (a === "labels") { var on = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", String(on)); el.classList.toggle("no-lbl", !on); } else if (a === "tint") { var tn = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", String(tn)); el.classList.toggle("tint", tn); }
         else if (a === "avoid") { var av = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", String(av)); el.classList.toggle("avoid", av); if (scan || av) home(); else draw(); }
         else if (a === "test") { TQ.on = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", String(TQ.on)); el.classList.toggle("testing", TQ.on); if (TQ.on) { TQ.ok = TQ.n = 0; TQ.q = null; ask(); } else home(); }
         else if (a === "inject") { stop(); inject(); } else if (a === "clear") clearLa(); else if (a === "reset") { stop(); reset(); } else if (a === "play") { if (S.play) stop(); else play(); } } });
-    $(".bp-wipe").addEventListener("input", function () { setView(this.value); });
+    $(".bp-wipe").addEventListener("input", function () { LX.off(); setView(this.value); });
     $(".bp-ma").addEventListener("input", function () { stop(); S.on = true; S.ma = +this.value; draw(); });
     $(".bp-on").addEventListener("change", function () { stop(); S.on = this.checked; draw(); });
     function home() { var av = B.shapes.filter(function (s) { return s.avoid; });
@@ -626,6 +638,73 @@
         (function mv(now) { if (!S.play) return; var k = Math.max(0, Math.min(1, (now - t0) / dur)); pos = from + (to - from) * k; if (to !== from) at(pos); if (k < 1) requestAnimationFrame(mv); else setTimeout(next, st.hold || 1500); })(t0); })();
     }
     setView(0); reset();
+    /* live tools: motion, colour Doppler, probe pressure, anatomy lens and the 3D probe view */
+    (function () {
+      var NS = "http://www.w3.org/2000/svg", lu = $(".bp-live-us"), la = $(".bp-live-an"), dop = $(".bp-dop"), t0 = performance.now(), running = false;
+      var mk = function (p, tag, at) { var e = document.createElementNS(NS, tag); for (var k in at) e.setAttribute(k, at[k]); p.appendChild(e); return e; };
+      var round = function (s) { return s.k === "circle" || s.k === "ellipse"; }, rx0 = function (s) { return s.rx || s.r; }, ry0 = function (s) { return s.ry || s.r; };
+      var art = B.shapes.filter(function (s) { return s.t === "artery" && round(s); }), vei = B.shapes.filter(function (s) { return s.t === "vein" && round(s); });
+      var ple = B.shapes.filter(function (s) { return s.t === "bone" && s.cortex && /pleura|chest/i.test(s.id + " " + s.n); });
+      var R0 = {}; art.concat(vei).forEach(function (s) { R0[s.id] = [rx0(s), ry0(s)]; });
+      var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches, M = { on: !reduce }, DP = { on: false };
+      var btn = function (k, on) { var b = $('[data-x="' + k + '"]'); if (b) b.setAttribute("aria-pressed", String(on)); };
+      var card = function (h) { $(".bp-where").className = "bp-card bp-where"; $(".bp-where").innerHTML = h; };
+      /* the artery pulses: a fast systolic upstroke, then exponential run-off */
+      var AO = art.map(function (s) { var rx = R0[s.id][0], ry = R0[s.id][1], w = Math.max(3, rx * 0.26), gu = mk(lu, "g", {}), ga = mk(la, "g", {});
+        mk(gu, "ellipse", { cx: s.cx, cy: s.cy, rx: rx, ry: ry, fill: "#040507", stroke: "rgba(250,251,253,.95)", "stroke-width": 2.8 });
+        mk(ga, "ellipse", { cx: s.cx, cy: s.cy, rx: rx, ry: ry, fill: "#D2705F", stroke: "#6E1410", "stroke-width": 1.4 });
+        mk(ga, "ellipse", { cx: s.cx, cy: s.cy, rx: Math.max(1, rx - w), ry: Math.max(1, ry - w), fill: "url(#" + u + "ar)" });
+        return { s: s, g: [gu, ga] }; });
+      /* the pleura slides with breathing: a shimmer that travels to and fro along the bright line */
+      var PO = ple.map(function (s) { return [mk(lu, "path", { d: s.cortex, fill: "none", stroke: "rgba(255,255,255,.8)", "stroke-width": 2.4, "stroke-dasharray": "1.4 6.5", "stroke-linecap": "round" }),
+        mk(la, "path", { d: s.cortex, fill: "none", stroke: "rgba(255,236,228,.85)", "stroke-width": 2, "stroke-dasharray": "1.4 6.5", "stroke-linecap": "round" })]; });
+      /* colour Doppler: a steered colour box, a velocity scale and colour inside each vessel */
+      var DO = art.concat(vei).map(function (s) { return { s: s, e: mk(dop, "ellipse", { cx: s.cx, cy: s.cy, rx: R0[s.id][0] * 0.92, ry: R0[s.id][1] * 0.92, fill: "url(#" + u + (s.t === "artery" ? "dr" : "db") + ")", filter: "url(#" + u + "cd)" }) }; });
+      if (DO.length) { var xs = [], ys = []; art.concat(vei).forEach(function (s) { xs.push(s.cx - R0[s.id][0], s.cx + R0[s.id][0]); ys.push(s.cy - R0[s.id][1], s.cy + R0[s.id][1]); });
+        var y0 = Math.max(52, Math.min.apply(0, ys) - 14), y1 = Math.min(394, Math.max.apply(0, ys) + 14), off = (y1 - y0) * 0.27, x0 = Math.max(6, Math.min.apply(0, xs) - 16), x1 = Math.min(612 - off, Math.max.apply(0, xs) + 16);
+        dop.insertBefore(mk(dop, "path", { d: "M" + (x0 + off) + " " + y0 + "H" + (x1 + off) + "L" + x1 + " " + y1 + "H" + x0 + "Z", fill: "none", stroke: "rgba(235,240,248,.75)", "stroke-width": 1.1, "stroke-dasharray": "5 3" }), dop.firstChild);
+        mk(dop, "rect", { x: 8, y: 58, width: 7, height: 84, fill: "url(#" + u + "cb)", stroke: "rgba(255,255,255,.5)", "stroke-width": 0.6 });
+        [["+24", 64], ["0", 104], ["\u221224", 145]].forEach(function (q) { var t = mk(dop, "text", { x: 19, y: q[1], "class": "ori" }); t.textContent = q[0]; });
+        mk(dop, "text", { x: 8, y: 156, "class": "ori" }).textContent = "cm/s"; }
+      function beat(ph) { return ph < 0.14 ? Math.sin(ph / 0.14 * Math.PI / 2) : Math.exp(-(ph - 0.14) * 6.5); }
+      function frame(now) { if (!el.isConnected) { running = false; return; }
+        var t = (now - t0) / 1000, p = M.on ? beat((t % 0.83) / 0.83) : 0.3, br = M.on ? Math.sin(t * 2 * Math.PI / 4.6) : 0;
+        AO.forEach(function (o) { var k = 1 + 0.055 * p, tr = "translate(" + o.s.cx + " " + o.s.cy + ") scale(" + k.toFixed(4) + ") translate(" + (-o.s.cx) + " " + (-o.s.cy) + ")"; o.g[0].setAttribute("transform", tr); o.g[1].setAttribute("transform", tr); });
+        PO.forEach(function (q) { q[0].style.strokeDashoffset = q[1].style.strokeDashoffset = (br * 5.5).toFixed(2); });
+        if (DP.on) DO.forEach(function (o) { var s = o.s, a = s.t === "artery", k = a ? 1 + 0.055 * p : 1, f = ry0(s) / R0[s.id][1];
+          o.e.setAttribute("rx", (rx0(s) * 0.92 * k).toFixed(2)); o.e.setAttribute("ry", (ry0(s) * 0.92 * k).toFixed(2)); o.e.style.opacity = a ? (0.38 + 0.62 * p).toFixed(3) : f < 0.3 ? 0 : (0.62 + 0.18 * br).toFixed(3); });
+        if (M.on || DP.on) requestAnimationFrame(frame); else running = false; }
+      function go() { if (!running) { running = true; requestAnimationFrame(frame); } }
+      btn("motion", M.on); go();
+      /* probe pressure: veins flatten, the artery does not */
+      var pr = $(".bp-press"), rp = 0, firstP = true;
+      function repaint() { clearTimeout(rp); rp = setTimeout(function () { try { $(".bp-usimg").setAttribute("href", paintUS(B, bbf)); $(".bp-animg").setAttribute("href", paintAN(B, bbf)); } catch (e) {} if (V3) V3.update(); }, 45); }
+      if (pr) pr.addEventListener("input", function () { var v = +pr.value / 100;
+        vei.forEach(function (s) { if (s.k !== "ellipse") return; var pc = s.cy < 90 ? 0.35 : 0.85, f = Math.max(0.1, Math.min(1, 1 - Math.pow(Math.max(0, v - 0.1) / (pc - 0.1), 1.5)));
+          s.ry = +(R0[s.id][1] * f).toFixed(2); $$('.st[data-id="' + s.id + '"] ellipse.shape').forEach(function (e) { e.setAttribute("ry", s.ry); }); });
+        repaint(); go();
+        if (firstP) { firstP = false; card("<h4>Probe pressure</h4><p>Veins flatten as you press; the artery keeps its shape and keeps pulsing. Press too hard and a vein in the needle path disappears from view, so ease off and look again before the needle goes in.</p>"); } });
+      /* anatomy lens */
+      var lc = $(".bp-lensc"), lr = $(".bp-lensr"), an = $(".bp-an"), nan = $(".ndl-an");
+      LX.move = function (q) { lc.setAttribute("cx", q[0]); lc.setAttribute("cy", q[1]); lr.setAttribute("transform", "translate(" + q[0] + " " + q[1] + ")"); };
+      LX.off = function () { if (!LX.on) return; LX.on = false; an.setAttribute("clip-path", "url(#" + u + "w)"); nan.setAttribute("clip-path", "url(#" + u + "w)"); lr.style.display = "none"; el.classList.remove("lensing"); btn("lens", false); };
+      function lensOn() { setView(0); LX.on = true; an.setAttribute("clip-path", "url(#" + u + "L)"); nan.setAttribute("clip-path", "url(#" + u + "L)"); lr.style.display = ""; LX.move(B.target || [320, 220]); el.classList.add("lensing"); btn("lens", true);
+        card("<h4>Anatomy lens</h4><p>Move the lens over the scan to see the anatomy underneath. On a touch screen, drag it. The arrow keys still steer the needle.</p>"); }
+      /* 3D probe view */
+      var V3 = null, c3 = null;
+      function show3d(on) { btn("3d", on);
+        if (!on) { if (V3) V3.destroy(); V3 = null; if (c3) c3.remove(); c3 = null; return; }
+        c3 = document.createElement("div"); c3.className = "bp-card bp-3d"; c3.innerHTML = '<h4>Probe and scan plane</h4><div class="bp-3dv"><p class="bp-3dl">Loading the 3D view…</p></div><p><small>The probe on the patient and the plane it scans, with this image on it. Drag to turn. The yellow dot is the probe marker, on the side shown at the left of the image.</small></p>';
+        $(".bp-side").insertBefore(c3, $(".bp-side").firstChild);
+        import(new URL("assets/bp3d.js?v=1", document.baseURI).href).then(function (m) { var box = c3 && c3.querySelector(".bp-3dv"); if (!box) return; box.innerHTML = "";
+          return m.mount(box, { block: el.getAttribute("data-block"), img: function () { return $(".bp-usimg").getAttribute("href"); }, ori: ORI, target: B.target, mm: MM }).then(function (v) { V3 = v; }); })
+          ["catch"](function () { var box = c3 && c3.querySelector(".bp-3dv"); if (box) box.innerHTML = '<p class="bp-3dl">The 3D view could not load on this device.</p>'; }); }
+      $(".bp-bar2").addEventListener("click", function (ev) { var b = ev.target.closest("button[data-x]"); if (!b) return; var k = b.getAttribute("data-x"), on = b.getAttribute("aria-pressed") !== "true";
+        if (k === "motion") { M.on = on; btn("motion", on); go(); }
+        else if (k === "doppler") { DP.on = on; btn("doppler", on); dop.style.display = on ? "" : "none"; go(); if (on) card("<h4>Colour Doppler</h4><p>Scan the whole needle path in colour before the needle goes in: a vessel that looks like a nerve, or one hidden by probe pressure, shows up here. Red and blue give the direction of flow relative to the beam, not whether a vessel is an artery or a vein. In this view the artery and vein run in opposite directions, so they show opposite colours.</p>"); }
+        else if (k === "lens") { if (on) lensOn(); else LX.off(); }
+        else if (k === "3d") show3d(on); });
+    })();
     (function () { var l = "en"; try { l = JSON.parse(localStorage.getItem("nora2.lang")) || "en"; } catch (e) {} var i = ["fr", "es", "de", "it", "tr", "sv", "ta"].indexOf(l); if (i < 0) return;
       var k = "This interactive figure and the notes beneath it are in English for now. Translation is in progress.", d = window.NORA_TEXT && window.NORA_TEXT[k], n = document.createElement("p"); n.className = "langnote"; n.style.cssText = "border-radius:12px;text-align:left;padding:10px 14px;margin:0 0 12px"; n.textContent = d && d[i] ? d[i] : k; el.insertBefore(n, el.firstChild); })();
     var Q = new URLSearchParams(location.search); if (Q.get("bp") === "play") play(); if (Q.get("bpv")) setView(Q.get("bpv")); if (Q.get("bpt")) { var a = Q.get("bpt").split(",").map(Number); setTip(a[0], a[1]); if (a[2]) { S.on = true; S.ma = a[2]; draw(); } if (a[3]) inject(); }
