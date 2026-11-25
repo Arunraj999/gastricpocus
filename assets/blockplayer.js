@@ -691,7 +691,7 @@
       var api = {
         at: function (t, z) { var c = sites[sites.length - 1]; if (!c || c.z !== z || Math.hypot(t[0] - c.t[0], t[1] - c.t[1]) > 3) sites.push({ t: [t[0], t[1]], z: z, o: order(t, z), v: 0, n: 0 }); },
         add: function (v) { var c = sites[sites.length - 1]; if (!c || v <= 0) return; v = Math.min(v, 40 - total); if (v <= 0) return; c.v += v; total += v; render(); },
-        ramp: function (v, ms) { var t0 = performance.now(), doneV = 0; (function g(now) { var k = Math.min(1, (now - t0) / ms), want = v * (1 - Math.pow(1 - k, 2)); api.add(want - doneV); doneV = want; if (k < 1) requestAnimationFrame(g); })(t0); },
+        ramp: function (v, ms) { var t0 = performance.now(), doneV = 0; (function g(now) { var k = Math.max(0, Math.min(1, (now - t0) / ms)), want = v * (1 - Math.pow(1 - k, 2)); if (want > doneV) { api.add(want - doneV); doneV = want; } if (k < 1) requestAnimationFrame(g); })(t0); },
         clear: function () { sites = []; total = 0; gU.innerHTML = ""; gA.innerHTML = ""; out.textContent = "0 mL"; },
         inval: function () { lab = null; bar = null; },
         vol: function () { return total; }
