@@ -291,6 +291,67 @@
         { say: "Now try it yourself: drag the needle, change the current, and see what happens off target.", hold: 3200 }
       ]
   };
+  DATA.costoclavicular = {
+      title: "Costoclavicular approach to the infraclavicular block",
+      entry: [636, 58], target: [298, 245], mm: 0.11, up: 30, ori: ["Medial", "Lateral"],
+      scanTitle: "Sonoanatomy of the costoclavicular space",
+      recLab: { strong: ["Named in the technique", "technique"], weak: ["Worth finding", "worth finding"] },
+      fascia: [
+        { id: "inv", n: "Pectoral fascia", d: "M0 62C200 58 420 60 640 64", t: "The first layer under the subcutaneous tissue, over pectoralis major and, laterally, deltoid." },
+        { id: "pre", n: "Clavipectoral fascia", d: "M0 204C150 202 300 198 420 188C500 182 580 180 640 182", t: "The layer beneath subclavius and pectoralis minor. The artery, the vein and the three cords lie under it, in the costoclavicular space." }
+      ],
+      shapes: [
+        { id: "pmaj", t: "muscle", n: "Pectoralis major", l: "PMaj", k: "path", d: "M0 66C200 62 400 64 528 68V136C400 138 200 138 0 142Z", lx: 210, ly: 104, rec: "strong", x: "The superficial muscle of the chest wall. The costoclavicular space lies two layers beneath it.", c: 1 },
+        { id: "delt", t: "muscle", n: "Deltoid", l: "DELT", k: "path", d: "M540 68C580 66 620 66 640 67V130C610 132 570 134 540 130Z", lx: 594, ly: 100, x: "Lateral to the deltopectoral groove. With a lateral-to-medial needle it was crossed in six of eight cadaver needle paths.", c: 6 },
+        { id: "cv", t: "vein", n: "Cephalic vein", l: "CV", k: "ellipse", cx: 534, cy: 92, rx: 8, ry: 5, lx: 516, ly: 82, avoid: 1, x: "In the deltopectoral groove, close to the needle entry. It was consistently near the needle path in cadavers, though not punctured.", c: 6 },
+        { id: "scl", t: "muscle", n: "Subclavius", l: "SCL", k: "path", d: "M0 150C120 144 260 144 380 156C340 182 200 196 0 198Z", lx: 150, ly: 176, rec: "strong", x: "Beneath the clavicle, forming the roof of the costoclavicular space. The cords lie deep to it.", c: 1 },
+        { id: "pmin", t: "muscle", n: "Pectoralis minor", l: "PMin", k: "path", d: "M472 150C530 144 600 144 640 146V178C590 176 520 178 472 180Z", lx: 566, ly: 166, x: "At the lateral edge of the view. The needle crossed it in three of eight cadaver paths.", c: 6 },
+        { id: "taa", t: "artery", n: "Thoracoacromial artery", l: "TAA", k: "circle", cx: 436, cy: 196, r: 5, lx: 436, ly: 218, avoid: 1, x: "Pierces the clavipectoral fascia near the needle path. Look for it with colour Doppler before the needle passes.", c: 6 },
+        { id: "av", t: "vein", n: "Axillary vein", l: "AV", k: "ellipse", cx: 96, cy: 252, rx: 46, ry: 28, lx: 96, ly: 256, avoid: 1, rec: "strong", x: "The most medial structure in the space, and compressible. Keep the needle lateral to the artery." },
+        { id: "aa", t: "artery", n: "Axillary artery", l: "AA", k: "circle", cx: 208, cy: 250, r: 32, lx: 208, ly: 254, avoid: 1, rec: "strong", x: "Round and pulsatile. The three cords are clustered on its lateral side.", c: 1 },
+        { id: "lc", t: "nerve", n: "Lateral cord", l: "LC", k: "circle", cx: 284, cy: 226, r: 14, lx: 262, ly: 210, rec: "strong", target: 1, bright: 1, m: "Biceps and brachialis through the musculocutaneous nerve, and the lateral root of the median nerve", s: "Elbow flexes", x: "The most superficial cord, in front of the other two. The first one the needle meets.", c: 2 },
+        { id: "mc", t: "nerve", n: "Medial cord", l: "MC", k: "circle", cx: 288, cy: 262, r: 14, lx: 268, ly: 290, rec: "strong", target: 1, bright: 1, m: "Finger flexors and the small muscles of the hand through the ulnar nerve and the medial root of the median nerve", s: "Fingers flex", x: "Directly behind the lateral cord and medial to the posterior cord.", c: 2 },
+        { id: "pc", t: "nerve", n: "Posterior cord", l: "PC", k: "circle", cx: 322, cy: 248, r: 14, lx: 352, ly: 272, rec: "strong", target: 1, bright: 1, m: "Triceps and the wrist and finger extensors through the radial nerve, and deltoid through the axillary nerve", s: "Wrist and fingers extend", x: "The most lateral cord, beside the medial cord and behind and lateral to the lateral cord.", c: 2 },
+        { id: "sa", t: "muscle", n: "Serratus anterior", l: "SA", k: "path", d: "M0 306C160 300 320 302 460 312C540 318 600 324 640 328V350C600 346 540 342 460 336C320 328 160 326 0 330Z", lx: 300, ly: 322, x: "On the chest wall, forming the floor of the costoclavicular space." },
+        { id: "chest", t: "bone", n: "Chest wall: rib and pleura", l: "PLEURA", k: "path", d: "M0 346C160 342 320 346 460 358C540 364 600 370 640 374V400H0Z", cortex: "M0 346C160 342 320 346 460 358C540 364 600 370 640 374", lx: 150, ly: 380, avoid: 1, wrong: 1, x: "Beneath serratus anterior. A needle carried too deep or too far is heading for the pleura.", wn: "Withdraw to the cords, lateral to the artery.", hit: ["Chest wall", "Stop and withdraw. The tip is at the chest wall, next to the pleura."] }
+      ],
+      groove: "M150 208H450V302H150Z",
+      zones: {
+        air: ["Above the skin", "The needle has not entered yet. Insert it at the lateral end of the probe, in plane."],
+        subcut: ["Skin and subcutaneous tissue", "The first layer. Pectoralis major and, laterally, deltoid lie beneath."],
+        tri: ["Between pectoralis major and the clavipectoral fascia", "Above the costoclavicular space. An injection here does not reach the cords."],
+        groove: ["The costoclavicular space", "Beneath subclavius and the clavipectoral fascia, above serratus anterior: the artery, the vein and the three cords."],
+        deep: ["Deep to the space", "Too deep: serratus anterior and the chest wall lie this way. Withdraw."]
+      },
+      zoneNote: { pmaj: ["", "Too superficial. Withdraw and aim for the cords beneath the clavipectoral fascia. "], delt: ["", "Still superficial. "], scl: ["", "Inside subclavius. The cords lie just deep to it. "], pmin: ["", "Inside pectoralis minor. "], sa: ["warn", "Too deep: the chest wall is beneath. "], chest: ["warn", "Stop: the tip is at the chest wall. Withdraw. "] },
+      wrongNote: "Redirect to the middle of the three cords, lateral to the artery.",
+      targetNote: "This is the target: the middle of the cluster, between the three cords.",
+      la: { "in": [300, 244, 54, 32] },
+      consensus: "No consensus list has been published for this block. These are the structures named in the published technique.",
+      refs: { stim: 26, sens: 27, press: 28, cons: 1, where: 1 }, avoidNote: "Find the artery and the vein before the needle moves, run colour Doppler over the needle path for the thoracoacromial artery and the cephalic vein, and keep the pleura in view beneath serratus anterior.",
+      inj: {
+        skin: "A skin wheal only.",
+        refuse: "In a study at the interscalene roots, opening injection pressure reached 15 psi or more in 35 of 36 injections with the needle touching a root; 1 mm away it stayed below 15 psi.",
+        tri: "The fluid spreads above the clavipectoral fascia. It does not reach the cords.", triZ: [],
+        z: { pmaj: ["The fluid swells inside pectoralis major. The cords are two layers deeper.", 26, 10], delt: ["The fluid swells inside deltoid.", 20, 8], scl: ["The fluid swells inside subclavius. The cords lie just beneath.", 24, 8], pmin: ["The fluid swells inside pectoralis minor.", 20, 7], sa: ["The fluid is in serratus anterior, on the chest wall. Withdraw.", 22, 7] },
+        deep: "Too deep. Withdraw to the cords, lateral to the artery.",
+        medial: [262, "The fluid is beside the artery, medial to the cords. Withdraw slightly and redirect lateral to the artery."],
+        far: [42, "The fluid is in the costoclavicular space but away from the cords. Redirect to the middle of the cluster."],
+        good: { "in": "The fluid spreads among the three cords, lateral to the artery, and separates them." },
+        tail: "In the first clinical description, 20 mL of ropivacaine 0.5% placed here was successful in 29 of 30 patients."
+      },
+      steps: [
+        { to: 14, say: "The needle enters at the lateral end of the probe, in plane, and appears beneath the skin." },
+        { to: "inv+3", fas: "inv", hold: 2400 },
+        { to: 150, say: "It crosses deltoid and pectoralis major. Keep the whole shaft in view, and watch for the thoracoacromial artery near the clavipectoral fascia.", hold: 3600 },
+        { to: "pre+3", pre: "Through the ", fas: "pre", hold: 3200 },
+        { to: "L-3", say: "The tip reaches the cords, lateral to the artery. With the stimulator at 1.0 mA, a twitch in the arm or hand confirms the plexus.", on: 1, ma: 1, hold: 3200 },
+        { say: "Turn the current down to 0.5 mA. If the twitch persists at 0.2 mA, the tip may be inside a cord: withdraw.", ma: 0.5, hold: 3000 },
+        { say: "Inject against low pressure, in the middle of the three cords. The fluid separates them.", inject: 1, hold: 3800 },
+        { say: "A septum often divides the lateral cord from the other two. Many give a second injection deep to it, beside the medial and posterior cords.", hold: 4600 },
+        { say: "Now try it yourself: drag the needle, change the current, and see what happens off target.", hold: 3200 }
+      ]
+  };
   DATA.supraclavicular = {
       title: "Supraclavicular brachial plexus block",
       entry: [640, 60], target: [302, 270], ori: ["Medial", "Lateral"],
@@ -407,7 +468,11 @@
       g.fillStyle = "#030405"; g.fill(p); g.strokeStyle = s.t === "artery" ? "rgba(252,252,254,.95)" : "rgba(214,218,226,.75)"; g.lineWidth = s.t === "artery" ? 2.8 : 1.3; g.stroke(p); });
     B.fascia.forEach(function (f) { var p = new Path2D(f.d); g.strokeStyle = "rgba(255,255,255,.16)"; g.lineWidth = 5; g.stroke(p); g.strokeStyle = "rgba(252,252,254,.92)"; g.lineWidth = 1.9; g.stroke(p); });
     of("nerve").forEach(function (s) { var p = P(s); if (s.sheath) { var q0 = s.sheath; g.beginPath(); g.ellipse(q0[0], q0[1], q0[2], q0[3], 0, 0, 6.2832); g.fillStyle = "rgba(196,199,206,.96)"; g.fill(); g.strokeStyle = "rgba(252,252,254,.98)"; g.lineWidth = 2.6; g.stroke(); g.fillStyle = "#50535b"; g.fill(p); g.strokeStyle = "rgba(248,249,252,.7)"; g.lineWidth = 1; g.stroke(p); return; }
-      if (s.bright) { g.fillStyle = "rgba(250,250,252,.95)"; g.fill(p); g.fillStyle = "#1a1b1e"; g.beginPath(); g.arc(s.cx, s.cy, s.r * 0.45, 0, 6.2832); g.fill(); return; }
+      if (s.bright) { g.fillStyle = "rgba(236,238,243,.97)"; g.fill(p);   /* cords and peripheral nerves: honeycomb, dark fascicles in bright epineurium */
+        if (s.r < 7) { g.beginPath(); g.arc(s.cx, s.cy, s.r * 0.42, 0, 6.2832); g.fillStyle = "#2a2c31"; g.fill(); }
+        else { var sp = s.r * 0.42, hx, hy, row = 0; for (hy = -s.r; hy <= s.r; hy += sp * 0.87, row++) for (hx = -s.r + (row % 2) * sp / 2; hx <= s.r; hx += sp) { var jx = hx + (R() - 0.5) * sp * 0.35, jy = hy + (R() - 0.5) * sp * 0.35; if (Math.hypot(jx, jy) > s.r * 0.7) continue;
+          g.beginPath(); g.ellipse(s.cx + jx, s.cy + jy, sp * (0.36 + R() * 0.08), sp * (0.31 + R() * 0.08), R() * 3, 0, 6.2832); g.fillStyle = "#33363c"; g.fill(); } }
+        g.strokeStyle = "rgba(250,250,252,.9)"; g.lineWidth = 1.4; g.stroke(p); return; }
       g.fillStyle = "#3b3e45"; g.fill(p);   /* roots and trunks: hypoechoic, but grey, never as black as a vessel lumen */
       (s.k === "duo" ? [s.a, s.b] : s.k === "circle" ? [[s.cx, s.cy, s.r]] : []).forEach(function (q) { if (q[2] < 6) return; for (var j = 0; j < Math.round(q[2] * 0.8); j++) { var a2 = R() * 6.2832, d2 = Math.sqrt(R()) * q[2] * 0.7; g.beginPath(); g.arc(q[0] + Math.cos(a2) * d2, q[1] + Math.sin(a2) * d2, 0.7 + R() * 1.1, 0, 6.2832); g.fillStyle = "rgba(150,154,162,.45)"; g.fill(); } });
       g.strokeStyle = "rgba(248,249,252,.95)"; g.lineWidth = s.r < 8 ? 1.5 : 2.1; g.stroke(p); });
@@ -444,9 +509,12 @@
       '<radialGradient id="' + u + 'dr"><stop offset="0" stop-color="#FFE45C"/><stop offset=".38" stop-color="#FF5A1F"/><stop offset=".78" stop-color="#D31A10"/><stop offset="1" stop-color="#7E0A06"/></radialGradient>' +
       '<radialGradient id="' + u + 'db"><stop offset="0" stop-color="#7DEBFF"/><stop offset=".4" stop-color="#2F86FF"/><stop offset=".8" stop-color="#1B3FD6"/><stop offset="1" stop-color="#0C1A7A"/></radialGradient>' +
       '<linearGradient id="' + u + 'cb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE45C"/><stop offset=".25" stop-color="#E8240F"/><stop offset=".48" stop-color="#2A0503"/><stop offset=".52" stop-color="#03072A"/><stop offset=".75" stop-color="#1B3FD6"/><stop offset="1" stop-color="#7DEBFF"/></linearGradient>' +
+      '<filter id="' + u + 'gU" x="-6%" y="-6%" width="112%" height="112%"><feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b"/><feColorMatrix in="b" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="g"/><feMorphology in="g" operator="erode" radius="1.2" result="e"/><feComposite in="g" in2="e" operator="out" result="r"/><feFlood flood-color="#E9EEF5" flood-opacity=".85"/><feComposite in2="r" operator="in" result="rc"/><feMerge><feMergeNode in="g"/><feMergeNode in="rc"/></feMerge></filter>' +
+      '<filter id="' + u + 'gA" x="-6%" y="-6%" width="112%" height="112%"><feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b"/><feColorMatrix in="b" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="g"/><feMorphology in="g" operator="erode" radius="1.4" result="e"/><feComposite in="g" in2="e" operator="out" result="r"/><feFlood flood-color="#C6FFF7"/><feComposite in2="r" operator="in" result="rc"/><feMerge><feMergeNode in="g"/><feMergeNode in="rc"/></feMerge></filter>' +
+      '<filter id="' + u + 'en" x="-20%" y="-20%" width="140%" height="160%"><feGaussianBlur stdDeviation="6"/></filter>' +
       '<filter id="' + u + 'cd" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="turbulence" baseFrequency="0.42 0.6" numOctaves="1" seed="3" result="t"/><feColorMatrix in="t" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.6 2.15" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter></defs>' +
-      '<g class="bp-us"><rect width="640" height="400" fill="#101116"/><image class="bp-usimg" x="0" y="0" width="640" height="400" preserveAspectRatio="none"/><g class="bp-live-us"></g><g class="bp-dop" style="display:none"></g>' + layer(0) + "</g>" +
-      '<g class="bp-an" clip-path="url(#' + u + 'w)"><rect width="640" height="400" fill="#DDB564"/><image class="bp-animg" x="0" y="0" width="640" height="400" preserveAspectRatio="none"/><g class="bp-live-an"></g>' + layer(0) + "</g>" +
+      '<g class="bp-us"><rect width="640" height="400" fill="#101116"/><image class="bp-usimg" x="0" y="0" width="640" height="400" preserveAspectRatio="none"/><g class="bp-live-us"></g><g class="bp-lau"><use href="#' + u + 'lc" transform="translate(0 10)" filter="url(#' + u + 'en)" fill="#fff" opacity=".2"/><g filter="url(#' + u + 'gU)" fill="#030405"><g id="' + u + 'lc"></g></g></g><g class="bp-dop" style="display:none"></g>' + layer(0) + "</g>" +
+      '<g class="bp-an" clip-path="url(#' + u + 'w)"><rect width="640" height="400" fill="#DDB564"/><image class="bp-animg" x="0" y="0" width="640" height="400" preserveAspectRatio="none"/><g class="bp-live-an"></g><g class="bp-laa" opacity=".82"><g filter="url(#' + u + 'gA)" fill="#1FC8B4"><g class="laac"></g></g></g>' + layer(0) + "</g>" +
       '<rect y="0" width="640" height="46" class="bp-head"/><path d="M0 46H640" class="bp-skin"/>' +
       '<path class="bp-div" d="M640 0V400"/>' +
       '<g class="bp-la"><ellipse class="la" cx="0" cy="0" rx="0" ry="0"/></g>' +
@@ -469,7 +537,7 @@
       '<div class="bp-main"><div class="bp-stage">' + svg + '<p class="bp-hint">Drag anywhere on the image to steer the needle tip. Arrow keys also work: left and right advance and withdraw, up and down change the angle.</p></div>' +
       '<div class="bp-side"><div class="bp-card bp-where" aria-live="polite"></div>' +
       '<div class="bp-card bp-stim"><h4>Nerve stimulator <label class="bp-sw"><input type="checkbox" class="bp-on"> on</label></h4><div class="bp-cur"><button data-c="-0.1" aria-label="Reduce current">−</button><output>1.0 mA</output><button data-c="0.1" aria-label="Increase current">+</button><input type="range" min="0.1" max="2" step="0.1" value="1" class="bp-ma" aria-label="Stimulating current in milliamps"><small>2 Hz · 0.1 ms</small></div><div class="bp-resp" aria-live="polite"></div></div>' +
-      '<div class="bp-card bp-inj"><h4>Injection</h4><button data-a="inject">Inject 1 mL test dose</button><button data-a="clear">Clear</button><div class="bp-injr" aria-live="polite"></div></div>' +
+      '<div class="bp-card bp-inj"><h4>Injection <span class="bp-vol">0 mL</span></h4><button data-a="inject">Test dose 1 mL</button><button class="bp-hold" type="button" aria-label="Hold to inject; Enter adds 5 mL">Hold to inject</button><button data-a="clear">Clear</button><div class="bp-injr" aria-live="polite"></div></div>' +
       '<div class="bp-card bp-chk"><h4>Find before you needle</h4><ul>' + B.shapes.filter(function (s) { return s.rec; }).map(function (s) { return '<li data-id="' + s.id + '"><span></span>' + esc(s.n) + (s.rec === "strong" ? " <b>" + RL.strong[1] + "</b>" : " <i>" + RL.weak[1] + "</i>") + "</li>"; }).join("") + "</ul><small>" + esc(B.consensus) + cite(B.refs.cons) + "</small></div></div></div>" +
       '<p class="bp-cap">Original schematic, not to scale. The twitch thresholds are a teaching model: the current needed rises with the square of the distance from the nerve. Real thresholds vary between patients and are higher in diabetes.' + cite(B.refs.stim) + "</p>";
     var $ = function (q) { return el.querySelector(q); }, $$ = function (q) { return [].slice.call(el.querySelectorAll(q)); };
@@ -491,8 +559,11 @@
       if (s.k === "circle") return Math.hypot(x - s.cx, y - s.cy) <= s.r;
       if (s.k === "duo") return Math.hypot(x - s.a[0], y - s.a[1]) <= s.a[2] || Math.hypot(x - s.b[0], y - s.b[1]) <= s.b[2];
       if (s.k === "ellipse") { var a = (x - s.cx) / s.rx, b = (y - s.cy) / s.ry; return a * a + b * b <= 1; }
+      var bx = pathBox[s.id]; if (!bx) { try { bx = pathNode[s.id].getBBox(); } catch (e) { bx = null; } bx = pathBox[s.id] = bx || { x: -1e9, y: -1e9, width: 2e9, height: 2e9 }; }
+      if (x < bx.x || x > bx.x + bx.width || y < bx.y || y > bx.y + bx.height) return false;
       return inPath(pathNode[s.id], x, y);
     }
+    var pathBox = {};
     var ORDER = ["nerve", "artery", "vein", "bone", "muscle"];
     function where(x, y) {
       if (y < 46) return "air";
@@ -564,7 +635,7 @@
       h += "<p class=\"bp-ev\"><small>No twitch does not mean no contact: a motor response at 0.5 mA or less was present in 74.5% of needle-to-nerve contacts seen on ultrasound." + cite(B.refs.sens) + "</small></p>";
       r.innerHTML = h;
     }
-    function inject() {
+    function inject(vol, ms) {
       var t = S.tip, z = where(t[0], t[1]), s = byId[z], o = $(".bp-injr"), good = 0, msg, shape = null;
       var near = B.shapes.filter(function (k) { return k.t === "nerve" && gap(k, t[0], t[1]) <= 2; })[0];
       if (near) msg = "<b>Injection refused.</b> The tip is against or inside the " + near.n.toLowerCase() + ". " + (I.refuse || "With the needle touching a root, opening injection pressure reached 15 psi or more in 35 of 36 injections; 1 mm away it stayed below 15 psi.") + cite(B.refs.press);
@@ -579,10 +650,61 @@
       else { good = 1; var ex = z === I.ex; shape = ex ? B.la.ex : B.la["in"];
         msg = "<b>Good spread.</b> " + (ex ? I.good.ex : I.good["in"]) + " " + I.tail + cite(B.refs.where) + ' <a href="#coverage">See what the block covers</a>.'; }
       o.className = "bp-injr " + (good ? "good" : shape ? "warn" : "bad"); o.innerHTML = "<p>" + msg + "</p>";
-      if (shape) { laE.setAttribute("cx", shape[0]); laE.setAttribute("cy", shape[1]); laE.setAttribute("rx", 2); laE.setAttribute("ry", 2); laE.style.opacity = 1; var t0 = performance.now(); (function g(now) { var k = Math.max(0, Math.min(1, (now - t0) / 1600)), e2 = 1 - Math.pow(1 - k, 3); laE.setAttribute("rx", (2 + (shape[2] - 2) * e2).toFixed(1)); laE.setAttribute("ry", (2 + (shape[3] - 2) * e2).toFixed(1)); if (k < 1) requestAnimationFrame(g); })(t0);
-        el.classList.toggle("blocked", !!good); } else { laE.style.opacity = 0; el.classList.remove("blocked"); }
+      if (shape) { LA.at(t, z); if (vol) LA.ramp(vol, ms || 700); el.classList.toggle("blocked", !!good); }
+      return !!shape;
     }
-    function clearLa() { laE.style.opacity = 0; el.classList.remove("blocked"); $(".bp-injr").innerHTML = ""; }
+    function clearMsg() { $(".bp-injr").innerHTML = ""; }
+    function clearLa() { LA.clear(); laE.style.opacity = 0; el.classList.remove("blocked"); clearMsg(); }
+    /* the injectate: it fills the tissue plane the tip is in, nearest first, flows round nerves and vessels,
+       and parts the neighbouring muscle a little as the plane opens. Earlier injections stay where they were put. */
+    var LA = (function () {
+      var C = 3, NX = Math.ceil(640 / 3), Y0 = 46, NY = Math.ceil((400 - Y0) / C), N = NX * NY, lab = null, sites = [], total = 0, gU = $("#" + u + "lc"), gA = $(".laac"), out = $(".bp-vol"), NS = "http://www.w3.org/2000/svg";
+      function labels() { if (lab) return lab; lab = new Array(N); for (var j = 0; j < NY; j++) for (var i = 0; i < NX; i++) lab[j * NX + i] = where(i * C + C / 2, Y0 + j * C + C / 2); return lab; }
+      function cell(t) { var i = Math.max(0, Math.min(NX - 1, Math.floor(t[0] / C))), j = Math.max(0, Math.min(NY - 1, Math.floor((t[1] - Y0) / C))); return j * NX + i; }
+      function each(c, fn) { var i = c % NX, j = (c - i) / NX, di, dj; for (dj = -1; dj <= 1; dj++) for (di = -1; di <= 1; di++) { if (!di && !dj) continue; var a = i + di, b = j + dj; if (a < 0 || b < 0 || a >= NX || b >= NY) continue; fn(b * NX + a, di && dj ? 1.414 : 1, !di); } }
+      /* fascia lines are the walls: the fluid flows through fat and loose tissue until a fascia, a muscle, a nerve, a vessel or bone stops it */
+      var bar = null;
+      function walls() { if (bar) return bar; bar = new Uint8Array(N); B.fascia.forEach(function (f) { var p = sv.querySelector('.bp-us .fas[data-f="' + f.id + '"]'); if (!p) return; var Lp = p.getTotalLength();
+        for (var d = 0; d <= Lp; d += 1) { var q = p.getPointAtLength(d); if (q.y < Y0) continue; bar[cell([q.x, q.y])] = 1; } }); return bar; }
+      function order(t, z0) { var L = labels(), W2 = walls(), mus = function (k) { var q = byId[L[k]]; return q && q.t === "muscle"; }, free = function (k) { return !byId[L[k]] && L[k] !== "air" && !W2[k]; };
+        var st = cell(t), inM = mus(st) && L[st] === z0;
+        /* how far each muscle cell is from the open tissue (chamfer distance), so the plane bulges smoothly as it opens */
+        var md = new Float32Array(N).fill(99), k, i2, j2;
+        if (!inM) { for (k = 0; k < N; k++) if (free(k)) md[k] = 0;
+          var relax = function (c, a, b, w) { if (a < 0 || b < 0 || a >= NX || b >= NY) return; var o = b * NX + a; if (md[o] + w < md[c]) md[c] = md[o] + w; };
+          for (j2 = 0; j2 < NY; j2++) for (i2 = 0; i2 < NX; i2++) { k = j2 * NX + i2; if (!mus(k)) continue; relax(k, i2 - 1, j2, 1); relax(k, i2, j2 - 1, 1); relax(k, i2 - 1, j2 - 1, 1.414); relax(k, i2 + 1, j2 - 1, 1.414); }
+          for (j2 = NY - 1; j2 >= 0; j2--) for (i2 = NX - 1; i2 >= 0; i2--) { k = j2 * NX + i2; if (!mus(k)) continue; relax(k, i2 + 1, j2, 1); relax(k, i2, j2 + 1, 1); relax(k, i2 + 1, j2 + 1, 1.414); relax(k, i2 - 1, j2 + 1, 1.414); } }
+        var dist = new Float32Array(N).fill(1e9), done = new Uint8Array(N), hp = [], res = [];
+        var push = function (d, c) { hp.push([d, c]); var i = hp.length - 1; while (i > 0) { var p = (i - 1) >> 1; if (hp[p][0] <= hp[i][0]) break; var x = hp[p]; hp[p] = hp[i]; hp[i] = x; i = p; } };
+        var pop = function () { var top = hp[0], last = hp.pop(); if (hp.length) { hp[0] = last; var i = 0; for (;;) { var l = 2 * i + 1, r = l + 1, m = i; if (l < hp.length && hp[l][0] < hp[m][0]) m = l; if (r < hp.length && hp[r][0] < hp[m][0]) m = r; if (m === i) break; var x = hp[m]; hp[m] = hp[i]; hp[i] = x; i = m; } } return top; };
+        dist[st] = 0; push(0, st);
+        while (hp.length && res.length < 4800) { var tp = pop(), d = tp[0], c = tp[1]; if (done[c]) continue; done[c] = 1; res.push(c);
+          var ci = c % NX, cj = (c - ci) / NX;
+          each(c, function (m, w, vert) { var mi = m % NX, mj = (m - mi) / NX;
+            if (mi !== ci && mj !== cj && W2[cj * NX + mi] && W2[mj * NX + ci]) return;   /* no slipping diagonally through a fascia */
+            var f = inM ? (L[m] === z0 ? (vert ? 1.7 : 1) : 0) : free(m) ? 1 : (mus(m) && md[m] <= 4) ? 2.5 + md[m] * md[m] * 0.9 : 0;
+            if (!f) return; var nd = d + w * f; if (nd < dist[m]) { dist[m] = nd; push(nd, m); } }); }
+        return res; }
+      function cellsFor(v) { return Math.round(14 * Math.pow(v, 0.8) / (C * MM * C * MM)); }   /* area on the section, mm2, for v mL */
+      function dot(g, c) { var e = document.createElementNS(NS, "circle"), i = c % NX, j = (c - i) / NX; e.setAttribute("cx", i * C + C / 2); e.setAttribute("cy", Y0 + j * C + C / 2); e.setAttribute("r", C * 0.8); g.appendChild(e); }
+      function render() { sites.forEach(function (s) { var n = Math.min(s.o.length, cellsFor(s.v)); for (var k = s.n; k < n; k++) { dot(gU, s.o[k]); dot(gA, s.o[k]); } s.n = Math.max(s.n, n); }); out.textContent = (Math.round(total * 10) / 10) + " mL"; }
+      var api = {
+        at: function (t, z) { var c = sites[sites.length - 1]; if (!c || c.z !== z || Math.hypot(t[0] - c.t[0], t[1] - c.t[1]) > 3) sites.push({ t: [t[0], t[1]], z: z, o: order(t, z), v: 0, n: 0 }); },
+        add: function (v) { var c = sites[sites.length - 1]; if (!c || v <= 0) return; v = Math.min(v, 40 - total); if (v <= 0) return; c.v += v; total += v; render(); },
+        ramp: function (v, ms) { var t0 = performance.now(), doneV = 0; (function g(now) { var k = Math.min(1, (now - t0) / ms), want = v * (1 - Math.pow(1 - k, 2)); api.add(want - doneV); doneV = want; if (k < 1) requestAnimationFrame(g); })(t0); },
+        clear: function () { sites = []; total = 0; gU.innerHTML = ""; gA.innerHTML = ""; out.textContent = "0 mL"; },
+        inval: function () { lab = null; bar = null; },
+        vol: function () { return total; }
+      };
+      return api;
+    })();
+    /* hold to inject, about 2 mL a second; Enter or Space adds 5 mL */
+    (function () { var hb = $(".bp-hold"), iv = 0, last = 0;
+      function end() { if (iv) clearInterval(iv); iv = 0; hb.classList.remove("on"); }
+      hb.addEventListener("pointerdown", function (ev) { ev.preventDefault(); stop(); end(); if (!inject(0)) return; hb.classList.add("on"); last = performance.now();
+        iv = setInterval(function () { var now = performance.now(); LA.add(2 * (now - last) / 1000); last = now; if (LA.vol() >= 40) end(); }, 50); });
+      ["pointerup", "pointerleave", "pointercancel"].forEach(function (k) { hb.addEventListener(k, end); });
+      hb.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); stop(); inject(5, 1600); } }); })();
     function setTip(x, y) { var e = B.entry; x = Math.max(8, Math.min(e[0] - 4, x)); y = Math.max(e[1] + 1 - (B.up || 0), Math.min(392, y)); S.tip = [x, y]; draw(); }
     function setView(v) { v = Math.max(0, Math.min(100, +v)); var x = 640 * (1 - v / 100); $(".bp-clip").setAttribute("x", x); $(".bp-clipu").setAttribute("width", x); $(".bp-div").setAttribute("d", "M" + x + " 0V400"); $(".bp-div").style.opacity = v > 0 && v < 100 ? 1 : 0; $(".bp-wipe").value = v; $$("[data-v]").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.getAttribute("data-v") === v)); }); el.classList.toggle("an-full", v >= 100); }
     function pick(id) { var s = byId[id]; if (!s) return; S.seen[id] = 1; var li = $('.bp-chk li[data-id="' + id + '"]'); if (li) li.classList.add("ok");
@@ -593,13 +715,13 @@
     /* pointer: a short tap selects a structure, a drag steers the needle */
     var drag = null, toSvg = function (ev) { var m = sv.getScreenCTM().inverse(); pt.x = ev.clientX; pt.y = ev.clientY; var p = pt.matrixTransform(m); return [p.x, p.y]; };
     sv.addEventListener("pointerdown", function (ev) { stop(); drag = { p: toSvg(ev), moved: false, id: (ev.target.closest && ev.target.closest(".st") || { getAttribute: function () { return null; } }).getAttribute("data-id"), f: ev.target.getAttribute && ev.target.getAttribute("data-f") }; try { sv.setPointerCapture(ev.pointerId); } catch (e) {} });
-    sv.addEventListener("pointermove", function (ev) { if (LX.on) LX.move(toSvg(ev)); if (!drag || scan || LX.on) return; var p = toSvg(ev); if (!drag.moved && Math.hypot(p[0] - drag.p[0], p[1] - drag.p[1]) < 6) return; drag.moved = true; clearLa(); setTip(p[0], p[1]); ev.preventDefault(); });
+    sv.addEventListener("pointermove", function (ev) { if (LX.on) LX.move(toSvg(ev)); if (!drag || scan || LX.on) return; var p = toSvg(ev); if (!drag.moved && Math.hypot(p[0] - drag.p[0], p[1] - drag.p[1]) < 6) return; drag.moved = true; clearMsg(); setTip(p[0], p[1]); ev.preventDefault(); });
     var up = function () { if (!drag) return; var d = drag; drag = null; if (!d.moved) { if (TQ.on) { if (d.id) answer(d.id); return; } if (d.id) pick(d.id); else if (d.f) { var f = B.fascia.filter(function (q) { return q.id === d.f; })[0]; $(".bp-where").className = "bp-card bp-where"; $(".bp-where").innerHTML = "<h4>" + esc(f.n) + "</h4><p>" + esc(f.t) + "</p>"; } } };
     sv.addEventListener("pointerup", up); sv.addEventListener("pointercancel", up);
     sv.addEventListener("keydown", function (ev) { var k = ev.key, e = B.entry, t = S.tip, dx = t[0] - e[0], dy = t[1] - e[1], L = Math.hypot(dx, dy), a = Math.atan2(dy, -dx);
       if (ev.target.closest && ev.target.closest(".st") && (k === "Enter" || k === " ")) { pick(ev.target.closest(".st").getAttribute("data-id")); ev.preventDefault(); return; }
       if (scan) return; if (k === "ArrowLeft") L += 4; else if (k === "ArrowRight") L -= 4; else if (k === "ArrowDown") a += 0.03; else if (k === "ArrowUp") a -= 0.03; else return;
-      ev.preventDefault(); stop(); clearLa(); L = Math.max(6, L); setTip(e[0] - Math.cos(a) * L, e[1] + Math.sin(a) * L); });
+      ev.preventDefault(); stop(); clearMsg(); L = Math.max(6, L); setTip(e[0] - Math.cos(a) * L, e[1] + Math.sin(a) * L); });
     sv.setAttribute("tabindex", "0");
     el.addEventListener("click", function (ev) { var b = ev.target.closest("button"); if (!b) return;
       if (b.hasAttribute("data-pick")) { pick(b.getAttribute("data-pick")); return; }
@@ -611,7 +733,7 @@
       else { var a = b.getAttribute("data-a"); if (a === "labels") { var on = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", String(on)); el.classList.toggle("no-lbl", !on); } else if (a === "tint") { var tn = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", String(tn)); el.classList.toggle("tint", tn); }
         else if (a === "avoid") { var av = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", String(av)); el.classList.toggle("avoid", av); if (scan || av) home(); else draw(); }
         else if (a === "test") { TQ.on = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", String(TQ.on)); el.classList.toggle("testing", TQ.on); if (TQ.on) { TQ.ok = TQ.n = 0; TQ.q = null; ask(); } else home(); }
-        else if (a === "inject") { stop(); inject(); } else if (a === "clear") clearLa(); else if (a === "reset") { stop(); reset(); } else if (a === "play") { if (S.play) stop(); else play(); } } });
+        else if (a === "inject") { stop(); inject(1, 800); } else if (a === "clear") clearLa(); else if (a === "reset") { stop(); reset(); } else if (a === "play") { if (S.play) stop(); else play(); } } });
     $(".bp-wipe").addEventListener("input", function () { LX.off(); setView(this.value); });
     $(".bp-ma").addEventListener("input", function () { stop(); S.on = true; S.ma = +this.value; draw(); });
     $(".bp-on").addEventListener("change", function () { stop(); S.on = this.checked; draw(); });
@@ -631,7 +753,7 @@
       var F = function (k) { return B.fascia.filter(function (q) { return q.id === k; })[0]; };
       var pos2 = function (v) { if (v == null || typeof v === "number") return v; var m = /^([A-Za-z0-9]+)([+-]\d+)?$/.exec(v), base = m[1] === "L" ? L : (cuts[m[1]] == null ? L * 0.5 : cuts[m[1]]); return base + (m[2] ? +m[2] : 0); };
       var steps = B.steps.map(function (q) { var f = q.fas ? F(q.fas) : null; return { to: pos2(q.to), hold: q.hold, say: f ? (q.pre ? q.pre + f.n.toLowerCase() : f.n) + ". " + f.t : q.say,
-        fn: (q.on != null || q.ma || q.inject || q.flash) ? function () { if (q.on != null) S.on = !!q.on; if (q.ma) S.ma = q.ma; if (q.inject) { S.on = false; draw(); inject(); } if (q.flash) { var vb = $(".bp-var"); if (vb) vb.classList.add("flash"); } } : null }; });
+        fn: (q.on != null || q.ma || q.inject || q.flash) ? function () { if (q.on != null) S.on = !!q.on; if (q.ma) S.ma = q.ma; if (q.inject) { S.on = false; draw(); inject(q.vol || 10, 3200); } if (q.flash) { var vb = $(".bp-var"); if (vb) vb.classList.add("flash"); } } : null }; });
       var i = 0, pos = 0;
       (function next() { if (!S.play) return; if (i >= steps.length) { stop(); return; } var st = steps[i++]; cap.textContent = st.say; cap.classList.add("on"); if (st.fn) { st.fn(); draw(); }
         var from = pos, to = st.to == null ? pos : st.to, t0 = performance.now(), dur = Math.abs(to - from) * 26 + 1;
@@ -682,7 +804,7 @@
       if (pr) pr.addEventListener("input", function () { var v = +pr.value / 100;
         vei.forEach(function (s) { if (s.k !== "ellipse") return; var pc = s.cy < 90 ? 0.35 : 0.85, f = Math.max(0.1, Math.min(1, 1 - Math.pow(Math.max(0, v - 0.1) / (pc - 0.1), 1.5)));
           s.ry = +(R0[s.id][1] * f).toFixed(2); $$('.st[data-id="' + s.id + '"] ellipse.shape').forEach(function (e) { e.setAttribute("ry", s.ry); }); });
-        repaint(); go();
+        repaint(); go(); LA.inval();
         if (firstP) { firstP = false; card("<h4>Probe pressure</h4><p>Veins flatten as you press; the artery keeps its shape and keeps pulsing. Press too hard and a vein in the needle path disappears from view, so ease off and look again before the needle goes in.</p>"); } });
       /* anatomy lens */
       var lc = $(".bp-lensc"), lr = $(".bp-lensr"), an = $(".bp-an"), nan = $(".ndl-an");
