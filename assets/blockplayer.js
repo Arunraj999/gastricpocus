@@ -242,8 +242,8 @@
       scanTitle: "Sonoanatomy below the clavicle",
       recLab: { strong: ["Named in the technique", "technique"], weak: ["Worth finding", "worth finding"] },
       fascia: [
-        { id: "inv", n: "Pectoral fascia", d: "M0 80C200 74 420 74 556 86", t: "The first layer under the subcutaneous tissue, covering pectoralis major." },
-        { id: "pre", n: "Fascia beneath pectoralis minor", d: "M0 218C200 216 400 212 556 196", t: "The layer under pectoralis minor. The artery, the vein and the three cords lie beneath it." }
+        { id: "inv", n: "Pectoral fascia", res: 12, d: "M0 80C200 74 420 74 556 86", t: "The first layer under the subcutaneous tissue, covering pectoralis major." },
+        { id: "pre", n: "Fascia beneath pectoralis minor", res: 16, d: "M0 218C200 216 400 212 556 196", t: "The layer under pectoralis minor. The artery, the vein and the three cords lie beneath it." }
       ],
       shapes: [
         { id: "clav", t: "bone", n: "Clavicle and its acoustic shadow", l: "CLAV", k: "path", d: "M556 100C568 76 612 66 640 72V400H556Z", cortex: "M556 100C568 76 612 66 640 72", lx: 600, ly: 96, rec: "strong", x: "A bright curved line with nothing visible beneath it. The needle enters the skin behind this bone and crosses the shadow unseen. In six cadaver dissections the suprascapular nerve touched the needle there in four, and lay within 2 cm in the other two.", c: 11 },
@@ -297,8 +297,8 @@
       scanTitle: "Sonoanatomy of the costoclavicular space",
       recLab: { strong: ["Named in the technique", "technique"], weak: ["Worth finding", "worth finding"] },
       fascia: [
-        { id: "inv", n: "Pectoral fascia", d: "M0 62C200 58 420 60 640 64", t: "The first layer under the subcutaneous tissue, over pectoralis major and, laterally, deltoid." },
-        { id: "pre", n: "Clavipectoral fascia", d: "M0 204C150 202 300 198 420 188C500 182 580 180 640 182", t: "The layer beneath subclavius and pectoralis minor. The artery, the vein and the three cords lie under it, in the costoclavicular space." }
+        { id: "inv", n: "Pectoral fascia", res: 12, d: "M0 62C200 58 420 60 640 64", t: "The first layer under the subcutaneous tissue, over pectoralis major and, laterally, deltoid." },
+        { id: "pre", n: "Clavipectoral fascia", res: 18, d: "M0 204C150 202 300 198 420 188C500 182 580 180 640 182", t: "The layer beneath subclavius and pectoralis minor. The artery, the vein and the three cords lie under it, in the costoclavicular space." }
       ],
       shapes: [
         { id: "pmaj", t: "muscle", n: "Pectoralis major", l: "PMaj", k: "path", d: "M0 66C200 62 400 64 528 68V136C400 138 200 138 0 142Z", lx: 210, ly: 104, rec: "strong", x: "The superficial muscle of the chest wall. The costoclavicular space lies two layers beneath it.", c: 1 },
@@ -518,6 +518,7 @@
       '<rect y="0" width="640" height="46" class="bp-head"/><path d="M0 46H640" class="bp-skin"/>' +
       '<path class="bp-div" d="M640 0V400"/>' +
       '<g class="bp-la"><ellipse class="la" cx="0" cy="0" rx="0" ry="0"/></g>' +
+      '<g class="bp-tentg"><path class="bp-tent" d=""/><text class="bp-pop" x="-50" y="-50">pop</text></g>' +
       '<g class="bp-lensr" style="display:none"><circle r="82"/><text y="-88" text-anchor="middle">Anatomy</text></g>' + '<g class="bp-lbl">' + B.shapes.map(function (s) { return '<text x="' + s.lx + '" y="' + s.ly + '" text-anchor="middle">' + s.l + "</text>"; }).join("") + "</g>" +
       '<g class="bp-ndl"><g class="ndl-us" clip-path="url(#' + u + 'v)"><g class="nx"><path class="rv r3" d="M70 15H830"/><path class="rv r2" d="M40 10H830"/><path class="rv r1" d="M22 5H830"/><path class="ln" d="M2 0H830"/><path class="eg" d="M15 0H31M37 0H53"/><path d="M0 .8L9.5 -2.4V2.4Z" fill="#fff"/></g></g>' +
       '<g class="ndl-an" clip-path="url(#' + u + 'w)"><g class="nx"><rect x="10.5" y="-3" width="820" height="6" fill="url(#' + u + 's)"/><rect x="15" y="-3" width="16" height="6" fill="url(#' + u + 'e)"/><rect x="37" y="-3" width="16" height="6" fill="url(#' + u + 'e)"/>' +
@@ -531,10 +532,10 @@
     el.innerHTML = '<div class="bp-bar" role="toolbar" aria-label="View"><span>View</span><button data-v="0" aria-pressed="true">Ultrasound</button><button data-v="50" aria-pressed="false">Half and half</button><button data-v="100" aria-pressed="false">Anatomy</button><input type="range" min="0" max="100" value="0" class="bp-wipe" aria-label="Wipe between ultrasound and anatomy"><button data-a="labels" aria-pressed="true">Labels</button><button data-a="tint" aria-pressed="false">Colour the structures</button><button data-a="avoid" aria-pressed="false">Structures to avoid</button><button data-a="test" aria-pressed="false">Test me</button><button data-a="play" class="bp-play">Play the block</button><button data-a="reset">Reset</button></div>' +
       '<div class="bp-bar bp-bar2" role="toolbar" aria-label="Live tools"><span>Live</span><button data-x="motion" aria-pressed="true">Motion</button><button data-x="doppler" aria-pressed="false">Colour Doppler</button>' +
       (B.shapes.some(function (s) { return s.t === "vein" && s.k === "ellipse"; }) ? '<label class="bp-prs">Probe pressure <input type="range" min="0" max="100" value="10" class="bp-press" aria-label="Probe pressure"></label>' : "") +
-      '<button data-x="lens" aria-pressed="false">Anatomy lens</button><button data-x="3d" aria-pressed="false">3D probe view</button></div>' +
+      '<button data-x="lens" aria-pressed="false">Anatomy lens</button><button data-x="3d" aria-pressed="false">3D probe view</button><button data-x="sound" aria-pressed="true">Sound</button></div>' +
       (B.alts ? '<div class="bp-var bp-alt"><span>' + esc(B.altLabel || "Approach") + '</span>' + B.alts.map(function (q) { return '<button data-alt="' + q[0] + '" aria-pressed="' + (q[0] === el.getAttribute("data-block")) + '">' + esc(q[1]) + "</button>"; }).join("") + "</div>" : "") +
       (B.variants ? '<div class="bp-var"><span>' + esc(B.varLabel || "Variations") + '</span>' + B.variants.map(function (v, i) { return '<button data-var="' + i + '" aria-pressed="' + (i === VI) + '">' + esc(v.n) + (v.f ? " <b>" + v.f + "</b>" : "") + "</button>"; }).join("") + '<p class="bp-varn">' + esc(VV.t) + cite(B.varRef) + "</p></div>" : "") +
-      '<div class="bp-main"><div class="bp-stage">' + svg + '<p class="bp-hint">Drag anywhere on the image to steer the needle tip. Arrow keys also work: left and right advance and withdraw, up and down change the angle.</p></div>' +
+      '<div class="bp-main"><div class="bp-stage">' + svg + '<p class="bp-hint">Drag anywhere on the image to steer the needle tip. Arrow keys also work: left and right advance and withdraw, up and down change the angle. Each fascia resists the tip, tents, then gives with a pop.</p></div>' +
       '<div class="bp-side"><div class="bp-card bp-where" aria-live="polite"></div>' +
       '<div class="bp-card bp-stim"><h4>Nerve stimulator <label class="bp-sw"><input type="checkbox" class="bp-on"> on</label></h4><div class="bp-cur"><button data-c="-0.1" aria-label="Reduce current">−</button><output>1.0 mA</output><button data-c="0.1" aria-label="Increase current">+</button><input type="range" min="0.1" max="2" step="0.1" value="1" class="bp-ma" aria-label="Stimulating current in milliamps"><small>2 Hz · 0.1 ms</small></div><div class="bp-resp" aria-live="polite"></div></div>' +
       '<div class="bp-card bp-inj"><h4>Injection <span class="bp-vol">0 mL</span></h4><button data-a="inject">Test dose 1 mL</button><button class="bp-hold" type="button" aria-label="Hold to inject; Enter adds 5 mL">Hold to inject</button><button data-a="clear">Clear</button><div class="bp-injr" aria-live="polite"></div></div>' +
@@ -545,10 +546,11 @@
     var scan = el.getAttribute("data-mode") === "scan"; el.classList.toggle("scan", scan);
     try { var bbf = function (s) { return sv.querySelector('.bp-us [data-id="' + s.id + '"]').getBBox(); }; $(".bp-usimg").setAttribute("href", paintUS(B, bbf)); $(".bp-animg").setAttribute("href", paintAN(B, bbf)); } catch (e) {}
     /* fascia as y(x) look-ups, and path regions for hit tests */
-    var fy = {}; B.fascia.forEach(function (f) {
+    var fy = {}, fyA = {}; B.fascia.forEach(function (f) {
       var p = sv.querySelector('.bp-us .fas[data-f="' + f.id + '"]'), L = p.getTotalLength(), a = [];
       for (var i = 0; i <= 160; i++) { var q = p.getPointAtLength(L * i / 160); a.push([q.x, q.y]); }
       a.sort(function (m, n) { return m[0] - n[0]; });
+      fyA[f.id] = a;
       fy[f.id] = function (x) { if (x < a[0][0] || x > a[a.length - 1][0]) return 999; for (var j = 1; j < a.length; j++) if (a[j][0] >= x) { var t = (x - a[j - 1][0]) / ((a[j][0] - a[j - 1][0]) || 1); return a[j - 1][1] + (a[j][1] - a[j - 1][1]) * t; } return 999; };
     });
     var NS = "http://www.w3.org/2000/svg", gp = document.createElementNS(NS, "path"); gp.setAttribute("d", B.groove); gp.setAttribute("fill", "none"); gp.setAttribute("stroke", "none"); gp.style.pointerEvents = "none"; sv.appendChild(gp);
@@ -576,6 +578,7 @@
     var name = function (z) { return byId[z] ? byId[z].n : B.zones[z][0]; };
     /* state */
     var S = { tip: [B.entry[0] - 6, B.entry[1] + 3], on: false, ma: 1, la: null, seen: {}, play: 0 };
+    var FR = { f: null, t0: 0, holes: {} }, SND = { on: true };
     var nx = $$(".bp-ndl .nx"), pulse = $(".bp-ndl .pulse"), tw = $(".bp-twitch"), laE = $(".bp-la .la");
     function track() { /* layers crossed from the skin to the tip */
       var e = B.entry, t = S.tip, n = Math.max(2, Math.round(Math.hypot(t[0] - e[0], t[1] - e[1]) / 2)), out = [], last = null, pi = null, pp = null;
@@ -604,6 +607,7 @@
         else if (s.t === "bone") { warn = "bad"; head = s.hit ? s.hit[0] : "Bone contact: " + s.n.toLowerCase(); body = s.hit ? s.hit[1] : "Too deep. Withdraw and redirect more superficially."; }
         else if (B.zoneNote && B.zoneNote[z]) { if (B.zoneNote[z][0]) warn = B.zoneNote[z][0]; body = B.zoneNote[z][1] + body; }
       } else { head = B.zones[z][0]; body = B.zones[z][1]; if (z === "deep") warn = "warn"; }
+      if (FR.f) { head = FR.f.n; body = "The tip is pressing on this layer. It tents first, then gives with a pop. Keep pushing gently."; warn = ""; }
       var dT = Math.hypot(t[0] - B.target[0], t[1] - B.target[1]) * MM;
       if (!warn && dT < 1.6) { warn = "good"; body += " <b>" + B.targetNote + "</b>"; }
       $(".bp-where").className = "bp-card bp-where " + warn;
@@ -705,6 +709,25 @@
         iv = setInterval(function () { var now = performance.now(); LA.add(2 * (now - last) / 1000); last = now; if (LA.vol() >= 40) end(); }, 50); });
       ["pointerup", "pointerleave", "pointercancel"].forEach(function (k) { hb.addEventListener(k, end); });
       hb.addEventListener("keydown", function (ev) { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); stop(); inject(5, 1600); } }); })();
+    /* the feel of the needle: each fascia resists, tents under the tip and then gives with a pop */
+    var TOUGH = { inv: 16, pre: 22 }, tentE = $(".bp-tent"), popE = $(".bp-pop"), AC = null;
+    function tough(f, x) { var b = f.res != null ? f.res : (TOUGH[f.id] || 14), h = FR.holes[f.id]; return h != null && Math.abs(h - x) < 10 ? b * 0.3 : b; }
+    function tent(f, x, d) { if (!f || d <= 0.3) { tentE.setAttribute("d", ""); return; } var a = fyA[f.id], w = 15, str = ""; a.forEach(function (q) { if (Math.abs(q[0] - x) > w * 3) return; var y2 = q[1] + d * Math.exp(-Math.pow((q[0] - x) / w, 2)); str += (str ? "L" : "M") + q[0].toFixed(1) + " " + y2.toFixed(1); }); tentE.setAttribute("d", str); }
+    function click() { if (!SND.on) return; try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); var t = AC.currentTime, n = AC.createBufferSource(), bf = AC.createBuffer(1, Math.round(AC.sampleRate * 0.03), AC.sampleRate), d = bf.getChannelData(0), i;
+      for (i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 3); n.buffer = bf; var bp = AC.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 1800; var g = AC.createGain(); g.gain.value = 0.32; n.connect(bp); bp.connect(g); g.connect(AC.destination); n.start(t);
+      var o = AC.createOscillator(), og = AC.createGain(); o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(55, t + 0.07); og.gain.setValueAtTime(0.22, t); og.gain.exponentialRampToValueAtTime(0.001, t + 0.09); o.connect(og); og.connect(AC.destination); o.start(t); o.stop(t + 0.1); } catch (e) {} }
+    function popFx(f, x, y) { click(); try { if (navigator.vibrate) navigator.vibrate(18); } catch (e) {} FR.holes[f.id] = x; popE.setAttribute("x", (x + 9).toFixed(1)); popE.setAttribute("y", (y - 7).toFixed(1)); popE.classList.remove("on"); void popE.getBBox(); popE.classList.add("on"); }
+    function steer(x, y) { var t = S.tip, e = B.entry, i, f, a0, a1;
+      if (FR.f) { f = FR.f; var yf = fy[f.id](x), d = y - yf;
+        if (yf > 900 || d <= 0) { FR.f = null; tent(null); setTip(x, y); return; }          /* withdrawn, or slid off the end of the layer */
+        var D = Math.min(7, d * 0.42); tent(f, x, D);
+        if (d > tough(f, x) && performance.now() - FR.t0 > 140) { FR.f = null; tent(null); var L = Math.hypot(x - e[0], y - e[1]) || 1; popFx(f, x, yf); setTip(x + (x - e[0]) / L * 2, yf + 4 + (y - yf) * 0.3); return; }
+        setTip(x, yf + D); return; }
+      for (i = 0; i < B.fascia.length; i++) { f = B.fascia[i]; a0 = fy[f.id](t[0]); a1 = fy[f.id](x); if (a0 > 900 || a1 > 900) continue;
+        if (t[1] < a0 - 0.5 && y > a1) { FR.f = f; FR.t0 = performance.now(); var d2 = y - a1, D2 = Math.min(7, d2 * 0.42); if (d2 > tough(f, x) * 2.2) { FR.f = null; popFx(f, x, a1); setTip(x, y); return; } tent(f, x, D2); setTip(x, a1 + D2); return; } }
+      setTip(x, y); }
+    /* the guided run: no pushing needed, but each layer still gives with a pop */
+    function passFx(t0, t1) { for (var i = 0; i < B.fascia.length; i++) { var f = B.fascia[i], a0 = fy[f.id](t0[0]), a1 = fy[f.id](t1[0]); if (a0 > 900 || a1 > 900) continue; if (t0[1] < a0 && t1[1] >= a1) { tent(f, t1[0], 5); setTimeout(function () { tent(null); }, 160); popFx(f, t1[0], a1); } } }
     function setTip(x, y) { var e = B.entry; x = Math.max(8, Math.min(e[0] - 4, x)); y = Math.max(e[1] + 1 - (B.up || 0), Math.min(392, y)); S.tip = [x, y]; draw(); }
     function setView(v) { v = Math.max(0, Math.min(100, +v)); var x = 640 * (1 - v / 100); $(".bp-clip").setAttribute("x", x); $(".bp-clipu").setAttribute("width", x); $(".bp-div").setAttribute("d", "M" + x + " 0V400"); $(".bp-div").style.opacity = v > 0 && v < 100 ? 1 : 0; $(".bp-wipe").value = v; $$("[data-v]").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.getAttribute("data-v") === v)); }); el.classList.toggle("an-full", v >= 100); }
     function pick(id) { var s = byId[id]; if (!s) return; S.seen[id] = 1; var li = $('.bp-chk li[data-id="' + id + '"]'); if (li) li.classList.add("ok");
@@ -715,13 +738,13 @@
     /* pointer: a short tap selects a structure, a drag steers the needle */
     var drag = null, toSvg = function (ev) { var m = sv.getScreenCTM().inverse(); pt.x = ev.clientX; pt.y = ev.clientY; var p = pt.matrixTransform(m); return [p.x, p.y]; };
     sv.addEventListener("pointerdown", function (ev) { stop(); drag = { p: toSvg(ev), moved: false, id: (ev.target.closest && ev.target.closest(".st") || { getAttribute: function () { return null; } }).getAttribute("data-id"), f: ev.target.getAttribute && ev.target.getAttribute("data-f") }; try { sv.setPointerCapture(ev.pointerId); } catch (e) {} });
-    sv.addEventListener("pointermove", function (ev) { if (LX.on) LX.move(toSvg(ev)); if (!drag || scan || LX.on) return; var p = toSvg(ev); if (!drag.moved && Math.hypot(p[0] - drag.p[0], p[1] - drag.p[1]) < 6) return; drag.moved = true; clearMsg(); setTip(p[0], p[1]); ev.preventDefault(); });
+    sv.addEventListener("pointermove", function (ev) { if (LX.on) LX.move(toSvg(ev)); if (!drag || scan || LX.on) return; var p = toSvg(ev); if (!drag.moved && Math.hypot(p[0] - drag.p[0], p[1] - drag.p[1]) < 6) return; drag.moved = true; clearMsg(); steer(p[0], p[1]); ev.preventDefault(); });
     var up = function () { if (!drag) return; var d = drag; drag = null; if (!d.moved) { if (TQ.on) { if (d.id) answer(d.id); return; } if (d.id) pick(d.id); else if (d.f) { var f = B.fascia.filter(function (q) { return q.id === d.f; })[0]; $(".bp-where").className = "bp-card bp-where"; $(".bp-where").innerHTML = "<h4>" + esc(f.n) + "</h4><p>" + esc(f.t) + "</p>"; } } };
     sv.addEventListener("pointerup", up); sv.addEventListener("pointercancel", up);
     sv.addEventListener("keydown", function (ev) { var k = ev.key, e = B.entry, t = S.tip, dx = t[0] - e[0], dy = t[1] - e[1], L = Math.hypot(dx, dy), a = Math.atan2(dy, -dx);
       if (ev.target.closest && ev.target.closest(".st") && (k === "Enter" || k === " ")) { pick(ev.target.closest(".st").getAttribute("data-id")); ev.preventDefault(); return; }
       if (scan) return; if (k === "ArrowLeft") L += 4; else if (k === "ArrowRight") L -= 4; else if (k === "ArrowDown") a += 0.03; else if (k === "ArrowUp") a -= 0.03; else return;
-      ev.preventDefault(); stop(); clearMsg(); L = Math.max(6, L); setTip(e[0] - Math.cos(a) * L, e[1] + Math.sin(a) * L); });
+      ev.preventDefault(); stop(); clearMsg(); L = Math.max(6, L); steer(e[0] - Math.cos(a) * L, e[1] + Math.sin(a) * L); });
     sv.setAttribute("tabindex", "0");
     el.addEventListener("click", function (ev) { var b = ev.target.closest("button"); if (!b) return;
       if (b.hasAttribute("data-pick")) { pick(b.getAttribute("data-pick")); return; }
@@ -743,12 +766,12 @@
     function ask(fb) { var pool = B.shapes.filter(function (s) { return s.id !== TQ.q; }), s = pool[Math.floor(Math.random() * pool.length)]; TQ.q = s.id; $$(".st").forEach(function (g) { g.classList.remove("sel"); });
       $(".bp-where").className = "bp-card bp-where"; $(".bp-where").innerHTML = (fb || "") + "<h4>Test me · " + TQ.ok + " of " + TQ.n + '</h4><p class="bp-z">Find: ' + esc(s.n) + ".</p><p><small>Labels are hidden while the test runs.</small></p>"; }
     function answer(id) { TQ.n++; var good = id === TQ.q, s = byId[TQ.q]; if (good) TQ.ok++; ask('<p class="bp-coach ' + (good ? "good" : "bad") + '">' + (good ? "<b>Correct.</b> " : "<b>Not quite.</b> You tapped: " + esc(byId[id] ? byId[id].n : "background") + ". ") + esc(s.n) + ": " + esc(s.x.split(". ")[0]) + ".</p>"); }
-    function reset() { if (scan) { home(); return; } S.on = false; S.ma = 1; clearLa(); setTip(B.entry[0] - 6, B.entry[1] + 3); $$(".st").forEach(function (g) { g.classList.remove("sel"); }); }
+    function reset() { if (scan) { home(); return; } S.on = false; S.ma = 1; FR.f = null; FR.holes = {}; tent(null); clearLa(); setTip(B.entry[0] - 6, B.entry[1] + 3); $$(".st").forEach(function (g) { g.classList.remove("sel"); }); }
     /* guided run: the same controls, moved for the learner, with a caption at each step */
     var cap = document.createElement("div"); cap.className = "bp-capn"; $(".bp-stage").appendChild(cap);
     function stop() { if (!S.play) return; S.play = 0; cap.classList.remove("on"); $(".bp-play").textContent = "Play the block"; }
     function play() {
-      reset(); S.play = 1; $(".bp-play").textContent = "Stop"; var e = B.entry, T = B.target, L = Math.hypot(T[0] - e[0], T[1] - e[1]), ux = (T[0] - e[0]) / L, uy = (T[1] - e[1]) / L, at = function (s) { setTip(e[0] + ux * s, e[1] + uy * s); };
+      reset(); S.play = 1; $(".bp-play").textContent = "Stop"; var e = B.entry, T = B.target, L = Math.hypot(T[0] - e[0], T[1] - e[1]), ux = (T[0] - e[0]) / L, uy = (T[1] - e[1]) / L, at = function (s) { var nt = [e[0] + ux * s, e[1] + uy * s]; passFx(S.tip, nt); setTip(nt[0], nt[1]); };
       var cuts = {}; (function () { var pi = false, pp = false, pz = null; for (var s = 4; s <= L; s += 1) { var x = e[0] + ux * s, y = e[1] + uy * s, ai = y >= fy.inv(x), ap = y >= fy.pre(x) && fy.pre(x) < 900, z = where(x, y); if (ai && !pi && cuts.inv == null) cuts.inv = s; if (ap && !pp && cuts.pre == null) cuts.pre = s; if (z !== pz && cuts[z] == null) cuts[z] = s; pi = ai; pp = ap; pz = z; } })();
       var F = function (k) { return B.fascia.filter(function (q) { return q.id === k; })[0]; };
       var pos2 = function (v) { if (v == null || typeof v === "number") return v; var m = /^([A-Za-z0-9]+)([+-]\d+)?$/.exec(v), base = m[1] === "L" ? L : (cuts[m[1]] == null ? L * 0.5 : cuts[m[1]]); return base + (m[2] ? +m[2] : 0); };
@@ -825,7 +848,8 @@
         if (k === "motion") { M.on = on; btn("motion", on); go(); }
         else if (k === "doppler") { DP.on = on; btn("doppler", on); dop.style.display = on ? "" : "none"; go(); if (on) card("<h4>Colour Doppler</h4><p>Scan the whole needle path in colour before the needle goes in: a vessel that looks like a nerve, or one hidden by probe pressure, shows up here. Red and blue give the direction of flow relative to the beam, not whether a vessel is an artery or a vein. In this view the artery and vein run in opposite directions, so they show opposite colours.</p>"); }
         else if (k === "lens") { if (on) lensOn(); else LX.off(); }
-        else if (k === "3d") show3d(on); });
+        else if (k === "3d") show3d(on);
+        else if (k === "sound") { SND.on = on; btn("sound", on); } });
     })();
     (function () { var l = "en"; try { l = JSON.parse(localStorage.getItem("nora2.lang")) || "en"; } catch (e) {} var i = ["fr", "es", "de", "it", "tr", "sv", "ta"].indexOf(l); if (i < 0) return;
       var k = "This interactive figure and the notes beneath it are in English for now. Translation is in progress.", d = window.NORA_TEXT && window.NORA_TEXT[k], n = document.createElement("p"); n.className = "langnote"; n.style.cssText = "border-radius:12px;text-align:left;padding:10px 14px;margin:0 0 12px"; n.textContent = d && d[i] ? d[i] : k; el.insertBefore(n, el.firstChild); })();

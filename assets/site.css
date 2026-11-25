@@ -902,3 +902,12 @@ p.cta{display:flex;flex-wrap:wrap;gap:10px}p.cta .btn{white-space:normal;text-al
 .bp-hold{touch-action:none;user-select:none;-webkit-user-select:none}
 .bp-hold.on{background:#1FC8B4!important;color:#04221f!important;border-color:#1FC8B4!important;box-shadow:0 0 0 4px rgba(31,200,180,.25)}
 .bp-lau,.bp-laa{pointer-events:none}
+/* footer credit bar */
+footer .foot-bar{display:flex;flex-wrap:wrap;gap:6px 26px;align-items:center;margin-top:34px;padding-top:18px;border-top:1px solid rgba(169,184,216,.18);grid-template-columns:none}
+footer .foot-bar p{margin:0;font-size:.85rem}
+/* needle feel: tenting fascia and the pop */
+.bp-tentg{pointer-events:none}
+.bp-tent{fill:none;stroke:#F6F8FF;stroke-width:2.6;stroke-linecap:round;filter:drop-shadow(0 0 2px rgba(0,0,0,.7))}
+.bp-pop{font:800 12px var(--sans,sans-serif);fill:#FFE27A;opacity:0;paint-order:stroke;stroke:rgba(0,0,0,.65);stroke-width:3px;transform-box:fill-box}
+.bp-pop.on{animation:bppop .9s ease-out}
+@keyframes bppop{0%{opacity:0;transform:translateY(4px)}15%{opacity:1}100%{opacity:0;transform:translateY(-12px)}}
