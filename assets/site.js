@@ -11,7 +11,11 @@
     set: function (k, v) { try { localStorage.setItem("nora2." + k, JSON.stringify(v)); } catch (e) {} }
   };
   var I = window.NORA_I18N || { langs: { en: "English" }, order: ["en"], t: {} };
-  var lang = store.get("lang", "en"); if (I.order.indexOf(lang) < 0) lang = "en";
+  var lang = store.get("lang", "en");
+  try { var qlang = new URLSearchParams(location.search).get("lang"); if (qlang && I.order.indexOf(qlang) >= 0) { lang = qlang; store.set("lang", qlang); } } catch (e) {}
+  if (I.order.indexOf(lang) < 0) lang = "en";
+  var RTL = (I.rtl || []).indexOf(lang) >= 0;
+  if (RTL) { document.documentElement.dir = "rtl"; var fl = document.createElement("link"); fl.rel = "stylesheet"; fl.href = "https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap"; document.head.appendChild(fl); document.documentElement.classList.add("rtl"); }
   var T = function (k, d) { var r = I.t[k]; return r ? (r[I.order.indexOf(lang)] || r[0]) : (d || k); };
   var TX = window.NORA_TEXT || {}, PAT = window.NORA_PAT || {}, li = I.order.indexOf(lang) - 1;
   function trText(t) {
@@ -62,7 +66,7 @@
     var h = $("#site-header");
     if (h) h.outerHTML = '<header class="top"><div class="wrap"><a class="brand" href="index.html" aria-label="NORA² home">' + MARK +
       '<div><b>NORA<sup>2</sup></b><span>Northwest Regional Anaesthesia Alliance</span></div></a><nav class="nav" aria-label="Main">' + nav +
-      '</nav><select id="lang" class="lang" aria-label="Language">' + I.order.map(function (c) { return '<option value="' + c + '"' + (c === lang ? " selected" : "") + ">" + c.toUpperCase() + " · " + I.langs[c] + "</option>"; }).join("") + '</select><button class="btn sm" id="open-search" type="button">' + T("ui.search") + ' <kbd>/</kbd></button><button class="btn sm y app" id="open-app" type="button">' + T("ui.app") + '</button></div></header>' +
+      '</nav><select id="lang" class="lang" aria-label="Language">' + I.order.filter(function (c) { return (I.hidden || []).indexOf(c) < 0 || c === lang; }).map(function (c) { return '<option value="' + c + '"' + (c === lang ? " selected" : "") + ">" + c.toUpperCase() + " · " + I.langs[c] + "</option>"; }).join("") + '</select><button class="btn sm" id="open-search" type="button">' + T("ui.search") + ' <kbd>/</kbd></button><button class="btn sm y app" id="open-app" type="button">' + T("ui.app") + '</button></div></header>' +
       '<div class="ruler" aria-hidden="true"><b><span>0.0 cm</span></b></div>';
     var tabs = ["home", "blocks", "dose", "practice", "meetings"].map(function (k) { return LINKS.filter(function (l) { return l[2] === k; })[0]; }).map(function (l) {
       return '<a href="' + l[0] + '"' + (l[2] === cur ? ' aria-current="page"' : "") + "><i></i>" + (l[2] === "dose" ? T("nav.dose.short") : l[1]) + "</a>";

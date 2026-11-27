@@ -912,3 +912,15 @@ footer .foot-bar p{margin:0;font-size:.85rem}
 .bp-pop.on{animation:bppop .9s ease-out}
 @keyframes bppop{0%{opacity:0;transform:translateY(4px)}15%{opacity:1}100%{opacity:0;transform:translateY(-12px)}}
 .pil-g{margin-top:26px}.pil-g h3{font-size:1.1rem;color:#FFD05A;margin:0 0 12px}.pil{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px}.pil a{display:flex;align-items:center;gap:12px;padding:13px 16px;border:1px solid rgba(255,255,255,.16);border-radius:14px;background:rgba(255,255,255,.05);color:#fff;text-decoration:none;font-weight:600;line-height:1.3;height:100%}.pil a:hover,.pil a:focus-visible{background:rgba(255,255,255,.12);border-color:#FFD05A}.pil a i{flex:none;font-style:normal;font-size:.68rem;font-weight:800;letter-spacing:.06em;padding:4px 7px;border-radius:7px;background:#FFD05A;color:#1A1400}
+/* ===== right-to-left (Arabic) ===== */
+html.rtl{--body:"Noto Sans Arabic","Plus Jakarta Sans",system-ui,sans-serif;--display:"Noto Sans Arabic","Plus Jakarta Sans",system-ui,sans-serif}
+html.rtl h1,html.rtl h2,html.rtl h3{letter-spacing:0}
+html.rtl .eyebrow,html.rtl .crumb{letter-spacing:0}
+html.rtl .hero.photo::before{transform:scaleX(-1)}
+html.rtl .hero.photo::after{transform:scaleX(-1)}
+html.rtl ol,html.rtl ul{padding-right:1.3em;padding-left:0}
+html.rtl .refs a,html.rtl a[href^="http"]{direction:ltr;unicode-bidi:embed}
+html.rtl input[type=number],html.rtl .num{direction:ltr}
+.chip.cad{background:#3B2F5C;color:#E6DBFF}
+html.rtl dl.work dd,html.rtl .num,html.rtl .big,html.rtl output{direction:ltr;unicode-bidi:isolate;text-align:right}
+html.rtl p,html.rtl li,html.rtl dd,html.rtl dt,html.rtl td,html.rtl th,html.rtl h1,html.rtl h2,html.rtl h3,html.rtl h4,html.rtl label,html.rtl figcaption,html.rtl .lede{unicode-bidi:plaintext}
