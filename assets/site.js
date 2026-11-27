@@ -38,6 +38,7 @@
   }
   function translate() {
     document.documentElement.lang = lang;
+    if (lang !== "en") $$('a[href^="media/leaflets/"]').forEach(function (a) { var h = a.getAttribute("href"); if (h.split("/").length === 3) a.setAttribute("href", h.replace("media/leaflets/", "media/leaflets/" + lang + "/")); });
     $$("[data-i18n]").forEach(function (el) { var k = el.getAttribute("data-i18n"); if (I.t[k]) el.innerHTML = T(k); });
   }
   var region = function (id) { return N.regions.filter(function (r) { return r.id === id; })[0] || { name: "", c: "#16123A", cls: "" }; };
