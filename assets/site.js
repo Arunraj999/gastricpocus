@@ -870,4 +870,4 @@
 })();
 
 /* Members and CPD: loaded on every page. It does nothing until the member service is connected (see member-config.js). */
-(function () { var a = document.createElement("script"); a.src = "assets/member-config.js?v=1"; a.onload = function () { var b = document.createElement("script"); b.src = "assets/member.js?v=1"; document.head.appendChild(b); }; document.head.appendChild(a); })();
+(function () { var a = document.createElement("script"); a.src = "assets/member-config.js?v=1"; a.onload = function () { var b = document.createElement("script"); b.src = "assets/member.js?v=2"; document.head.appendChild(b); }; document.head.appendChild(a); })();
