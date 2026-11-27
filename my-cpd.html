@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My CPD · NORA²</title>
+<meta name="description" content="Your NORA² learning record and certificates.">
+<meta name="theme-color" content="#0A1B3D">
+<meta property="og:title" content="My CPD">
+<meta property="og:description" content="Your NORA² learning record and certificates.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="media/brand/nora2-logo.webp">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=84">
+
+<meta name="robots" content="noindex">
+</head>
+<body data-page="members" data-member="cpd">
+<div id="site-header"></div>
+<main>
+<div class="wrap"><div class="pagehead"><p class="crumb"><a href="index.html">Home</a> / My CPD</p><h1>My CPD</h1><p class="lede"><span id="c-name"></span></p><div class="cta"><a class="btn" href="account.html">My details</a> <a class="btn" href="cpd-test.html?id=gastric-ultrasound">Tests</a> <a class="btn" href="verify.html">Check a certificate</a></div></div></div>
+<section style="padding-top:28px"><div class="wrap"><div id="c-out"></div>
+<div class="m-card m-form" style="margin-bottom:22px"><div style="display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));align-items:end"><label>From<input type="date" id="c-from"></label><label>To<input type="date" id="c-to"></label><div><span class="eyebrow">Learning time</span><div class="m-stat" id="c-total">0 min</div></div><div><span class="eyebrow">Hours</span><div class="m-stat" id="c-hours">0.0</div></div><div><span class="eyebrow">Days active</span><div class="m-stat" id="c-days">0</div></div></div><div class="cta"><button class="btn y" type="button" id="c-make">Create a certificate for this period</button></div></div>
+<div class="m-grid"><div class="m-card"><h2>By type of learning</h2><table class="m-table"><tbody id="c-kinds"></tbody></table></div><div class="m-card"><h2>Certificates</h2><table class="m-table"><tbody id="c-certs"></tbody></table></div></div>
+<div class="m-card" style="margin-top:22px"><h2>Pages and films</h2><table class="m-table"><tbody id="c-pages"></tbody></table><p class="muted" style="margin-top:12px">Time is counted only while you are signed in, the page is on screen and you are using it, or a film is playing.</p></div></div></section>
+</main>
+<div id="site-footer"></div>
+
+<script src="assets/i18n.js?v=56"></script>
+<script src="assets/i18n-text.js?v=85"></script>
+<script src="assets/content.js?v=83"></script>
+<script src="assets/usim.js"></script>
+<script src="assets/site.js?v=79"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Membership · NORA²</title>
+<meta name="description" content="Free NORA² membership: record your learning time on the site and receive CPD certificates.">
+<meta name="theme-color" content="#0A1B3D">
+<meta property="og:title" content="Membership">
+<meta property="og:description" content="Free NORA² membership: record your learning time on the site and receive CPD certificates.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="media/brand/nora2-logo.webp">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=84">
+
+<meta name="robots" content="noindex">
+</head>
+<body data-page="members" data-member="account">
+<div id="site-header"></div>
+<main>
+<div class="wrap"><div class="pagehead"><p class="crumb"><a href="index.html">Home</a> / Membership</p><h1>NORA² membership</h1><p class="lede">Everything on this site is open to everyone. Membership is free and adds a record of the time you spend learning here, tests with a certificate, and certificates for your portfolio.</p></div></div>
+<section style="padding-top:28px"><div class="wrap"><div class="m-grid">
+<div class="m-card"><div class="m-tabs" id="m-tabs"><button class="btn sm" type="button" data-panel="join">Join</button><button class="btn sm" type="button" data-panel="in">Sign in</button></div><div id="m-out"></div>
+<div id="m-join" hidden><h2>Join</h2><form class="m-form" id="f-join" novalidate>
+<label>Full name, as it should appear on certificates<input type="text" id="j-name" autocomplete="name" maxlength="120" required></label>
+<label>Email address<input type="email" id="j-email" autocomplete="email" required></label>
+<label>Password (at least 10 characters)<input type="password" id="j-pw" autocomplete="new-password" minlength="10" required></label>
+<label>Grade or role<select id="j-role" required></select></label>
+<label>Hospital or trust<input type="text" id="j-hosp" autocomplete="organization" maxlength="160"></label>
+<label>Country<input type="text" id="j-country" autocomplete="country-name" maxlength="80"></label>
+<label class="m-check"><input type="checkbox" id="j-hcp"><span>I am a healthcare professional or a healthcare student.</span></label>
+<label class="m-check"><input type="checkbox" id="j-ok"><span>I have read the <a href="privacy.html" target="_blank">privacy notice</a> and agree to NORA² keeping these details and a record of my learning time on this site.</span></label>
+<div class="cta"><button class="btn y" type="submit">Create my account</button></div></form></div>
+<div id="m-in" hidden><h2>Sign in</h2><form class="m-form" id="f-in"><label>Email address<input type="email" id="i-email" autocomplete="email" required></label><label>Password<input type="password" id="i-pw" autocomplete="current-password" required></label><div class="cta"><button class="btn y" type="submit">Sign in</button> <button class="btn sm" type="button" data-panel="reset">Forgotten your password?</button></div></form></div>
+<div id="m-reset" hidden><h2>Choose a new password</h2><form class="m-form" id="f-reset"><label>Email address<input type="email" id="r-email" autocomplete="email" required></label><div class="cta"><button class="btn y" type="submit">Send me a link</button></div></form></div>
+<div id="m-newpw" hidden><h2>Choose a new password</h2><form class="m-form" id="f-newpw"><label>New password (at least 10 characters)<input type="password" id="n-pw" autocomplete="new-password" minlength="10" required></label><div class="cta"><button class="btn y" type="submit">Save my new password</button></div></form></div>
+<div id="m-me" hidden><h2>My details</h2><p class="muted" id="p-email"></p><form class="m-form" id="f-me"><label>Full name, as it should appear on certificates<input type="text" id="p-name" maxlength="120" required></label><label>Grade or role<select id="p-role"></select></label><label>Hospital or trust<input type="text" id="p-hosp" maxlength="160"></label><label>Country<input type="text" id="p-country" maxlength="80"></label><div class="cta"><button class="btn y" type="submit">Save</button> <a class="btn" href="my-cpd.html">My CPD</a> <button class="btn sm" type="button" id="b-out">Sign out</button></div></form>
+<h3 style="margin-top:26px">Your data</h3><p>You can take a copy of everything held about you, or delete your account and all of it, at any time.</p><div class="cta"><button class="btn sm" type="button" id="b-data">Download my data</button> <button class="btn sm" type="button" id="b-del">Delete my account</button></div>
+<div id="del-box" class="m-form" hidden style="margin-top:14px"><label>This removes your details, your learning record and your certificates for good. Type DELETE to confirm.<input type="text" id="del-word" autocomplete="off"></label><div class="cta"><button class="btn sm" type="button" id="b-del2">Delete everything</button></div></div></div></div>
+<div class="m-card"><h2>What members get</h2><ul class="steps" style="display:grid;gap:12px;padding-left:20px"><li><b>A record of learning time.</b> While you are signed in and actively using the block pages, films, evidence pages and tools, the time is added to your record. Nothing is recorded for visitors who are not signed in.</li><li><b>Tests with a certificate.</b> Watch a film, answer the questions, and download your certificate when you pass. Every answer is explained with its published source.</li><li><b>Certificates for your portfolio.</b> Choose any period and download a certificate of the learning time recorded, with a number that an appraiser or supervisor can check.</li></ul><p class="muted" style="margin-top:14px">Certificates record self-directed learning on this site. They do not state accreditation by an external body.</p><div class="cta"><a class="btn" href="cpd-test.html?id=gastric-ultrasound">First test: gastric ultrasound</a> <a class="btn" href="verify.html">Check a certificate</a></div></div>
+</div></div></section>
+</main>
+<div id="site-footer"></div>
+
+<script src="assets/i18n.js?v=56"></script>
+<script src="assets/i18n-text.js?v=85"></script>
+<script src="assets/content.js?v=83"></script>
+<script src="assets/usim.js"></script>
+<script src="assets/site.js?v=79"></script>
+</body>
+</html>
