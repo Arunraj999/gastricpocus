@@ -416,6 +416,60 @@
         { say: "Now try it yourself: drag the needle, change the current, and see what happens off target.", hold: 3200 }
       ]
   };
+  /* shoulder pericapsular (SPENG) block, superficial plane: longitudinal view between the coracoid and the humeral head */
+  DATA.speng = {
+      title: "Shoulder pericapsular (SPENG) block: plane between deltoid and the subscapularis tendon",
+      entry: [640, 60], target: [400, 154], mm: 0.1, ori: ["Medial", "Lateral"],
+      scanTitle: "Sonoanatomy between the coracoid and the humeral head",
+      recLab: { strong: ["Named in the technique", "technique"], weak: ["Worth finding", "worth finding"] },
+      noStim: 1, no3d: 1,
+      stimNote: "There is no nerve to find, so stimulation has no defined end point. None of the full-text clinical reports read for this page used a nerve stimulator.",
+      dopNote: "Scan the whole needle path in colour before the needle goes in. No vessel is drawn in this model, and none is named as a hazard in the published descriptions, so look for one on the real scan.",
+      fascia: [
+        { id: "inv", n: "Fascia over deltoid", d: "M0 74C200 70 440 70 640 76", t: "The first layer under the subcutaneous tissue. Deltoid lies directly beneath it." },
+        { id: "pre", n: "Deep layer of the deltoid fascia", d: "M0 122C40 116 84 118 116 134C160 140 240 136 300 142C400 150 520 152 640 160", t: "The layer on the deep surface of deltoid. The target plane lies just beneath it, on the superficial layer of the subscapularis fascia." }
+      ],
+      shapes: [
+        { id: "del", t: "muscle", n: "Deltoid", l: "DELT", k: "path", d: "M-8 74H0C200 70 440 70 640 76H648V160H640C520 152 400 150 300 142C240 136 160 140 116 134C84 118 40 116 0 122H-8Z", lx: 210, ly: 98, rec: "strong", x: "The superficial muscle across the whole view, supplied by the axillary nerve. The needle passes through it to reach the plane on its deep surface.", c: 1 },
+        { id: "ssc", t: "muscle", n: "Subscapularis, myotendinous junction", l: "SSC", k: "path", d: "M112 154C180 146 240 150 300 152L301 241L287 249L260 268L237 289L217 313L201 339L189 368L181 398L180 408H112Z", lx: 214, ly: 214, rec: "strong", x: "Medially the muscle turns into tendon. The myotendinous junction has a mixed, dotted echo pattern. The superficial plane lies in front of it.", c: 2 },
+        { id: "sst", t: "muscle", n: "Subscapularis tendon", l: "SSC TENDON", k: "path", d: "M300 152C400 160 520 162 640 170H648V218H640L621 212L604 209L585 206L564 204L542 202L517 201L491 201L463 202L434 204L419 205L383 211L349 221L317 233L301 241Z", lx: 520, ly: 190, rec: "strong", x: "A band over the round humeral head. It is tough: in one report the needle felt as if it had touched bone and would not pass. Place the tip on its surface, not in it.", c: 1 },
+        { id: "cor", t: "bone", n: "Coracoid process", l: "CORACOID", k: "path", d: "M-8 150H0C24 136 62 130 94 138C112 144 120 160 120 178V408H-8Z", cortex: "M0 150C24 136 62 130 94 138C112 144 120 160 120 178", lx: 56, ly: 214, rec: "strong", x: "A bright curved line with a dark shadow beneath, at the medial end of the view.", c: 2, hit: ["Bone contact: coracoid process", "Too medial. Withdraw and redirect laterally, over the subscapularis tendon."] },
+        { id: "hh", t: "bone", n: "Humeral head", l: "HUMERAL HEAD", k: "path", d: "M188 408L190 400C206 300 300 228 420 214C520 204 600 214 640 226H648V408Z", cortex: "M190 400C206 300 300 228 420 214C520 204 600 214 640 226", lx: 470, ly: 300, rec: "strong", x: "A round bright line with a dark shadow beneath. The subscapularis tendon lies over it.", c: 1, hit: ["Bone contact: humeral head", "The tip has passed through subscapularis to the bone. Withdraw to the plane between deltoid and the tendon."] }
+      ],
+      groove: "M0 100H640V196H0Z",
+      zones: {
+        air: ["Above the skin", "The needle has not entered yet. In this model it enters at the lateral end of the probe, in plane."],
+        subcut: ["Skin and subcutaneous tissue", "The first layer. Deltoid lies beneath."],
+        tri: ["Within the deltoid layer", "Advance through the deep layer of the deltoid fascia."],
+        groove: ["Between deltoid and the subscapularis tendon", "The superficial plane, between the deep layer of the deltoid fascia and the superficial layer of the subscapularis fascia. This is where the local anaesthetic should go."],
+        deep: ["Beneath subscapularis, on the joint capsule", "The deep plane of the SHAC version. This model shows the superficial injection: withdraw through subscapularis to the plane under deltoid."]
+      },
+      zoneNote: { del: ["", "Advance to the deep surface of deltoid. "], ssc: ["warn", "The tip is inside subscapularis, beneath the superficial plane. Withdraw to its surface. "], sst: ["warn", "The tip is inside the tendon. Do not force it: withdraw a millimetre to its surface. "] },
+      wrongNote: "Withdraw to the plane between deltoid and the subscapularis tendon.",
+      targetNote: "This is the target: between deltoid and the subscapularis tendon, over the humeral head.",
+      la: { "in": [400, 154, 80, 8] },
+      consensus: "No consensus list has been published for this block, and an international consensus on block names did not name it. These are the structures named in the published technique.",
+      refs: { cons: 11, where: 4 }, avoidNote: "No vessel or nerve in this view is named as a hazard in the published descriptions. Run colour Doppler over the planned path before needling, and do not force the needle into the subscapularis tendon.",
+      inj: {
+        skin: "A skin wheal only. The plane lies beneath deltoid.",
+        tri: "The fluid stays within the deltoid layer. Advance through the deep layer of its fascia.", triZ: [],
+        z: { del: ["The fluid swells inside deltoid. Advance until the tip is through its deep fascia, on the subscapularis tendon.", 24, 12], ssc: ["The fluid swells inside subscapularis. Withdraw to the plane on its surface.", 20, 12], sst: ["The tendon resists and the injection is tight. Withdraw a millimetre to its surface.", 9, 5] },
+        deep: "The fluid spreads beneath subscapularis, over the joint capsule. This is the deep injection of the SHAC version, given after the superficial one. In cadavers, injectate placed here sometimes entered the joint.",
+        medial: [116, "The fluid is over the coracoid, medial to subscapularis. Redirect laterally, over the subscapularis tendon."],
+        good: { "in": "The fluid opens the plane between deltoid and the subscapularis tendon and spreads along it, lifting deltoid off the tendon." },
+        tail: "In a trial of 50 patients, 15 mL of bupivacaine 0.25% placed here was followed by no phrenic nerve palsy, against 24% after interscalene block; palsy was judged clinically."
+      },
+      steps: [
+        { to: 14, say: "In this model the needle enters at the lateral end of the probe, in plane, and appears in the subcutaneous tissue." },
+        { to: "inv+3", fas: "inv", hold: 2600 },
+        { to: "pre-8", say: "Through deltoid. Keep the whole shaft and the tip in view.", hold: 2600 },
+        { to: "pre+3", pre: "Through the ", fas: "pre", hold: 3400 },
+        { to: "L", say: "The tip lies between deltoid and the subscapularis tendon. The tendon is tough: if the needle meets it, it feels like bone. Do not force it.", hold: 3400 },
+        { say: "Inject against low pressure. The plane opens between deltoid and the tendon. One trial used 15 mL here.", inject: 1, vol: 15, hold: 4200 },
+        { say: "The SHAC version adds a second, smaller injection beneath subscapularis, beside the humeral head. Most trials used the superficial plane alone.", hold: 5200 },
+        { say: "Now try it yourself: drag the needle and see what happens off target.", hold: 3200 }
+      ]
+  };
   var esc = function (s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); };
   function shapeSvg(s, st) {
     st = st ? ' style="' + st + '"' : "";
@@ -532,15 +586,15 @@
     el.innerHTML = '<div class="bp-bar" role="toolbar" aria-label="View"><span>View</span><button data-v="0" aria-pressed="true">Ultrasound</button><button data-v="50" aria-pressed="false">Half and half</button><button data-v="100" aria-pressed="false">Anatomy</button><input type="range" min="0" max="100" value="0" class="bp-wipe" aria-label="Wipe between ultrasound and anatomy"><button data-a="labels" aria-pressed="true">Labels</button><button data-a="tint" aria-pressed="false">Colour the structures</button><button data-a="avoid" aria-pressed="false">Structures to avoid</button><button data-a="test" aria-pressed="false">Test me</button><button data-a="play" class="bp-play">Play the block</button><button data-a="reset">Reset</button></div>' +
       '<div class="bp-bar bp-bar2" role="toolbar" aria-label="Live tools"><span>Live</span><button data-x="motion" aria-pressed="true">Motion</button><button data-x="doppler" aria-pressed="false">Colour Doppler</button>' +
       (B.shapes.some(function (s) { return s.t === "vein" && s.k === "ellipse"; }) ? '<label class="bp-prs">Probe pressure <input type="range" min="0" max="100" value="10" class="bp-press" aria-label="Probe pressure"></label>' : "") +
-      '<button data-x="lens" aria-pressed="false">Anatomy lens</button><button data-x="3d" aria-pressed="false">3D probe view</button><button data-x="sound" aria-pressed="true">Sound</button></div>' +
+      '<button data-x="lens" aria-pressed="false">Anatomy lens</button>' + (B.no3d ? '' : '<button data-x="3d" aria-pressed="false">3D probe view</button>') + '<button data-x="sound" aria-pressed="true">Sound</button></div>' +
       (B.alts ? '<div class="bp-var bp-alt"><span>' + esc(B.altLabel || "Approach") + '</span>' + B.alts.map(function (q) { return '<button data-alt="' + q[0] + '" aria-pressed="' + (q[0] === el.getAttribute("data-block")) + '">' + esc(q[1]) + "</button>"; }).join("") + "</div>" : "") +
       (B.variants ? '<div class="bp-var"><span>' + esc(B.varLabel || "Variations") + '</span>' + B.variants.map(function (v, i) { return '<button data-var="' + i + '" aria-pressed="' + (i === VI) + '">' + esc(v.n) + (v.f ? " <b>" + v.f + "</b>" : "") + "</button>"; }).join("") + '<p class="bp-varn">' + esc(VV.t) + cite(B.varRef) + "</p></div>" : "") +
       '<div class="bp-main"><div class="bp-stage">' + svg + '<p class="bp-hint">Drag anywhere on the image to steer the needle tip. Arrow keys also work: left and right advance and withdraw, up and down change the angle. Each fascia resists the tip, tents, then gives with a pop.</p></div>' +
       '<div class="bp-side"><div class="bp-card bp-where" aria-live="polite"></div>' +
-      '<div class="bp-card bp-stim"><h4>Nerve stimulator <label class="bp-sw"><input type="checkbox" class="bp-on"> on</label></h4><div class="bp-cur"><button data-c="-0.1" aria-label="Reduce current">−</button><output>1.0 mA</output><button data-c="0.1" aria-label="Increase current">+</button><input type="range" min="0.1" max="2" step="0.1" value="1" class="bp-ma" aria-label="Stimulating current in milliamps"><small>2 Hz · 0.1 ms</small></div><div class="bp-resp" aria-live="polite"></div></div>' +
+      '<div class="bp-card bp-stim"><h4>Nerve stimulator <label class="bp-sw"' + (B.noStim ? ' style="display:none"' : '') + '><input type="checkbox" class="bp-on"> on</label></h4><div class="bp-cur"' + (B.noStim ? ' style="display:none"' : '') + '><button data-c="-0.1" aria-label="Reduce current">−</button><output>1.0 mA</output><button data-c="0.1" aria-label="Increase current">+</button><input type="range" min="0.1" max="2" step="0.1" value="1" class="bp-ma" aria-label="Stimulating current in milliamps"><small>2 Hz · 0.1 ms</small></div><div class="bp-resp" aria-live="polite"></div></div>' +
       '<div class="bp-card bp-inj"><h4>Injection <span class="bp-vol">0 mL</span></h4><button data-a="inject">Test dose 1 mL</button><button class="bp-hold" type="button" aria-label="Hold to inject; Enter adds 5 mL">Hold to inject</button><button data-a="clear">Clear</button><div class="bp-injr" aria-live="polite"></div></div>' +
       '<div class="bp-card bp-chk"><h4>Find before you needle</h4><ul>' + B.shapes.filter(function (s) { return s.rec; }).map(function (s) { return '<li data-id="' + s.id + '"><span></span>' + esc(s.n) + (s.rec === "strong" ? " <b>" + RL.strong[1] + "</b>" : " <i>" + RL.weak[1] + "</i>") + "</li>"; }).join("") + "</ul><small>" + esc(B.consensus) + cite(B.refs.cons) + "</small></div></div></div>" +
-      '<p class="bp-cap">Original schematic, not to scale. The twitch thresholds are a teaching model: the current needed rises with the square of the distance from the nerve. Real thresholds vary between patients and are higher in diabetes.' + cite(B.refs.stim) + "</p>";
+      '<p class="bp-cap">Original schematic, not to scale.' + (B.noStim ? "</p>" : ' The twitch thresholds are a teaching model: the current needed rises with the square of the distance from the nerve. Real thresholds vary between patients and are higher in diabetes.' + cite(B.refs.stim) + "</p>");
     var $ = function (q) { return el.querySelector(q); }, $$ = function (q) { return [].slice.call(el.querySelectorAll(q)); };
     var sv = $("svg"), byId = {}; B.shapes.forEach(function (s) { byId[s.id] = s; });
     var scan = el.getAttribute("data-mode") === "scan"; el.classList.toggle("scan", scan);
@@ -619,6 +673,7 @@
     function stim(z) {
       var r = $(".bp-resp"); $(".bp-cur output").textContent = S.ma.toFixed(1) + " mA"; $(".bp-ma").value = S.ma; $(".bp-on").checked = S.on;
       el.classList.toggle("stim-on", S.on); tw.textContent = ""; el.classList.remove("twitch");
+      if (B.noStim) { S.on = false; el.classList.remove("stim-on"); r.innerHTML = "<p>" + esc(B.stimNote || "") + "</p>"; return; }
       if (!S.on) { r.innerHTML = "<p>Switch the stimulator on, start at 1.0 mA and watch for a twitch as the tip nears a motor nerve.</p>"; return; }
       var ns = B.shapes.filter(function (s) { return s.t === "nerve"; }).map(function (s) { return { s: s, t: thr(s) }; }).filter(function (q) { return S.ma + 1e-9 >= q.t; }).sort(function (a, b) { return a.t - b.t; });
       var h = "";
@@ -717,7 +772,7 @@
       for (i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 3); n.buffer = bf; var bp = AC.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 1800; var g = AC.createGain(); g.gain.value = 0.32; n.connect(bp); bp.connect(g); g.connect(AC.destination); n.start(t);
       var o = AC.createOscillator(), og = AC.createGain(); o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(55, t + 0.07); og.gain.setValueAtTime(0.22, t); og.gain.exponentialRampToValueAtTime(0.001, t + 0.09); o.connect(og); og.connect(AC.destination); o.start(t); o.stop(t + 0.1); } catch (e) {} }
     function popFx(f, x, y) { click(); try { if (navigator.vibrate) navigator.vibrate(18); } catch (e) {} FR.holes[f.id] = x; popE.setAttribute("x", (x + 9).toFixed(1)); popE.setAttribute("y", (y - 7).toFixed(1)); popE.classList.remove("on"); void popE.getBBox(); popE.classList.add("on"); }
-    function steer(x, y) { var t = S.tip, e = B.entry, i, f, a0, a1;
+    function steer(x, y) { var t = S.tip, e = B.entry, i, f, a0, a1; S.want = [x, y];
       if (FR.f) { f = FR.f; var yf = fy[f.id](x), d = y - yf;
         if (yf > 900 || d <= 0) { FR.f = null; tent(null); setTip(x, y); return; }          /* withdrawn, or slid off the end of the layer */
         var D = Math.min(7, d * 0.42); tent(f, x, D);
@@ -741,7 +796,7 @@
     sv.addEventListener("pointermove", function (ev) { if (LX.on) LX.move(toSvg(ev)); if (!drag || scan || LX.on) return; var p = toSvg(ev); if (!drag.moved && Math.hypot(p[0] - drag.p[0], p[1] - drag.p[1]) < 6) return; drag.moved = true; clearMsg(); steer(p[0], p[1]); ev.preventDefault(); });
     var up = function () { if (!drag) return; var d = drag; drag = null; if (!d.moved) { if (TQ.on) { if (d.id) answer(d.id); return; } if (d.id) pick(d.id); else if (d.f) { var f = B.fascia.filter(function (q) { return q.id === d.f; })[0]; $(".bp-where").className = "bp-card bp-where"; $(".bp-where").innerHTML = "<h4>" + esc(f.n) + "</h4><p>" + esc(f.t) + "</p>"; } } };
     sv.addEventListener("pointerup", up); sv.addEventListener("pointercancel", up);
-    sv.addEventListener("keydown", function (ev) { var k = ev.key, e = B.entry, t = S.tip, dx = t[0] - e[0], dy = t[1] - e[1], L = Math.hypot(dx, dy), a = Math.atan2(dy, -dx);
+    sv.addEventListener("keydown", function (ev) { var k = ev.key, e = B.entry, t = FR.f && S.want ? S.want : S.tip, /* while a fascia tents, keep pushing along the line the learner is steering, not the clamped tip */ dx = t[0] - e[0], dy = t[1] - e[1], L = Math.hypot(dx, dy), a = Math.atan2(dy, -dx);
       if (ev.target.closest && ev.target.closest(".st") && (k === "Enter" || k === " ")) { pick(ev.target.closest(".st").getAttribute("data-id")); ev.preventDefault(); return; }
       if (scan) return; if (k === "ArrowLeft") L += 4; else if (k === "ArrowRight") L -= 4; else if (k === "ArrowDown") a += 0.03; else if (k === "ArrowUp") a -= 0.03; else return;
       ev.preventDefault(); stop(); clearMsg(); L = Math.max(6, L); steer(e[0] - Math.cos(a) * L, e[1] + Math.sin(a) * L); });
@@ -846,12 +901,12 @@
           ["catch"](function () { var box = c3 && c3.querySelector(".bp-3dv"); if (box) box.innerHTML = '<p class="bp-3dl">The 3D view could not load on this device.</p>'; }); }
       $(".bp-bar2").addEventListener("click", function (ev) { var b = ev.target.closest("button[data-x]"); if (!b) return; var k = b.getAttribute("data-x"), on = b.getAttribute("aria-pressed") !== "true";
         if (k === "motion") { M.on = on; btn("motion", on); go(); }
-        else if (k === "doppler") { DP.on = on; btn("doppler", on); dop.style.display = on ? "" : "none"; go(); if (on) card("<h4>Colour Doppler</h4><p>Scan the whole needle path in colour before the needle goes in: a vessel that looks like a nerve, or one hidden by probe pressure, shows up here. Red and blue give the direction of flow relative to the beam, not whether a vessel is an artery or a vein. In this view the artery and vein run in opposite directions, so they show opposite colours.</p>"); }
+        else if (k === "doppler") { DP.on = on; btn("doppler", on); dop.style.display = on ? "" : "none"; go(); if (on && B.dopNote) card("<h4>Colour Doppler</h4><p>" + esc(B.dopNote) + "</p>"); else if (on) card("<h4>Colour Doppler</h4><p>Scan the whole needle path in colour before the needle goes in: a vessel that looks like a nerve, or one hidden by probe pressure, shows up here. Red and blue give the direction of flow relative to the beam, not whether a vessel is an artery or a vein. In this view the artery and vein run in opposite directions, so they show opposite colours.</p>"); }
         else if (k === "lens") { if (on) lensOn(); else LX.off(); }
         else if (k === "3d") show3d(on);
         else if (k === "sound") { SND.on = on; btn("sound", on); } });
     })();
-    (function () { var l = "en"; try { l = JSON.parse(localStorage.getItem("nora2.lang")) || "en"; } catch (e) {} var i = ["fr", "es", "de", "it", "tr", "sv", "ta"].indexOf(l); if (i < 0) return;
+    (function () { var l = "en"; try { l = JSON.parse(localStorage.getItem("nora2.lang")) || "en"; } catch (e) {} var i = ["fr", "es", "de", "it", "tr", "sv", "ta"].indexOf(l); return;
       var k = "This interactive figure and the notes beneath it are in English for now. Translation is in progress.", d = window.NORA_TEXT && window.NORA_TEXT[k], n = document.createElement("p"); n.className = "langnote"; n.style.cssText = "border-radius:12px;text-align:left;padding:10px 14px;margin:0 0 12px"; n.textContent = d && d[i] ? d[i] : k; el.insertBefore(n, el.firstChild); })();
     var Q = new URLSearchParams(location.search); if (Q.get("bp") === "play") play(); if (Q.get("bpv")) setView(Q.get("bpv")); if (Q.get("bpt")) { var a = Q.get("bpt").split(",").map(Number); setTip(a[0], a[1]); if (a[2]) { S.on = true; S.ma = a[2]; draw(); } if (a[3]) inject(); }
   }

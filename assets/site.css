@@ -838,7 +838,7 @@ table.live td:first-child{min-width:280px}
 .px-lab{position:absolute;transform:translate(9px,-50%);font:700 12px/1 var(--sans,inherit);color:#fff;background:rgba(8,16,36,.82);padding:4px 7px;border-radius:6px;border-left:3px solid #F4B63F;pointer-events:none;white-space:nowrap}#px-stage.nolab .px-lab{display:none!important}
 .px-leg{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}.px-leg span{font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--hair)}.px-leg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
 /* v77: English-only notice on pages awaiting translation; block-page figure headings */
-.enonly{display:none}html:not([lang="en"]) .enonly{display:block}
+.enonly{display:none!important}
 .doc article section>h3{margin:22px 0 8px}
 /* v77: phrenic-sparing guide - option cards and paired bars */
 .opt{border-top:4px solid var(--c,#35C6B0);align-content:start;transition:opacity .25s,box-shadow .25s}

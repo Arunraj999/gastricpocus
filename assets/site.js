@@ -753,7 +753,7 @@
     setOp();
   };
   P.pocus = function () {
-    if (li >= 0 && /gastric|airway/.test(location.pathname)) { var ph = $(".pagehead"), nt = TX[/airway/.test(location.pathname) ? "The airway POCUS pages are shown in English until the text has been signed off; translations will follow." : "The gastric POCUS pages are shown in English until the text has been signed off; translations will follow."]; if (ph && nt) ph.insertAdjacentHTML("beforeend", '<p class="note" style="margin-top:10px">' + nt[li] + "</p>"); }
+    if (false && li >= 0 && /gastric|airway/.test(location.pathname)) { var ph = $(".pagehead"), nt = TX[/airway/.test(location.pathname) ? "The airway POCUS pages are shown in English until the text has been signed off; translations will follow." : "The gastric POCUS pages are shown in English until the text has been signed off; translations will follow."]; if (ph && nt) ph.insertAdjacentHTML("beforeend", '<p class="note" style="margin-top:10px">' + nt[li] + "</p>"); }
     var out = $("#gv-out");
     if (out) {
       var f1 = function (x, d) { return (Math.round(x * Math.pow(10, d)) / Math.pow(10, d)).toFixed(d); };
